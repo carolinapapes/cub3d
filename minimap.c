@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:00:50 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/06 17:13:29 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/06 17:18:38 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	is_minimap(uint32_t x, uint32_t y)
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -43,6 +43,7 @@ static int	is_minimap(uint32_t x, uint32_t y)
 	y_coor = y / len;
 	if (x_coor < 0 || x_coor > 15 || y_coor < 0 || y_coor > 15)
 		return (0);
+	printf("%d\t%d\n", x_coor, y_coor);
 	content = map[y_coor][x_coor];
 	printf("%d\t", content);
 	if (content)
@@ -72,7 +73,7 @@ void	*add_minimap(mlx_image_t *image, uint32_t x, uint32_t y, void *param)
 	param = (int *)param;
 	color = 0;
 	if (y > HEIGHT / 2)
-		get_color(is_minimap(x, y - HEIGHT / 2));
+		color = get_color(is_minimap(x, y - HEIGHT / 2));
 	if (color != 0)
 		mlx_put_pixel(image, x, y, color);
 	return (NULL);
