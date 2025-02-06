@@ -6,11 +6,10 @@
 #    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/01/31 17:21:34 by capapes          ###   ########.fr        #
+#    Updated: 2025/02/06 16:43:48 by capapes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# Compiler and flags
 CC = cc
 CFLAGS = -Ilib -Wall -Wextra -Werror -g
 
@@ -26,21 +25,25 @@ MLX_FLAGS = -ldl -lglfw -pthread -lm
 # Target executable
 TARGET = main
 
-# Source files
-MAIN_SRC = $(SRCDIR)/main.c
-MAIN_OBJ = $(OBJDIR)/main.o
+# Source files and objects
+MAIN_SRC = main.c minimap.c image_utils.c
+MAIN_OBJ = $(patsubst %.c, $(OBJDIR)/%.o, $(MAIN_SRC))
 
-# Create obj directory if it doesn't exist
+# Ensure obj directory exists
 $(shell mkdir -p $(OBJDIR))
 
-# Rules
+# Build the target
 all: $(TARGET)
 
-$(TARGET): $(MAIN_OBJ) $(LIB_OBJS) $(MLX_LIB)
+$(TARGET): $(MAIN_OBJ) $(MLX_LIB)
 	$(CC) $(CFLAGS) -o $@ $^ $(MLX_FLAGS)
 
-$(MAIN_OBJ): $(MAIN_SRC)
+# Compile .c files to .o
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
+# Clean up
 clean:
 	rm -rf $(OBJDIR) $(TARGET)
+
+.PHONY: all clean
