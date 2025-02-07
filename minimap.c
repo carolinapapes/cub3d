@@ -6,75 +6,67 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:00:50 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/06 17:18:38 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/07 18:50:46 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
-#include <stdio.h>
+
+int			map[16][16] = {
+	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+};
 
 static int	is_minimap(uint32_t x, uint32_t y)
 {
 	int	content;
-	int	len;
 	int	x_coor;
 	int	y_coor;
 
-	int map[16][16] = {
-		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	};
-	len = 32;
-	x_coor = x / len;
-	y_coor = y / len;
-	if (x_coor < 0 || x_coor > 15 || y_coor < 0 || y_coor > 15)
-		return (0);
-	printf("%d\t%d\n", x_coor, y_coor);
+	x_coor = x / GRID_SIZE;
+	y_coor = y / GRID_SIZE;
 	content = map[y_coor][x_coor];
-	printf("%d\t", content);
-	if (content)
-		return (content);
-	if (x % len == 0 || y % len == 0)
-		return (GRID);
-	return (0);
+	if (x % GRID_SIZE == 0 || y % GRID_SIZE == 0)
+		content |= GRID;
+	return (content);
 }
 
-static int	get_color(int content)
+void	add_minimap(mlx_image_t *image, uint32_t x, uint32_t y)
 {
-	if (content == GRID)
-		return (ft_pixel(180, 180, 180, 180));
-	if (content == WALL)
-		return (ft_pixel(255, 255, 255, 255));
-	if (content == ITEM)
-		return (ft_pixel(255, 0, 0, 255));
-	if (content == PLAYER)
-		return (ft_pixel(0, 255, 0, 255));
-	return (0);
+	int	content;
+
+	content = is_minimap(x, y);
+	if (content & GRID)
+		mlx_put_pixel(image, x, y, GRID_COLOR);
+	if (content & WALL)
+		mlx_put_pixel(image, x, y, WALL_COLOR);
 }
 
-void	*add_minimap(mlx_image_t *image, uint32_t x, uint32_t y, void *param)
+void	set_minimap(mlx_t *mlx)
 {
-	uint32_t	color;
+	mlx_image_t	*image;
 
-	param = (int *)param;
-	color = 0;
-	if (y > HEIGHT / 2)
-		color = get_color(is_minimap(x, y - HEIGHT / 2));
-	if (color != 0)
-		mlx_put_pixel(image, x, y, color);
-	return (NULL);
+	image = mlx_new_image(mlx, WIDTH, HEIGHT);
+	iter_image(image, add_minimap);
+	if (mlx_image_to_window(mlx, image, 0, HEIGHT) == -1)
+	{
+		mlx_close_window(mlx);
+		puts(mlx_strerror(mlx_errno));
+		return ;
+	}
+	set_player(mlx, 8, 8);
 }

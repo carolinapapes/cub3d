@@ -6,7 +6,7 @@
 #    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/02/06 16:43:48 by capapes          ###   ########.fr        #
+#    Updated: 2025/02/07 18:00:03 by capapes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ MLX_FLAGS = -ldl -lglfw -pthread -lm
 TARGET = main
 
 # Source files and objects
-MAIN_SRC = main.c minimap.c image_utils.c
+MAIN_SRC = main.c minimap.c image_utils.c miniplayer.c
 MAIN_OBJ = $(patsubst %.c, $(OBJDIR)/%.o, $(MAIN_SRC))
 
 # Ensure obj directory exists

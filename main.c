@@ -6,44 +6,38 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/06 16:39:41 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/07 19:03:30 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
 
-mlx_image_t	*ft_get_map(void *param)
-{
-	static mlx_image_t	*image;
-
-	if (!image)
-		image = mlx_new_image(param, WIDTH, HEIGHT);
-	iter_image(image, add_minimap, (void *)image);
-	return (image);
-}
-
-// -----------------------------------------------------------------------------
-int32_t	main(void)
+void	ft_hook(void *param)
 {
 	mlx_t		*mlx;
-	mlx_image_t	*image;
 
-	mlx = mlx_init(WIDTH, HEIGHT, WINDOW_TITLE, true);
-	if (!mlx)
-	{
-		puts(mlx_strerror(mlx_errno));
-		return (EXIT_FAILURE);
-	}
-	image = ft_get_map(mlx);
-	if (!image || mlx_image_to_window(mlx, image, 0, 0) == -1)
-	{
+	mlx = param;
+	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
-		puts(mlx_strerror(mlx_errno));
-		return (EXIT_FAILURE);
-	}
+	if (mlx_is_key_down(mlx, MLX_KEY_UP))
+		miniplayer_hook(Y, NEGATIVE);
+	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
+		miniplayer_hook(Y, POSITIVE);
+	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
+		miniplayer_hook(X, NEGATIVE);
+	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
+		miniplayer_hook(X, POSITIVE);
+}
+
+int32_t	main(void)
+{
+	mlx_t	*mlx;
+
+	mlx = mlx_init(WIDTH, HEIGHT * 2, WINDOW_TITLE, true);
+	if (!mlx)
+		return (puts(mlx_strerror(mlx_errno)), EXIT_FAILURE);
+	set_minimap(mlx);
+	mlx_loop_hook(mlx, ft_hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
