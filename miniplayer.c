@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/07 19:08:06 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/09 20:12:10 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,49 +43,39 @@ void	set_player(mlx_t *mlx, int x, int y)
 	player_manager(mlx, x, y, SET_PLAYER);
 }
 
-int			g_map2[16][16] = {
-	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-};
-
-int	minicollition_check(int x, int y, int axis, int dir)
+int	minicollition_check(int *player, int axis, int dir)
 {
-	printf("dir: %d \t axis %d\n", dir, axis);
-	if (axis == X)
-		x += dir * (PLAYER_SIZE / 2);
-	if (axis == Y)
-		y += dir * (PLAYER_SIZE / 2);
-	printf("x: %d \t y: %d\n", x, y);
-	printf("G: %d, %d\n", y / GRID_SIZE, x / GRID_SIZE);
-	if (g_map2[y / GRID_SIZE][x / GRID_SIZE] == 1)
-		return (1);
-	return (0);
+	int	movement_size;
+
+	movement_size = 2;
+	while (movement_size)
+	{
+		if (dir == POSITIVE)
+			player[axis] += PLAYER_SIZE - 1;
+		player[axis] += dir * -1;
+		player[axis] += movement_size * dir;
+		if (is_fixed_object(player[X], player[Y]) & WALL)
+			movement_size--;
+		else
+			break ;
+	}
+	return (dir * movement_size);
 }
 
 void	miniplayer_hook(int axis, int sign)
 {
-	mlx_image_t	*player;
+	mlx_image_t	*player_mlx;
+	int			movement_size;
+	int			player[2];
 
-	player = get_player();
-	if (minicollition_check(player->instances[0].x, player->instances[0].y
-			- HEIGHT, axis, sign))
+	player_mlx = get_player();
+	player[X] = player_mlx->instances[0].x;
+	player[Y] = player_mlx->instances[0].y - HEIGHT;
+	movement_size = minicollition_check(player, axis, sign);
+	if (!movement_size)
 		return ;
 	if (axis == X)
-		player->instances[0].x += sign * 2;
+		player_mlx->instances[0].x += movement_size;
 	if (axis == Y)
-		player->instances[0].y += sign * 2;
+		player_mlx->instances[0].y += movement_size;
 }

@@ -6,13 +6,13 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:00:50 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/07 18:50:46 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/09 20:12:14 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-int			map[16][16] = {
+int		map[16][16] = {
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
@@ -31,7 +31,7 @@ int			map[16][16] = {
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 };
 
-static int	is_minimap(uint32_t x, uint32_t y)
+int	is_fixed_object(uint32_t x, uint32_t y)
 {
 	int	content;
 	int	x_coor;
@@ -49,7 +49,7 @@ void	add_minimap(mlx_image_t *image, uint32_t x, uint32_t y)
 {
 	int	content;
 
-	content = is_minimap(x, y);
+	content = is_fixed_object(x, y);
 	if (content & GRID)
 		mlx_put_pixel(image, x, y, GRID_COLOR);
 	if (content & WALL)
@@ -69,4 +69,5 @@ void	set_minimap(mlx_t *mlx)
 		return ;
 	}
 	set_player(mlx, 8, 8);
+	set_view(mlx, 8, 8);
 }
