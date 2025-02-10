@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/09 20:09:15 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/10 15:09:14 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,17 @@
 # define GRID_SIZE 32
 
 # define FOV 60 // field of view
+
+typedef struct s_triangle
+{
+	double		a_len;
+	double		a[2];
+	double		b_len;
+	double		b[2];
+	double		c_len;
+	double		c[2];
+	double		area;
+}				t_triangle;
 
 typedef enum e_axis
 {
