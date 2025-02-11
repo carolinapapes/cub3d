@@ -6,38 +6,40 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/11 18:02:28 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/11 23:04:16 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUBE3D_H
 # define CUBE3D_H
 
-# include "lib/MLX42.h"
+# include "lib/MLX42/include/MLX42/MLX42.h"
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 
-# define WIDTH 512
-# define HEIGHT 512
+# define WIDTH 256
+# define HEIGHT 256
 # define WINDOW_TITLE "Cube3D"
 
 # define WALL 1
-# define ITEM 2
-# define PLAYER 4
-# define GRID 8
+# define PLAYER 2
+# define GRID 4
 
 # define SET_PLAYER 1
 # define SET_INSTANCE 2
 # define SET_VIEW 3
 # define GET_VIEW 4
 # define UPDATE_PLAYER 3
-# define PLAYER_SIZE 16
 # define PLAYER_COLOR 0x00FF000000
 # define FOV_COLOR 0xB0B0B0B0
 # define GRID_COLOR 0xB0B0B0FF
 # define WALL_COLOR 0xB0B0B0FF
-# define GRID_SIZE 32
+
+// Sizes definitions
+# define GRID_SIZE 16
+# define PLAYER_SIZE 8
+
 
 # define FOV 60 // field of view
 

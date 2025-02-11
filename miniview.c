@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 18:53:41 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/11 19:53:30 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/11 23:48:13 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 #include <math.h>
 #include <string.h>
 
-#define M_PI 3.14159265358979323846
+#ifndef M_PI
+# define M_PI 3.14159265358979323846
+#endif
 
 void	get_player_pos(double *pos)
 {
@@ -33,9 +35,9 @@ double	get_angle(int dir)
 	if (!angle)
 		angle = 0;
 	if (dir == 1)
-		angle += 0.1;
+		angle += 0.01;
 	else if (dir == -1)
-		angle -= 0.1;
+		angle -= 0.01;
 	if (angle > 2)
 		angle = 0;
 	if (angle < 0)

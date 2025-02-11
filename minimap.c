@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:00:50 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/11 18:05:54 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/11 23:49:10 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		map[16][16] = {
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, PLAYER, 0, 0, 0, 0, 0, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -60,7 +60,11 @@ void	add_minimap(mlx_image_t *image, uint32_t x, uint32_t y)
 void	set_minimap(mlx_t *mlx)
 {
 	mlx_image_t	*image;
+	int			map_x;
+	int			map_y;
 
+	map_x = 16;
+	map_y = 16;
 	image = mlx_new_image(mlx, WIDTH, HEIGHT);
 	iter_image(image, add_minimap);
 	if (mlx_image_to_window(mlx, image, 0, HEIGHT) == -1)
@@ -69,5 +73,17 @@ void	set_minimap(mlx_t *mlx)
 		puts(mlx_strerror(mlx_errno));
 		return ;
 	}
-	set_player(mlx, 8, 8);
+	while (map_y--)
+	{
+		map_x = 16;
+		while (map_x--)
+		{
+			if (map[map_y][map_x] == PLAYER)
+			{
+				set_player(mlx, map_x, map_y);
+				map_y = 0;
+				break ;
+			}
+		}
+	}
 }
