@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/10 15:09:14 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/11 18:02:28 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 
 # define SET_PLAYER 1
 # define SET_INSTANCE 2
+# define SET_VIEW 3
+# define GET_VIEW 4
 # define UPDATE_PLAYER 3
 # define PLAYER_SIZE 16
 # define PLAYER_COLOR 0x00FF000000
@@ -80,12 +82,15 @@ typedef struct s_miniplayer
 
 void			iter_image(mlx_image_t *image, void(fn)(mlx_image_t *, uint32_t,
 						uint32_t));
+mlx_image_t		*mlx_add_image(mlx_t *mlx, uint32_t width, uint32_t height);
 int32_t			ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 void			set_minimap(mlx_t *mlx);
 int				is_fixed_object(uint32_t x, uint32_t y);
 void			set_player(mlx_t *mlx, int x, int y);
 void			miniplayer_hook(int axis, int sign);
-void			set_view(mlx_t *mlx, int x, int y);
 mlx_image_t		*get_player(void);
-
+void			mlx_clear_image(mlx_image_t *image);
+mlx_image_t		*get_view(mlx_t *mlx);
+void			view_move(int x, int y);
+void			view_rotate(int dir);
 #endif

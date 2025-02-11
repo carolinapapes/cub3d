@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/07 19:03:30 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/11 17:08:07 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ void	ft_hook(void *param)
 		miniplayer_hook(X, NEGATIVE);
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 		miniplayer_hook(X, POSITIVE);
+	if (mlx_is_key_down(mlx, MLX_KEY_W))
+		view_rotate(NEGATIVE);
+	if (mlx_is_key_down(mlx, MLX_KEY_S))
+		view_rotate(POSITIVE);
 }
 
 int32_t	main(void)

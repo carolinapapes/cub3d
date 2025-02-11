@@ -6,11 +6,12 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:00:50 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/09 20:12:14 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/11 18:05:54 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
+#include <string.h>
 
 int		map[16][16] = {
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -69,5 +70,4 @@ void	set_minimap(mlx_t *mlx)
 		return ;
 	}
 	set_player(mlx, 8, 8);
-	set_view(mlx, 8, 8);
 }

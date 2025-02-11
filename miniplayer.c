@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/09 20:12:10 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/11 18:14:01 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ mlx_image_t	*get_player(void)
 void	set_player(mlx_t *mlx, int x, int y)
 {
 	player_manager(mlx, x, y, SET_PLAYER);
+	get_view(mlx);
+	view_move(0, HEIGHT);
+	view_rotate(0);
 }
 
 int	minicollition_check(int *player, int axis, int dir)
@@ -75,7 +78,13 @@ void	miniplayer_hook(int axis, int sign)
 	if (!movement_size)
 		return ;
 	if (axis == X)
+	{
 		player_mlx->instances[0].x += movement_size;
+		view_move(movement_size, 0);
+	}
 	if (axis == Y)
+	{
 		player_mlx->instances[0].y += movement_size;
+		view_move(0, movement_size);
+	}
 }
