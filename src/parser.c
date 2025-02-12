@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:46:15 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/12 19:50:35 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/12 22:14:27 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ char	**get_file_contents(char *file)
 	int		ret;
 	char	*file_contents;
 	char	**file_lines;
-	char 	*map_start;
-	
+	char	*map_start;
+
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (NULL);

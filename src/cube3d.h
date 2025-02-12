@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/12 21:28:08 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/12 21:52:43 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <string.h>
 # include <math.h>
 
-# define WIDTH 512  // Maybe should be fixed
-# define HEIGHT 512 // Variable
+# define WIDTH 256  // Maybe should be fixed
+# define HEIGHT 256 // Variable
 # define WINDOW_TITLE "Cube3D"
 
 # define WALL 1
@@ -45,10 +45,10 @@
 # define WALL_COLOR 0xB0B0B0FF
 
 // Sizes definitions are variables
-# define GRID_SIZE 32
-# define PLAYER_SIZE 16
 # define MAP_SIZE_X 16
 # define MAP_SIZE_Y 16
+# define GRID_SIZE WIDTH / MAP_SIZE_X
+# define PLAYER_SIZE GRID_SIZE / 2
 
 # define FOV 60 // field of view maybe fixed
 

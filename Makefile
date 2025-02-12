@@ -6,7 +6,7 @@
 #    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/02/12 21:25:07 by capapes          ###   ########.fr        #
+#    Updated: 2025/02/12 22:02:21 by capapes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,13 +45,6 @@ ifeq ($(UNAME_S), Linux)
 	MLX_FLAGS += -lglfw -lGL -lm -lX11 -lXrandr -lXi -lXxf86vm -lpthread -ldl
 endif
 
-# Helper function to clone a repo if it doesn't exist
-define clone_if_missing
-	@if [ ! -d "$(1)" ]; then \
-		git clone $(2) $(1); \
-	fi
-endef
-
 # Target executable
 TARGET = main
 
@@ -61,14 +54,16 @@ MAIN_OBJ = $(patsubst %.c, $(OBJDIR)/%.o, $(MAIN_SRC))
 DEP_FILES = $(MAIN_OBJ:.o=.d)
 
 # Build the target (ensuring prerequisites are compiled first)
-all: $(PREQ) $(TARGET)
+all: | $(OBJDIR) $(PREQ) $(TARGET)
+
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
 
 $(TARGET): $(MAIN_OBJ)
 	$(CC) $(CFLAGS) $(INC) -o $@ $^ $(MLX_FLAGS) $(LIBFT_FLAGS)
 
 # Compile .c files to .o
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	@mkdir -p $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Include dependency files if they exist
@@ -76,11 +71,11 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 
 # Build the libraries
 $(LIBFT):
-	$(call clone_if_missing, $(LIBFTDIR), $(LIBFT_REPO))
+	@if [ ! -d "$(LIBFTDIR)" ]; then git clone $(LIBFT_REPO) $(LIBFTDIR); fi
 	make -C $(LIBFTDIR)
 
 $(MLX):
-	$(call clone_if_missing, $(MLXDIR), $(MLX_REPO))
+	@if [ ! -d "$(MLXDIR)" ]; then git clone $(MLX_REPO) $(MLXDIR); fi
 	cmake -B $(MLXDIR)/build -S $(MLXDIR)
 	cmake --build $(MLXDIR)/build
 
@@ -89,6 +84,9 @@ clean:
 	rm -rf $(OBJDIR) $(TARGET)
 	@make -C $(LIBFTDIR) clean
 
+fclean: clean
+	rm -rf $(LIBFTDIR) $(MLXDIR)
+
 re: clean all
 
-.PHONY: all clean re
+.PHONY: all clean fclean re
