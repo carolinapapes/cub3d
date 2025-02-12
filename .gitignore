@@ -1,0 +1,9 @@
+./lib/MLX42
+./lib/libft
+./obj
+
+.DS_Store
+.vscode
+.zshrc
+a.out
+a.out.dSYM
