@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/12 08:41:33 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/12 08:48:17 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ mlx_image_t	*player_manager(mlx_t *mlx, int x, int y, int flag)
 	if (flag != SET_PLAYER)
 		return (image);
 	image = mlx_add_image(mlx, PLAYER_SIZE, PLAYER_SIZE, (int[]){x, y + HEIGHT});
-	memset(image->pixels, 255, image->width * image->height * sizeof(int32_t));
+	memset(image->pixels, PLAYER_COLOR, image->width * image->height * sizeof(int32_t));
 	return (image);
 }
 
