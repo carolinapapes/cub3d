@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:00:50 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/11 23:49:10 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/12 08:43:11 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,33 +57,31 @@ void	add_minimap(mlx_image_t *image, uint32_t x, uint32_t y)
 		mlx_put_pixel(image, x, y, WALL_COLOR);
 }
 
-void	set_minimap(mlx_t *mlx)
+void	map_add_player(mlx_t *mlx)
 {
-	mlx_image_t	*image;
-	int			map_x;
-	int			map_y;
+	int	pos[2];
 
-	map_x = 16;
-	map_y = 16;
-	image = mlx_new_image(mlx, WIDTH, HEIGHT);
-	iter_image(image, add_minimap);
-	if (mlx_image_to_window(mlx, image, 0, HEIGHT) == -1)
+	pos[Y] = MAP_SIZE_Y;
+	while (pos[Y]--)
 	{
-		mlx_close_window(mlx);
-		puts(mlx_strerror(mlx_errno));
-		return ;
-	}
-	while (map_y--)
-	{
-		map_x = 16;
-		while (map_x--)
+		pos[X] = MAP_SIZE_X;
+		while (pos[X]--)
 		{
-			if (map[map_y][map_x] == PLAYER)
+			if (map[pos[Y]][pos[X]] == PLAYER)
 			{
-				set_player(mlx, map_x, map_y);
-				map_y = 0;
-				break ;
+				set_player(mlx, pos[X], pos[Y]);
+				return ;
 			}
 		}
 	}
+	return ;
+}
+
+void	set_minimap(mlx_t *mlx)
+{
+	mlx_image_t	*image;
+
+	image = mlx_add_image(mlx, WIDTH, HEIGHT, (int[]){0, HEIGHT});
+	iter_image(image, add_minimap);
+	map_add_player(mlx);
 }

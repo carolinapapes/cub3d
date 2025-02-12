@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:21:45 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/11 19:53:41 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/12 08:22:33 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,16 @@ void	mlx_clear_image(mlx_image_t *image)
 		* sizeof(int32_t));
 }
 
-mlx_image_t	*mlx_add_image(mlx_t *mlx, uint32_t width, uint32_t height)
+mlx_image_t	*mlx_add_image(mlx_t *mlx, uint32_t width, uint32_t height, int *pos)
 {
 	mlx_image_t	*image;
 
 	image = mlx_new_image(mlx, width, height);
-	if (mlx_image_to_window(mlx, image, 0, 0) == -1)
+	if (mlx_image_to_window(mlx, image, pos[X], pos[Y]) == -1)
 	{
 		mlx_close_window(mlx);
 		puts(mlx_strerror(mlx_errno));
+		exit(1);
 	}
 	return (image);
 }

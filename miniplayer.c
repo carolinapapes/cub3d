@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/11 22:58:14 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/12 08:41:33 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,8 @@ mlx_image_t	*player_manager(mlx_t *mlx, int x, int y, int flag)
 
 	if (flag != SET_PLAYER)
 		return (image);
-	image = mlx_new_image(mlx, PLAYER_SIZE, PLAYER_SIZE);
-	if (!image)
-		return (NULL);
+	image = mlx_add_image(mlx, PLAYER_SIZE, PLAYER_SIZE, (int[]){x, y + HEIGHT});
 	memset(image->pixels, 255, image->width * image->height * sizeof(int32_t));
-	x = x * GRID_SIZE + PLAYER_SIZE / 2;
-	y = y * GRID_SIZE + PLAYER_SIZE / 2;
-	if (mlx_image_to_window(mlx, image, x, y + HEIGHT) == -1)
-	{
-		mlx_close_window(mlx);
-		puts(mlx_strerror(mlx_errno));
-	}
 	return (image);
 }
 
@@ -40,9 +31,10 @@ mlx_image_t	*get_player(void)
 
 void	set_player(mlx_t *mlx, int x, int y)
 {
+	x = x * GRID_SIZE + PLAYER_SIZE / 2;
+	y = y * GRID_SIZE + PLAYER_SIZE / 2;
 	player_manager(mlx, x, y, SET_PLAYER);
 	get_view(mlx);
-	view_move(0, HEIGHT);
 	view_rotate(0);
 }
 
