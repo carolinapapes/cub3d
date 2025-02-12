@@ -6,15 +6,16 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/12 08:46:25 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/12 18:12:50 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
+#include <unistd.h>
 
 void	ft_hook(void *param)
 {
-	mlx_t		*mlx;
+	mlx_t	*mlx;
 
 	mlx = param;
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
@@ -33,10 +34,18 @@ void	ft_hook(void *param)
 		view_rotate(POSITIVE);
 }
 
-int32_t	main(void)
+void	print_error(void)
+{
+	write(2, "Error\n", 6);
+	return ;
+}
+
+int32_t	main(int argc, char **argv)
 {
 	mlx_t	*mlx;
 
+	if (parser(argc, argv) == NULL)
+		return (print_error(), EXIT_FAILURE);
 	mlx = mlx_init(WIDTH, HEIGHT * 2, WINDOW_TITLE, true);
 	if (!mlx)
 		return (puts(mlx_strerror(mlx_errno)), EXIT_FAILURE);

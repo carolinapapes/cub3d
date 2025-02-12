@@ -3,6 +3,8 @@
         "cube3d.h": "c",
         "stdlib.h": "c",
         "stdio.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "mlx42.h": "c",
+        "libft.h": "c"
     }
 }
