@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/12 08:48:17 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/12 13:47:52 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,45 +38,30 @@ void	set_player(mlx_t *mlx, int x, int y)
 	view_rotate(0);
 }
 
-int	minicollition_check(int *player, int axis, int dir)
+// TODO: check if negative collition needs one pixel fix
+t_coord	minicollition_check(t_coord player, int axis, int dir)
 {
-	int	movement_size;
+	t_coord	movement_size;
 
-	movement_size = 2;
-	while (movement_size)
-	{
-		if (dir == POSITIVE)
-			player[axis] += PLAYER_SIZE - 1;
-		player[axis] += dir * -1;
-		player[axis] += movement_size * dir;
-		if (is_fixed_object(player[X], player[Y]) & WALL)
-			movement_size--;
-		else
-			break ;
-	}
-	return (dir * movement_size);
+	movement_size.arr[axis] = 2 * dir;
+	if (dir == POSITIVE)
+		player.arr[axis] += PLAYER_SIZE - 1;
+	while (movement_size.arr[axis]
+		&& is_fixed_object(player.x + movement_size.x, player.y + movement_size.y) & WALL)
+		movement_size.arr[axis] -= dir;
+	return (movement_size);
 }
 
 void	miniplayer_hook(int axis, int sign)
 {
 	mlx_image_t	*player_mlx;
-	int			movement_size;
-	int			player[2];
+	t_coord		player;
+	t_coord		movement_size;
 
 	player_mlx = get_player();
-	player[X] = player_mlx->instances[0].x;
-	player[Y] = player_mlx->instances[0].y - HEIGHT;
+	player.x = player_mlx->instances[0].x;
+	player.y = player_mlx->instances[0].y - HEIGHT;
 	movement_size = minicollition_check(player, axis, sign);
-	if (!movement_size)
-		return ;
-	if (axis == X)
-	{
-		player_mlx->instances[0].x += movement_size;
-		view_move(movement_size, 0);
-	}
-	if (axis == Y)
-	{
-		player_mlx->instances[0].y += movement_size;
-		view_move(0, movement_size);
-	}
+	player_mlx->instances[0].x += movement_size.x;
+	player_mlx->instances[0].y += movement_size.y;
 }

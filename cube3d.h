@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/12 08:50:20 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/12 13:03:42 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,16 @@ typedef enum e_dir
 	NEGATIVE = -1,
 	POSITIVE = 1
 }				t_dir;
+
+typedef union u_coord
+{
+	struct	
+	{
+		double	x;
+		double	y;
+	};
+	double	arr[2];
+}	t_coord;
 
 void			iter_image(mlx_image_t *image, void(fn)(mlx_image_t *, uint32_t,
 						uint32_t));
