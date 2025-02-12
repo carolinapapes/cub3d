@@ -6,19 +6,21 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/12 19:24:44 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/12 21:28:08 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUBE3D_H
 # define CUBE3D_H
 
-# include "lib/MLX42/include/MLX42/MLX42.h"
-# include "lib/libft/libft.h"
+# include "../lib/MLX42/include/MLX42/MLX42.h"
+# include "../lib/libft/libft.h"
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <string.h>
+# include <math.h>
 
 # define WIDTH 512  // Maybe should be fixed
 # define HEIGHT 512 // Variable
@@ -45,10 +47,14 @@
 // Sizes definitions are variables
 # define GRID_SIZE 32
 # define PLAYER_SIZE 16
-# define MAP_SIZE_X 32
-# define MAP_SIZE_Y 32
+# define MAP_SIZE_X 16
+# define MAP_SIZE_Y 16
 
 # define FOV 60 // field of view maybe fixed
+
+# ifndef M_PI
+#  define M_PI 3.14159265358979323846
+# endif
 
 typedef union u_color
 {

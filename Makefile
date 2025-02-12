@@ -6,34 +6,33 @@
 #    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/02/12 19:58:13 by capapes          ###   ########.fr        #
+#    Updated: 2025/02/12 21:25:07 by capapes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS = -Ilib -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Ilib -Wall -Wextra -Werror -MMD -MP -g -fsanitize=address
 
 # Directories
-SRCDIR = .
+SRCDIR = src
 LIBDIR = lib
 OBJDIR = obj
-MLXDIR = $(LIBDIR)/MLX42
 
 # Libraries
-MLX_LIB = $(MLXDIR)/build/libmlx42.a
+MLXDIR = $(LIBDIR)/MLX42
+MLX = $(MLXDIR)/build/libmlx42.a
 MLX_FLAGS = -L$(MLXDIR)/build -lmlx42 -ldl -lm
+MLX_REPO = https://github.com/codam-coding-college/MLX42.git
 
-# Libft
-LIBFT_PATH 	= $(LIBDIR)/libft
-LIBFT_NAME = libft
-LIBFT_LINK	= -L${LIBDIR} -lft
+LIBFTDIR = $(LIBDIR)/libft
+LIBFT = $(LIBFTDIR)/libft.a
+LIBFT_FLAGS = -L$(LIBFTDIR) -lft
+LIBFT_REPO = git@github.com:LeelooDa11as/Libft.git
 
-# Functions
-define make_lib
-    @echo "Making $1..."
-    @make -C $2 
-    @echo "$(GREEN)📚completed		$1$(DEF_COLOR)"
-endef
+# Build prerequisites first
+PREQ = $(LIBFT) $(MLX)
 
+# Include directories
+INC = -I$(SRCDIR) -I$(LIBFTDIR) -I$(MLXDIR)/include
 
 # macOS Specific Flags
 UNAME_S := $(shell uname -s)
@@ -41,43 +40,55 @@ ifeq ($(UNAME_S), Darwin)
     MLX_FLAGS += -L/opt/homebrew/lib -lglfw -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
 endif
 
+# Linux Specific Flags
 ifeq ($(UNAME_S), Linux)
 	MLX_FLAGS += -lglfw -lGL -lm -lX11 -lXrandr -lXi -lXxf86vm -lpthread -ldl
 endif
 
+# Helper function to clone a repo if it doesn't exist
+define clone_if_missing
+	@if [ ! -d "$(1)" ]; then \
+		git clone $(2) $(1); \
+	fi
+endef
+
 # Target executable
-TARGET = main 
+TARGET = main
 
 # Source files and objects
 MAIN_SRC = main.c minimap.c image_utils.c miniplayer.c miniview.c parser.c ft_split_utils.c
 MAIN_OBJ = $(patsubst %.c, $(OBJDIR)/%.o, $(MAIN_SRC))
+DEP_FILES = $(MAIN_OBJ:.o=.d)
 
-# Build the target
-all: make_libs $(MLX_LIB) $(TARGET)
+# Build the target (ensuring prerequisites are compiled first)
+all: $(PREQ) $(TARGET)
 
-make_libs:
-	$(call make_lib,$(LIBFT_NAME),$(LIBFT_PATH))
-
-$(TARGET): $(MAIN_OBJ) $(MLX_LIB) $(LIBFT_PATH)/libft.a
-	$(CC) $(CFLAGS) -o $@ $^ $(MLX_FLAGS)
+$(TARGET): $(MAIN_OBJ)
+	$(CC) $(CFLAGS) $(INC) -o $@ $^ $(MLX_FLAGS) $(LIBFT_FLAGS)
 
 # Compile .c files to .o
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# # Clone and build MLX42
-$(MLX_LIB):
-	git clone https://github.com/codam-coding-college/MLX42.git $(MLXDIR)
-	cmake -B $(MLXDIR)/build -S $(MLXDIR) 
+# Include dependency files if they exist
+-include $(DEP_FILES)
+
+# Build the libraries
+$(LIBFT):
+	$(call clone_if_missing, $(LIBFTDIR), $(LIBFT_REPO))
+	make -C $(LIBFTDIR)
+
+$(MLX):
+	$(call clone_if_missing, $(MLXDIR), $(MLX_REPO))
+	cmake -B $(MLXDIR)/build -S $(MLXDIR)
 	cmake --build $(MLXDIR)/build
 
 # Clean up
 clean:
-	rm -rf $(OBJDIR) $(TARGET) $(MLXDIR)
-	@make -C $(LIBFT_PATH) clean
+	rm -rf $(OBJDIR) $(TARGET)
+	@make -C $(LIBFTDIR) clean
 
 re: clean all
 
-
-.PHONY: all clean
+.PHONY: all clean re

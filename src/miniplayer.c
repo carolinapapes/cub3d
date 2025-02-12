@@ -6,12 +6,11 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/12 19:14:46 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/12 21:25:47 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
-#include <string.h>
 
 mlx_image_t	*player_manager(mlx_t *mlx, int x, int y, int flag)
 {

@@ -6,12 +6,11 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:21:45 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/12 08:22:33 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/12 21:25:25 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
-#include <string.h>
 
 void	iter_image(mlx_image_t *image, void(fn)(mlx_image_t *, uint32_t,
 			uint32_t))

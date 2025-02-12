@@ -6,17 +6,11 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 18:53:41 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/12 08:41:18 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/12 21:26:26 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
-#include <math.h>
-#include <string.h>
-
-#ifndef M_PI
-# define M_PI 3.14159265358979323846
-#endif
 
 void	get_player_pos(double *pos)
 {
