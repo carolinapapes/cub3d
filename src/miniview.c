@@ -6,19 +6,21 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 18:53:41 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/12 21:26:26 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/14 13:33:56 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-void	get_player_pos(double *pos)
+t_coord	get_player_pos(void)
 {
 	mlx_image_t	*player_mlx;
+	t_coord		player;
 
 	player_mlx = get_player();
-	pos[X] = PLAYER_SIZE / 2 + player_mlx->instances[0].x;
-	pos[Y] = PLAYER_SIZE / 2 + player_mlx->instances[0].y - HEIGHT;
+	player.x = PLAYER_SIZE / 2 + player_mlx->instances[0].x;
+	player.y = PLAYER_SIZE / 2 + player_mlx->instances[0].y - HEIGHT;
+	return (player);
 }
 
 // Returns the player's angle in radians
@@ -39,23 +41,41 @@ double	get_angle(int dir)
 	return (angle);
 }
 
+t_coord	get_delta(double angle)
+{
+	t_coord	delta;
+
+	delta.x = cos(angle * M_PI);
+	delta.y = sin(angle * M_PI);
+	return (delta);
+}
+
+t_coord	get_point(mlx_image_t *image)
+{
+	t_coord	point;
+
+	point = get_player_pos();
+	point.x -= image->instances[0].x;
+	point.y -= image->instances[0].y - HEIGHT;
+	return (point);
+}
+
 void	fov_add_color(mlx_image_t *image, int dir)
 {
 	double	angle;
-	double	delta[2];
-	double	point[2];
+	t_coord	delta;
+	t_coord	point;
 	int		len;
 
 	len = 100;
-	get_player_pos(point);
-	point[X] -= image->instances[0].x;
-	point[Y] -= image->instances[0].y - HEIGHT;
+	point = get_point(image);
 	angle = get_angle(dir);
-	delta[X] = cos(angle * M_PI);
-	delta[Y] = sin(angle * M_PI);
+	delta = get_delta(angle);
 	while (len--)
-		mlx_put_pixel(image, point[X] + (len + 10) * delta[X], point[Y]
-			+ delta[Y] * (len + 10), 0xFF0000FF);
+	{
+		mlx_put_pixel(image, point.x + (len + 10) * delta.x, point.y
+			+ delta.y * (len + 10), 0xFF0000FF);
+	}
 }
 
 mlx_image_t	*get_view(mlx_t *mlx)
@@ -76,11 +96,11 @@ void	view_rotate(int dir)
 	fov_add_color(view_mlx, dir);
 }
 
-void	view_move(int x, int y)
+void	view_move(t_coord movement)
 {
 	mlx_image_t	*view_mlx;
 
 	view_mlx = get_view(NULL);
-	view_mlx->instances[0].x += x;
-	view_mlx->instances[0].y += y;
+	view_mlx->instances[0].x += movement.x;
+	view_mlx->instances[0].y += movement.y;
 }

@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/12 21:25:47 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/12 23:05:48 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ mlx_image_t	*player_manager(mlx_t *mlx, int x, int y, int flag)
 	if (flag != SET_PLAYER)
 		return (image);
 	image = mlx_add_image(mlx, PLAYER_SIZE, PLAYER_SIZE, (int[]){x, y + HEIGHT});
-	memset(image->pixels, PLAYER_COLOR, image->width * image->height * sizeof(int32_t));
+	ft_memset(image->pixels, PLAYER_COLOR, image->width * image->height * sizeof(int32_t));
 	return (image);
 }
 
@@ -28,11 +28,11 @@ mlx_image_t	*get_player(void)
 	return (player_manager(NULL, 0, 0, 0));
 }
 
-void	set_player(mlx_t *mlx, int x, int y)
+void	set_player(mlx_t *mlx, t_coord player)
 {
-	x = x * GRID_SIZE + PLAYER_SIZE / 2;
-	y = y * GRID_SIZE + PLAYER_SIZE / 2;
-	player_manager(mlx, x, y, SET_PLAYER);
+	player.x = player.x * GRID_SIZE + PLAYER_SIZE / 2;
+	player.y = player.y * GRID_SIZE + PLAYER_SIZE / 2;
+	player_manager(mlx, player.x, player.y, SET_PLAYER);
 	get_view(mlx);
 	view_rotate(0);
 }
@@ -63,4 +63,5 @@ void	miniplayer_hook(int axis, int sign)
 	movement_size = minicollition_check(player, axis, sign);
 	player_mlx->instances[0].x += movement_size.x;
 	player_mlx->instances[0].y += movement_size.y;
+	view_move(movement_size);
 }

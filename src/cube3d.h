@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/12 21:52:43 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/12 23:04:32 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@
 # define WALL 1
 # define SPACE 2
 # define GRID 4
-# define P_N 8
-# define P_S 16
-# define P_E 32
-# define P_W 64
+# define N 8
+# define S 16
+# define E 32
+# define W 64
 # define PLAYER 120
 
 # define SET_PLAYER 1
@@ -47,8 +47,8 @@
 // Sizes definitions are variables
 # define MAP_SIZE_X 16
 # define MAP_SIZE_Y 16
-# define GRID_SIZE WIDTH / MAP_SIZE_X
-# define PLAYER_SIZE GRID_SIZE / 2
+# define GRID_SIZE 16
+# define PLAYER_SIZE 8
 
 # define FOV 60 // field of view maybe fixed
 
@@ -124,12 +124,12 @@ mlx_image_t				*mlx_add_image(mlx_t *mlx, uint32_t width,
 int32_t					ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 void					set_minimap(mlx_t *mlx);
 int						is_fixed_object(uint32_t x, uint32_t y);
-void					set_player(mlx_t *mlx, int x, int y);
+void					set_player(mlx_t *mlx, t_coord player);
 void					miniplayer_hook(int axis, int sign);
 mlx_image_t				*get_player(void);
 void					mlx_clear_image(mlx_image_t *image);
 mlx_image_t				*get_view(mlx_t *mlx);
-void					view_move(int x, int y);
+void					view_move(t_coord movement);
 void					view_rotate(int dir);
 
 // ----------------------------[DELETE BEFORE SUBMIT]---------------
