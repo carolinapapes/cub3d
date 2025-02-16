@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:00:50 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/12 23:09:42 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/16 16:54:02 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	map_add_player(mlx_t *mlx)
 		pos.x = MAP_SIZE_X;
 		while ((pos.x)--)
 		{
-			printf("pos.x: %f, pos.y: %f\n", pos.x, pos.y);
 			if (map[(int)pos.y][(int)pos.x] & PLAYER)
 				return (set_player(mlx, pos));
 		}
