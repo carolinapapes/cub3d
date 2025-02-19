@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:46:15 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/18 23:03:38 by kate             ###   ########.fr       */
+/*   Updated: 2025/02/19 17:08:33 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,11 @@ int	get_line_length(int fd)
 	return (length);
 }
 
-char	**get_file_contents(char *file)
+char	*get_file_contents(char *file)
 {
 	int		fd;
 	int		ret;
 	char	*file_contents;
-	char	**file_lines;
-	char	*map_start;
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
@@ -62,42 +60,56 @@ char	**get_file_contents(char *file)
 	if (ret == -1)
 		return (NULL);
 	close(fd);
-	if (check_map(file_contents) == 1)
+	return (file_contents);
+	
+}
+
+char	**check_file_contents(char *line)
+{
+	char	**file_lines;
+	char	*map_start;
+
+	if (check_map(line) == 1)
 	{
-		printf("Error in the map\n");
-		free(file_contents);
+		printf("Error in the map\n"); //TODO delete later
 		return(NULL);
 	}
-	file_lines = ft_split(file_contents, '\n');
+	file_lines = ft_split(line, '\n');
 	if (!file_lines)
 		return (ft_split_free(file_lines), NULL);
-	ft_print_split(file_lines);
+	ft_print_split(file_lines); // TODO delete later
 	if (ft_split_count(file_lines) < 9)
 		return (ft_split_free(file_lines), NULL);
-	map_start = ft_strnstr(file_contents, file_lines[6], ft_strlen(file_contents));
-	if (!map_start)
-		return (ft_split_free(file_lines), NULL);
+	//find map start and check for empty lines
+		//return (ft_split_free(file_lines), NULL);
 	printf("\n");
-	write(1, map_start, ft_strlen(map_start));
-	free(file_contents);
+	//write(1, map_start, ft_strlen(map_start));
+	
 	return (file_lines);
 }
 
-t_start	*parser(int argc, char **argv)
+t_start	*parser_controler(int argc, char **argv)
 {
 	t_start	*start;
+	char	*line;
 	char	**file_lines;
 
 	if (argc != 2)
 		return (NULL);
 	if (check_file_extension(argv[1]) == EXIT_FAILURE)
 		return (NULL);
-	file_lines = get_file_contents(argv[1]);
-	if (!file_lines)
+	line = get_file_contents(argv[1]);
+	if (line == NULL)
 		return (NULL);
-	
+	file_lines = check_file_contents(line);
+	if (!file_lines)
+	{
+		free(line);
+		return (NULL);
+	}
 	start = malloc(sizeof(t_start));
 	if (!start)
 		return (ft_split_free(file_lines), NULL);
+	//mre serious check for path and closed map
 	return (start);
 }
