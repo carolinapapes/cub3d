@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:46:15 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/12 22:14:27 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/18 23:03:38 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,18 @@ char	**get_file_contents(char *file)
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (NULL);
-	file_contents = malloc(sizeof(char) * ret);
+	file_contents = malloc(sizeof(char) * (ret + 1));
 	ret = read(fd, file_contents, ret);
+	file_contents[ret] = '\0';
 	if (ret == -1)
 		return (NULL);
 	close(fd);
+	if (check_map(file_contents) == 1)
+	{
+		printf("Error in the map\n");
+		free(file_contents);
+		return(NULL);
+	}
 	file_lines = ft_split(file_contents, '\n');
 	if (!file_lines)
 		return (ft_split_free(file_lines), NULL);
@@ -72,7 +79,6 @@ char	**get_file_contents(char *file)
 		return (ft_split_free(file_lines), NULL);
 	printf("\n");
 	write(1, map_start, ft_strlen(map_start));
-	// CHECK here if map has empty lines
 	free(file_contents);
 	return (file_lines);
 }
@@ -89,6 +95,7 @@ t_start	*parser(int argc, char **argv)
 	file_lines = get_file_contents(argv[1]);
 	if (!file_lines)
 		return (NULL);
+	
 	start = malloc(sizeof(t_start));
 	if (!start)
 		return (ft_split_free(file_lines), NULL);

@@ -1,4 +1,5 @@
-#include <stdio.h>
+#include "cube3d.h"
+
 
 int	is_map_character(char c)
 {
@@ -7,75 +8,104 @@ int	is_map_character(char c)
 	return (1);
 }
 
-int	is_valid_map_line(char *line) 
+int	is_one_view(char *map) 
 {
 	int	letter_count;
 
 	letter_count = 0;
-	while (*line && *line != '\n')
+	while (*map)
 	{
-		if (*line == 'N' || *line == 'S' || *line == 'W' || *line == 'E')
+		if (*map == 'N' || *map == 'S' || *map == 'W' || *map == 'E')
     		letter_count++;
-        else if (is_map_character(*line))
-            return (1);
-        line++;
+		if (letter_count > 1)
+			return (1);
+        map++;
     }
-	if (letter_count <= 1)
-		return (0);
-    return (1);
+	if (letter_count != 1)
+		return (1);
+    return (0);
 }
 
 char* find_first_map_line(char *input)
 {
-	char	*line_start;
+	int		i;
 
-	line_start = input;
-    while (*line_start) 
+	while(*input)
 	{
-		while (*line_start && *line_start != '\n' && is_map_character(*line_start))
-            line_start++;
-        if (*line_start && !is_map_character(*line_start))
-		{
-			if (is_valid_map_line(line_start) == 0)
-        		return (line_start);
-        }
-        while (*line_start && *line_start != '\n')
-        	line_start++;
-        if (*line_start == '\n')
-            line_start++;
-    }
+    	while (*input != '\n')
+			input++;
+		while (*input == '\n')
+			input++;
+		i = 0;
+		while (input[i] != '\0' && (is_map_character(input[i]) == 0 || input[i] == '\n'))
+			i++;
+		if (input[i] == '\0' && i != 0)
+			return(input);
+		input = &input[i];
+	}
     return (NULL);
 }
 
-int	space_in_map(char *line)
+int	check_for_newlines_in_map(char *map)
 {
-	while(*line)
+	int	i;
+
+	i = 0;
+	while (map[i] != '\0')
 	{
-		if (*line == '\n')
+		if (map[i] == '\n')
 		{
-			line++;
-			while(*line && (*line == ' ' || *line == '\n'))
+			i++;
+			if (map[i] == '\n')
 			{
-				if (*line == '\n')
+				while (map[i] != '\0' && map[i] == '\n')
+					i++;
+				if (map[i] == '\0')
+					return (0);
+				else 
 					return (1);
-				line++;
-				
 			}
 		}
-		line++;
+		i++;
 	}
 	return (0);
 }
 
+int	check_map(char *file_contents)
+{
+	char	*first_line;
+
+	first_line = find_first_map_line(file_contents);
+	if (first_line == NULL || *first_line == '\0')
+	{
+		printf("no hay primera linea\n");
+		return (1);
+	}
+	printf("The map is: \n%s", first_line);
+	if (is_one_view(first_line) == 1)
+	{
+		printf("There are more that one direction\n"); // TODO delete later
+		return (1);
+	}
+	printf("%s\n", first_line); // TODO delete later
+	if (check_for_newlines_in_map(first_line) == 1)
+	{
+		printf("%d  consecutive enter", check_for_newlines_in_map(first_line)); // TODO delete
+		return (1);
+	}
+    return (0);
+
+}
+
+/*
 int main(void) 
 {
-    char input[] = "Some header\nSome data\n\n\n111111\n10701\n   01  N\n1111111111\n045678098767\n\n";
-    
-    char *first_map_line = find_first_map_line(input);
-    if (first_map_line)
-        printf("First valid map line: %s\n", first_map_line);
-    else
-        printf("No valid map line found!\n");
-    printf("%d\n", space_in_map(first_map_line));
+    char input[] = "lalalalala \n lalalalal\n\n10101S10110";
+    if (check_map(input) == 1)
+	{
+		printf("error\n");
+		return(1);
+	}
     return (0);
 }
+*/

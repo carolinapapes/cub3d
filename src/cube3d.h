@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/12 23:04:32 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/18 22:25:52 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ typedef enum e_dir
 t_start					*parser(int argc, char **argv);
 int						ft_split_count(char **split);
 void					ft_split_free(char **split);
+int						check_map(char *file_contents);
 
 // ----------------------------[RENDER]----------------------------
 void					iter_image(mlx_image_t *image, void(fn)(mlx_image_t *,
