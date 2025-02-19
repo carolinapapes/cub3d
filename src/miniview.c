@@ -6,16 +6,21 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 18:53:41 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/18 17:25:19 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/19 20:30:56 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-t_coord	get_player_pos(void)
+/*
+* @brief Gets the player's absolute position (center of the player);
+*
+* @return t_vector The player's position (x, y);
+*/
+t_vector	get_player_pos(void)
 {
 	mlx_image_t	*player_mlx;
-	t_coord		player;
+	t_vector		player;
 
 	player_mlx = get_player();
 	player.x = PLAYER_SIZE / 2 + player_mlx->instances[0].x;
@@ -23,57 +28,9 @@ t_coord	get_player_pos(void)
 	return (player);
 }
 
-// Returns the player's angle in radians
-double	get_angle(int dir)
+t_vector	get_quadrant(double angle)
 {
-	static double	angle;
-
-	if (!angle)
-		angle = 0;
-	if (dir == 1)
-		angle += 0.01;
-	else if (dir == -1)
-		angle -= 0.01;
-	if (angle > 2)
-		angle = 0;
-	else if (angle < 0)
-		angle = 2;
-	return (angle);
-}
-
-t_coord	get_delta(double angle)
-{
-	t_coord	delta;
-
-	delta.x = cos(angle * M_PI);
-	delta.y = sin(angle * M_PI);
-	return (delta);
-}
-
-t_coord	get_pov(mlx_image_t *image)
-{
-	t_coord	view;
-
-	view = get_player_pos();
-	view.x -= image->instances[0].x;
-	view.y -= image->instances[0].y;
-	return (view);
-}
-
-void	draw_cross(mlx_image_t *image, t_coord point)
-{
-	int	offset;
-
-	offset = 5;
-	while (offset--)
-	mlx_put_pixel(image, point.x + offset, point.y, 0x00FF00FF);
-	while (offset++ < 5)
-	mlx_put_pixel(image, point.x, point.y + offset, 0x00FF00FF);
-}
-
-t_coord	get_quadrant(double angle)
-{
-	t_coord	quadrant;
+	t_vector	quadrant;
 
 	quadrant.x = 0;
 	quadrant.y = 0;
@@ -88,22 +45,26 @@ t_coord	get_quadrant(double angle)
 	return (quadrant);
 }
 
-double	get_grid_distance(t_coord player, int axis, int dir)
+double	get_grid_distance(t_vector player, int axis, int dir)
 {
 	if (dir == POSITIVE)
-		return(ceil((player.arr[axis] + PLAYER_SIZE / 2) / GRID_SIZE) * GRID_SIZE);
+		return (ceil((player.arr[axis] + PLAYER_SIZE / 2) / GRID_SIZE)
+			* GRID_SIZE);
 	else if (dir == NEGATIVE)
-		return(floor((player.arr[axis] - PLAYER_SIZE / 2) / GRID_SIZE) * GRID_SIZE);
-	else 
+		return (floor((player.arr[axis] - PLAYER_SIZE / 2) / GRID_SIZE)
+			* GRID_SIZE);
+	else
 		return (player.arr[axis]);
 }
 
-void	get_dir_grid(mlx_image_t *image, double angle)
+void	get_dir_grid(mlx_image_t *image, int dir)
 {
-	t_coord	grid_distance;
-	t_coord	player;
-	t_coord	quadrant;
+	t_vector	grid_distance;
+	t_vector	player;
+	t_vector	quadrant;
+	double	angle;
 
+	angle = get_angle(dir);
 	quadrant = get_quadrant(angle);
 	player = get_player_pos();
 	grid_distance.x = get_grid_distance(player, X, quadrant.x);
@@ -113,23 +74,61 @@ void	get_dir_grid(mlx_image_t *image, double angle)
 	draw_cross(image, grid_distance);
 }
 
-void	fov_add_color(mlx_image_t *image, int dir)
+/*
+ * @brief Gets the next pixel of the ray coordinates for given axis
+ *
+ * In order to draw the ray we need to calculate the next pixel.
+ *@param view The player's view
+ *@param delta The player's delta
+ *@param len The length of the ray
+ *@param axis The axis to calculate the next pixel
+ *@return The next pixel
+ */
+double	next_ray_pixel(t_vector view, t_vector delta, int len, int axis)
 {
-	double	angle;
-	t_coord	delta;
-	t_coord	view;
+	double	pixel;
+
+	pixel = round(view.arr[axis] + len * delta.arr[axis]);
+	return (pixel);
+}
+
+/*
+ * @brief Check if the pixel is new
+ *
+ * Because the math result of delta is not always an integer
+ * we need to check if the pixel is new
+ * to avoid drawing the same pixel multiple times
+ * @param point The point to check
+ * @param view The player's view
+ * @param delta The player's delta
+ * @param len The length of the ray
+ */
+int	is_new_pixel(t_vector *point, t_vector view, t_vector delta, int len)
+{
+	if (point->x != next_ray_pixel(view, delta, len, X)
+		|| point->x != next_ray_pixel(view, delta, len, Y))
+	{
+		point->x = next_ray_pixel(view, delta, len, X);
+		point->y = next_ray_pixel(view, delta, len, Y);
+		return (1);
+	}
+	return (0);
+}
+
+void	fov_add_color(mlx_image_t *view_mlx, int dir)
+{
+	t_vector	endpoint;
+	t_vector	player_pos_on_view_mlx;
+	t_vector	point;
 	int		len;
 
-	len = 500;
-	view = get_pov(image);
-	angle = get_angle(dir);
-	delta = get_delta(angle);
+	len = 200;
+	player_pos_on_view_mlx = get_pov(view_mlx);
+	endpoint = get_ray_endpoint(dir, 1);
+	point = player_pos_on_view_mlx;
 	while (len--)
-	{
-		mlx_put_pixel(image, view.x + (len + 10) * delta.x, view.y
-			+ delta.y * (len + 10), 0xFF0000FF);
-	}
-	get_dir_grid(image, angle);
+		if (is_new_pixel(&point, player_pos_on_view_mlx, endpoint, len))
+			add_mlx_pixel(view_mlx, point, 0xFF0000FF);
 }
 
 mlx_image_t	*get_view(mlx_t *mlx)
@@ -148,9 +147,10 @@ void	view_rotate(int dir)
 	view_mlx = get_view(NULL);
 	mlx_clear_image(view_mlx);
 	fov_add_color(view_mlx, dir);
+	get_dir_grid(view_mlx, dir);
 }
 
-void	view_move(t_coord movement)
+void	view_move(t_vector movement)
 {
 	mlx_image_t	*view_mlx;
 

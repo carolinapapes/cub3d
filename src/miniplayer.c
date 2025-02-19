@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/19 15:39:17 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/19 20:30:56 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ mlx_image_t	*get_player(void)
 	return (player_manager(NULL, 0, 0, 0));
 }
 
-void	set_player(mlx_t *mlx, t_coord player)
+void	set_player(mlx_t *mlx, t_vector player)
 {
 	player.x = player.x * GRID_SIZE + PLAYER_SIZE / 2;
 	player.y = player.y * GRID_SIZE + PLAYER_SIZE / 2;
@@ -42,7 +42,7 @@ void	set_player(mlx_t *mlx, t_coord player)
 	view_rotate(0);
 }
 
-int	hits_wall(t_coord pos, int axis)
+int	hits_wall(t_vector pos, int axis)
 {
 	if (is_fixed_object(pos.x, pos.y) & WALL)
 		return (1);
@@ -51,9 +51,9 @@ int	hits_wall(t_coord pos, int axis)
 }
 
 // TODO: check if negative collition needs one pixel fix
-t_coord	minicollition_check(t_coord player, int axis, int dir)
+t_vector	minicollition_check(t_vector player, int axis, int dir)
 {
-	t_coord	moves;
+	t_vector	moves;
 
 	if (dir == POSITIVE)
 		player.arr[axis] += ((PLAYER_SIZE - 1) * dir);
@@ -71,8 +71,8 @@ t_coord	minicollition_check(t_coord player, int axis, int dir)
 void	miniplayer_hook(int axis, int sign)
 {
 	mlx_image_t	*player_mlx;
-	t_coord		player;
-	t_coord		movement_size;
+	t_vector		player;
+	t_vector		movement_size;
 
 	player_mlx = get_player();
 	player.x = player_mlx->instances[0].x;

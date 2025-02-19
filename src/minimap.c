@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:00:50 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/18 18:36:06 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/19 20:30:56 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	add_minimap(mlx_image_t *image, uint32_t x, uint32_t y)
 
 void	map_add_player(mlx_t *mlx)
 {
-	t_coord	pos;
+	t_vector	pos;
 
 	pos.y = MAP_SIZE_Y;
 	while ((pos.y)--)

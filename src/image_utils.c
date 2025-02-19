@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:21:45 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/18 16:53:47 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/19 20:30:56 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ void	mlx_clear_image(mlx_image_t *image)
 		* sizeof(int32_t));
 }
 
+void	add_mlx_pixel(mlx_image_t *image, t_vector pixel, int32_t color)
+{
+	mlx_put_pixel(image, pixel.x, pixel.y, color);
+}
+
 mlx_image_t	*mlx_add_image(mlx_t *mlx, uint32_t width, uint32_t height, int *pos)
 {
 	mlx_image_t	*image;
@@ -54,4 +59,15 @@ mlx_image_t	*mlx_add_image(mlx_t *mlx, uint32_t width, uint32_t height, int *pos
 		exit(1);
 	}
 	return (image);
+}
+
+void	draw_cross(mlx_image_t *image, t_vector point)
+{
+	int	offset;
+
+	offset = 5;
+	while (offset--)
+		mlx_put_pixel(image, point.x + offset, point.y, 0x00FF00FF);
+	while (offset++ < 5)
+		mlx_put_pixel(image, point.x, point.y + offset, 0x00FF00FF);
 }

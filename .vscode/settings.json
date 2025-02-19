@@ -5,6 +5,7 @@
         "stdio.h": "c",
         "string.h": "c",
         "mlx42.h": "c",
-        "libft.h": "c"
+        "libft.h": "c",
+        "ranges": "c"
     }
 }
