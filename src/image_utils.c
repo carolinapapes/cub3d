@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:21:45 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/16 17:39:09 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/18 16:53:47 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 
 void	mlx_clear_image(mlx_image_t *image)
 {
-	memset(image->pixels, 0x00FF00BB, image->width * image->height
+	memset(image->pixels, 0, image->width * image->height
 		* sizeof(int32_t));
 }
 

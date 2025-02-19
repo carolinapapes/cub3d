@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/12 23:04:32 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/18 18:30:39 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <string.h>
 # include <math.h>
 
-# define WIDTH 256  // Maybe should be fixed
-# define HEIGHT 256 // Variable
+# define WIDTH 1024  // Maybe should be fixed
+# define HEIGHT 1024 // Variable
 # define WINDOW_TITLE "Cube3D"
 
 # define WALL 1
@@ -47,8 +47,8 @@
 // Sizes definitions are variables
 # define MAP_SIZE_X 16
 # define MAP_SIZE_Y 16
-# define GRID_SIZE 16
-# define PLAYER_SIZE 8
+# define GRID_SIZE 64
+# define PLAYER_SIZE 32
 
 # define FOV 60 // field of view maybe fixed
 
@@ -101,8 +101,8 @@ typedef struct s_start
 
 typedef enum e_axis
 {
-	X,
-	Y
+	X = 0,
+	Y = 1
 }						t_axis;
 
 typedef enum e_dir

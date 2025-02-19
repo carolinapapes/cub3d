@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 18:53:41 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/16 20:33:34 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/18 17:25:19 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_coord	get_player_pos(void)
 
 	player_mlx = get_player();
 	player.x = PLAYER_SIZE / 2 + player_mlx->instances[0].x;
-	player.y = PLAYER_SIZE / 2 + player_mlx->instances[0].y - HEIGHT;
+	player.y = PLAYER_SIZE / 2 + player_mlx->instances[0].y;
 	return (player);
 }
 
@@ -56,7 +56,7 @@ t_coord	get_pov(mlx_image_t *image)
 
 	view = get_player_pos();
 	view.x -= image->instances[0].x;
-	view.y -= image->instances[0].y - HEIGHT;
+	view.y -= image->instances[0].y;
 	return (view);
 }
 
@@ -109,7 +109,7 @@ void	get_dir_grid(mlx_image_t *image, double angle)
 	grid_distance.x = get_grid_distance(player, X, quadrant.x);
 	grid_distance.y = get_grid_distance(player, Y, quadrant.y);
 	grid_distance.x -= image->instances[0].x;
-	grid_distance.y -= (image->instances[0].y - HEIGHT);
+	grid_distance.y -= image->instances[0].y;
 	draw_cross(image, grid_distance);
 }
 
@@ -120,7 +120,7 @@ void	fov_add_color(mlx_image_t *image, int dir)
 	t_coord	view;
 	int		len;
 
-	len = 100;
+	len = 500;
 	view = get_pov(image);
 	angle = get_angle(dir);
 	delta = get_delta(angle);
@@ -137,7 +137,7 @@ mlx_image_t	*get_view(mlx_t *mlx)
 	static mlx_image_t	*image;
 
 	if (!image)
-		image = mlx_add_image(mlx, WIDTH, HEIGHT, (int[]){0, HEIGHT});
+		image = mlx_add_image(mlx, WIDTH, HEIGHT, (int[]){0, 0});
 	return (image);
 }
 

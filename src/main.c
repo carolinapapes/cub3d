@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/12 18:12:50 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/18 17:45:21 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	ft_hook(void *param)
 {
-	mlx_t	*mlx;
+	mlx_t		*mlx;
 
 	mlx = param;
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
@@ -46,7 +46,7 @@ int32_t	main(int argc, char **argv)
 
 	if (parser(argc, argv) == NULL)
 		return (print_error(), EXIT_FAILURE);
-	mlx = mlx_init(WIDTH, HEIGHT * 2, WINDOW_TITLE, true);
+	mlx = mlx_init(WIDTH, HEIGHT, WINDOW_TITLE, true);
 	if (!mlx)
 		return (puts(mlx_strerror(mlx_errno)), EXIT_FAILURE);
 	set_minimap(mlx);
