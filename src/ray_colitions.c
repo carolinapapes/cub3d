@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 16:33:48 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/19 20:33:33 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/20 16:36:39 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ double	get_angle(int dir)
 t_vector	get_direction_vector(int dir)
 {
 	t_vector	endpoint;
-	double	angle;
+	double		angle;
 
 	angle = get_angle(dir);
 	endpoint.x = cos(angle * M_PI);
@@ -67,18 +67,6 @@ t_vector	get_pov(mlx_image_t *view_mlx)
 	return (view);
 }
 
-void	draw_line(mlx_image_t image, t_vector origin, t_vector direction, int len)
-{
-	t_vector	pixel;
-
-	while (len--)
-	{
-		pixel.x = player.x + direction.x * len;
-		pixel.y = player.y + direction.y * len;
-		add_mlx_pixel(image, pixel, 0xFF0000FF);
-	}
-}
-
 void	render_pov_ray(int dir, int len)
 {
 	t_vector		pixel;
@@ -93,6 +81,6 @@ void	render_pov_ray(int dir, int len)
 	{
 		pixel.x = player.x + direction.x * len;
 		pixel.y = player.y + direction.y * len;
-		add_mlx_pixel(view_mlx, pixel, 0xFF0000FF);
+		draw_pixel(view_mlx, pixel, 0xFF0000FF);
 	}
 }
