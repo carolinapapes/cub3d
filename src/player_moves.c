@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:50:40 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/20 18:54:39 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/21 20:07:39 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	hits_wall(t_vector pos, int axis)
 {
+	pos.arr[!axis] -= PLAYER_SIZE / 2;
 	if (is_fixed_object(pos.x, pos.y) & WALL)
 		return (1);
 	pos.arr[!axis] += PLAYER_SIZE - 1;
@@ -22,33 +23,38 @@ int	hits_wall(t_vector pos, int axis)
 	return (0);
 }
 
-t_vector	collition_check(int axis, int dir)
+int	collition_check(int axis, int dir)
 {
-	t_vector	moves;
+	int			moves;
 	t_vector	position;
 
-	if (dir == POSITIVE)
-		position.arr[axis] += ((PLAYER_SIZE - 1) * dir);
-	position = get_player_pos();
-	moves.arr[axis] = 3 * dir;
-	position.arr[axis] += moves.arr[axis];
-	while (moves.arr[axis] && hits_wall(position, axis))
+	moves = 3 * dir;
+	position = get_player_pos(PLAYER_PIXEL_CENTER);
+	position.arr[axis] += PLAYER_MIDDLE * dir;
+	position.arr[axis] += moves;
+	while (moves && hits_wall(position, axis))
 	{
-		moves.arr[axis] -= dir;
+		moves -= dir;
 		position.arr[axis] -= dir;
 	}
 	return (moves);
 }
 
-void	player_hook(t_axis axis, int dir)
+void	player_move(t_axis axis, int dir)
+{
+	t_vector	delta;
+
+	delta.arr[!axis] = 0;
+	delta.arr[axis] = collition_check(axis, dir);
+	if (delta.x != 0 || delta.y != 0)
+		set_player(delta, 0);
+}
+
+void	player_rotate(int dir)
 {
 	t_vector	delta;
 
 	delta.x = 0;
 	delta.y = 0;
-	if (axis == X)
-		delta.x = dir;
-	else if (axis == Y)
-		delta.y = dir;
-	set_player(delta);
+	set_player(delta, dir);
 }

@@ -6,7 +6,7 @@
 #    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/02/12 22:02:21 by capapes          ###   ########.fr        #
+#    Updated: 2025/02/21 14:40:52 by capapes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,20 @@ endif
 TARGET = main
 
 # Source files and objects
-MAIN_SRC = main.c minimap.c image_utils.c miniplayer.c miniview.c parser.c ft_split_utils.c
+MAIN_SRC = _bonus_remove_later.c \
+			_parser_hardcoded.c \
+			draw_utils.c \
+			ft_split_utils.c \
+			image_utils.c \
+			main.c \
+			minimap.c \
+			miniplayer.c \
+			miniview.c \
+			mlx_handler.c \
+			mlx_image_handler.c \
+			parser.c \
+			player_moves.c \
+			ray_colitions.c
 MAIN_OBJ = $(patsubst %.c, $(OBJDIR)/%.o, $(MAIN_SRC))
 DEP_FILES = $(MAIN_OBJ:.o=.d)
 

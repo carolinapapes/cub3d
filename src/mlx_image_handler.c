@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:57:39 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/20 17:12:07 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/21 18:00:55 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ mlx_image_t	*new_image(t_vector size, t_vector origin)
 	mlx_t		*mlx;
 	mlx_image_t	*image;
 
-	mlx = mlx_handler();
+	mlx = get_mlx();
 	image = mlx_new_image(mlx, size.x, size.y);
 	if (!image)
 		exit (1);
@@ -29,5 +29,12 @@ mlx_image_t	*new_image(t_vector size, t_vector origin)
 
 mlx_image_t	*new_image_full(void)
 {
-	return (new_image((t_vector){WIDTH, HEIGHT}, (t_vector){0, 0}));
+	t_vector	size;
+	t_vector	origin;
+
+	size.x = WIDTH;
+	size.y = HEIGHT;
+	origin.x = 0;
+	origin.y = 0;
+	return (new_image(size, origin));
 }

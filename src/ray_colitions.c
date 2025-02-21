@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 16:33:48 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/20 16:36:39 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/21 14:37:48 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,38 +49,4 @@ t_vector	get_direction_vector(int dir)
 	endpoint.x = cos(angle * M_PI);
 	endpoint.y = sin(angle * M_PI);
 	return (endpoint);
-}
-
-/*
-* @brief Gets the player's point of view relative to the image;
-*
-* @param view_mlx The image where the rayview is rendered;
-* @return t_vector The player's point of view (x, y) relative to the view_mlx;
-*/
-t_vector	get_pov(mlx_image_t *view_mlx)
-{
-	t_vector	view;
-
-	view = get_player_pos();
-	view.x -= view_mlx->instances[0].x;
-	view.y -= view_mlx->instances[0].y;
-	return (view);
-}
-
-void	render_pov_ray(int dir, int len)
-{
-	t_vector		pixel;
-	t_vector		player;
-	t_vector		direction;
-	mlx_image_t		*view_mlx;
-
-	view_mlx = get_view(NULL);
-	direction = get_direction_vector(dir);
-	player = get_pov(view_mlx);
-	while (len--)
-	{
-		pixel.x = player.x + direction.x * len;
-		pixel.y = player.y + direction.y * len;
-		draw_pixel(view_mlx, pixel, 0xFF0000FF);
-	}
 }

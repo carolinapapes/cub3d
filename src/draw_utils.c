@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:31:42 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/20 16:37:14 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/21 20:14:12 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,38 @@ void	draw_pixel(mlx_image_t *image, t_vector pixel, int32_t color)
 	mlx_put_pixel(image, pixel.x, pixel.y, color);
 }
 
-void	draw_cross(mlx_image_t *image, t_vector point)
+void	draw_point(mlx_image_t *image, t_vector point)
 {
-	int	offset;
+	int	width;
+	int	height;
+	int	x;
+	int	y;
 
-	offset = 5;
-	while (offset-- > -5)
+	if (point.x < 0 || point.x >= WIDTH || point.y < 0 || point.y >= HEIGHT)
+		return ;
+	width = 5;
+	while (width-- > -5)
 	{
-		mlx_put_pixel(image, point.x + offset, point.y, 0x00FF00FF);
-		mlx_put_pixel(image, point.x, point.y + offset, 0x00FF00FF);
+		height = 5;
+		while (height-- > -5)
+		{
+			x = point.x + width;
+			y = point.y + height;
+			if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+				mlx_put_pixel(image, x, y, 0xFF0000FF);
+		}
 	}
 }
 
-// TODO: check if mlx add pixel is needed 
+// TODO: check if mlx add pixel is needed
 // for each increment of length in draw_line
-void	draw_line(mlx_image_t *image, t_vector origin,
-	t_vector direction, int len)
+void	draw_line(mlx_image_t *image, t_vector origin, t_vector direction,
+		int len)
 {
 	t_vector	pixel;
 
+	if (len < 0)
+		len = 100;
 	while (len--)
 	{
 		pixel.x = origin.x + direction.x * len;

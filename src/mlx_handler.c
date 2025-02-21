@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_handler.c                                      :+:      :+:    :+:   */
+/*   get_mlx.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -20,17 +20,17 @@ void	cub3d_hook(void *param)
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
 	if (mlx_is_key_down(mlx, MLX_KEY_UP))
-		player_hook(Y, NEGATIVE);
+		player_move(Y, NEGATIVE);
 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
-		player_hook(Y, POSITIVE);
+		player_move(Y, POSITIVE);
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-		player_hook(X, NEGATIVE);
+		player_move(X, NEGATIVE);
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-		player_hook(X, POSITIVE);
+		player_move(X, POSITIVE);
 	if (mlx_is_key_down(mlx, MLX_KEY_W))
-		view_rotate(NEGATIVE);
+		player_rotate(NEGATIVE);
 	if (mlx_is_key_down(mlx, MLX_KEY_S))
-		view_rotate(POSITIVE);
+		player_rotate(POSITIVE);
 }
 
 mlx_t	*get_mlx(void)
@@ -49,7 +49,7 @@ void	cub3d_init(void)
 	mlx_t		*mlx;
 
 	mlx = get_mlx();
-	if (mlx_loop_hook(mlx, cub3d_hook, mlx) == -1)
+	if (mlx_loop_hook(mlx, cub3d_hook, mlx) == 0)
 		exit(1);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);

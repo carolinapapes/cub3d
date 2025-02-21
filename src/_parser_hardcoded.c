@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   _parser_hardcoded.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/21 17:52:35 by capapes          ###   ########.fr       */
+/*   Created: 2025/02/21 12:19:41 by capapes           #+#    #+#             */
+/*   Updated: 2025/02/21 19:11:45 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
-#include <unistd.h>
 
-void	print_error(void)
+void	player_init(void)
 {
-	write(2, "Error\n", 6);
-	return ;
-}
+	t_vector	initial_pos;
 
-int32_t	main(int argc, char **argv)
-{
-	(void)argc;
-	(void)argv;
-	minimap_init();
-	player_init();
-	cub3d_init();
-	return (EXIT_SUCCESS);
+	initial_pos.x = 5.25 * GRID_SIZE;
+	initial_pos.y = 5.25 * GRID_SIZE;
+	set_player(initial_pos, 0);
 }

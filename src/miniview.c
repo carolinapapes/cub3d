@@ -6,60 +6,31 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 18:53:41 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/20 19:05:16 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/21 19:20:12 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-t_vector	get_quadrant(double angle)
+static double	get_axis_grid_distance(t_player player, t_axis axis)
 {
-	t_vector	quadrant;
-	double		angle;
+	double	pos;
+	int		quadrant;
 
-	angle = get_angle(0);
-	quadrant.x = 0;
-	quadrant.y = 0;
-	if (angle > 0 && angle < 1)
-		quadrant.y = POSITIVE;
-	else if (angle > 1 && angle < 2)
-		quadrant.y = NEGATIVE;
-	if (angle > 0.5 && angle < 1.5)
-		quadrant.x = NEGATIVE;
-	else if ((angle > 1.5 && angle < 2) || (angle > 0 && angle < 0.5))
-		quadrant.x = POSITIVE;
-	return (quadrant);
-}
-
-double	get_grid_distance(int axis, int quadrant)
-{
-	t_vector	player;
-
-	player = get_player_pos();
+	pos = get_player_pos(PLAYER_PIXEL_CENTER).arr[axis];
+	quadrant = player.pov.quadrant.arr[axis];
 	if (quadrant == POSITIVE)
-		return (ceil((player.arr[axis] + PLAYER_SIZE / 2) / GRID_SIZE)
-			* GRID_SIZE);
-	else if (quadrant == NEGATIVE)
-		return (floor((player.arr[axis] - PLAYER_SIZE / 2) / GRID_SIZE)
-			* GRID_SIZE);
-	else
-		return (player.arr[axis]);
+		return (ceil((pos + PLAYER_MIDDLE) / GRID_SIZE) * GRID_SIZE);
+	if (quadrant == NEGATIVE)
+		return (floor((pos - PLAYER_MIDDLE) / GRID_SIZE) * GRID_SIZE);
+	return (player.pos.arr[axis] + PLAYER_MIDDLE);
 }
 
-void	set_view(void)
+t_vector	get_grid_distance(t_player player)
 {
-	static mlx_image_t	*image;
-	t_player			player;
-	t_vector			grid_distance;
-	t_vector			quadrant;
+	t_vector	grid_distance;
 
-	if (!image)
-		image = new_image_full();
-	mlx_clear_image(image);
-	draw_line(image, player.pos, player.pov, 100);
-	quadrant = get_quadrant(player.pov_a);
-	grid_distance.x = get_grid_distance(X, quadrant.x);
-	grid_distance.y = get_grid_distance(Y, quadrant.y);
-	draw_cross(image, grid_distance);
-	return (image);
+	grid_distance.x = get_axis_grid_distance(player, X);
+	grid_distance.y = get_axis_grid_distance(player, Y);
+	return (grid_distance);
 }

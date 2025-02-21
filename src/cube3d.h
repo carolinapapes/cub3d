@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/20 19:05:26 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/21 19:56:07 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@
 # define MAP_SIZE_Y 16
 # define GRID_SIZE 64
 # define PLAYER_SIZE 32
+# define PLAYER_MIDDLE 16
 
 # define FOV 60 // field of view maybe fixed
 
@@ -59,6 +60,10 @@
 # define C3D_MLX_INIT 1
 # define C3D_MLX_CLOSE 2
 # define C3D_MLX_GET 3
+
+# define PLAYER_ORIGIN 1
+# define PLAYER_CENTER 2
+# define PLAYER_PIXEL_CENTER 3
 
 typedef union u_color
 {
@@ -103,13 +108,19 @@ typedef struct s_start
 
 }						t_start;
 
+typedef struct s_pov
+{
+	double				angle;
+	t_vector			t_ratio;
+	t_vector			quadrant;
+}						t_pov;
+
 typedef struct s_player
 {
 	t_vector			pos;
-	t_vector			pov;
-	double				pov_a;
-	mlx_image_t			*image;
-
+	mlx_image_t			*mlx_player;
+	mlx_image_t			*mlx_view;
+	t_pov				pov;
 }						t_player;
 
 typedef enum e_axis
@@ -130,29 +141,45 @@ int						ft_split_count(char **split);
 void					ft_split_free(char **split);
 
 // ----------------------------[RENDER]----------------------------
+
+// bonus
+mlx_t					*get_mlx(void);
+void					player_rotate(int dir);
+void					player_move(t_axis axis, int dir);
+mlx_image_t				*init_player_image(void);
 void					minimap_init(void);
-t_player				player_init(void);
+int						is_fixed_object(uint32_t x, uint32_t y);
+mlx_image_t				*new_image(t_vector size, t_vector origin);
+void					update_mlx_player(t_player *player);
+void					update_mlx_view(t_player player, \
+							t_vector grid_distance);
+t_player				set_player(t_vector position_delta, double angle_delta);
+t_vector				get_grid_distance(t_player player);
+mlx_image_t				*get_view(void);
+
+void					player_init(void);
 void					cub3d_init(void);
-int						**get_map(void);
-t_vector				map_find_player(void);
-t_vector				get_ray_endpoint(int dir, int len);
+
 void					iter_image(mlx_image_t *image, void fn(mlx_image_t *,
 								uint32_t, uint32_t));
 int32_t					ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
-int						is_fixed_object(uint32_t x, uint32_t y);
-t_player				set_player(t_vector position_delta);
-void					player_hook(int axis, int sign);
-mlx_image_t				*get_player(void);
+
 void					mlx_clear_image(mlx_image_t *image);
-mlx_image_t				*get_view(mlx_t *mlx);
-void					view_move(t_vector movement);
-void					view_rotate(int dir);
+
 void					draw_pixel(mlx_image_t *image, t_vector pixel,
 							int32_t color);
-t_vector				get_player_pos(void);
-void					draw_cross(mlx_image_t *image, t_vector point);
-t_vector				get_pov(mlx_image_t *view_mlx);
+t_vector				get_player_pos(int flag);
+
+void					draw_line(mlx_image_t *image, t_vector origin,
+							t_vector direction, int len);
+void					image_full_color(mlx_image_t *image, int32_t color);
+mlx_image_t				*new_image_full(void);
+void					draw_point(mlx_image_t *image, t_vector point);
+t_player				get_player(void);
 // ----------------------------[DELETE BEFORE SUBMIT]---------------
 void					ft_print_split(char **split);
+
+# define DEBUG_PRINT() \
+    printf("%s:%d: ", __FILE__, __LINE__);
 
 #endif
