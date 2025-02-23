@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:31:42 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/23 15:40:41 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/23 19:35:46 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,14 @@ void	draw_line(mlx_image_t *image, t_vector origin, t_vector direction,
 			break ;
 		draw_pixel(image, pixel, color);
 	}
+}
+
+void	draw_intersect(t_player player, t_vector origin, t_vector next,
+	int color)
+{
+	int	len;
+
+	len = (int)hypot(next.x - origin.x, next.y - origin.y);
+	draw_line(player.mlx_view, origin, player.pov.t_ratio, len, color);
+	draw_point(player.mlx_view, next, color);
 }

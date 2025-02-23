@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/21 19:54:57 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/23 18:24:58 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	update_pov(t_player *player, double angle_delta)
 	player->pov.angle += angle_delta * M_PI / 180;
 	player->pov.t_ratio.x = cos(player->pov.angle);
 	player->pov.t_ratio.y = sin(player->pov.angle);
+	player->pov.tan = tan(player->pov.angle);
 	player->pov.quadrant.x = \
 		(player->pov.t_ratio.x > 0) - (player->pov.t_ratio.x < 0);
 	player->pov.quadrant.y = \

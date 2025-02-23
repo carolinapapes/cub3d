@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/23 17:04:11 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/23 19:51:32 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,14 @@ typedef struct s_map
 	int					**map_int;
 }						t_map;
 
+typedef struct check_point
+{
+	t_vector			to_player;
+	double				distance_to_player;
+	t_vector			to_grid;
+	double				distance_to_grid;
+}						t_check_point;
+
 typedef struct s_start
 {
 	int					n_fd;
@@ -115,6 +123,7 @@ typedef struct s_pov
 	double				angle;
 	t_vector			t_ratio;
 	t_vector			quadrant;
+	double				tan;
 }						t_pov;
 
 typedef struct s_player
@@ -153,7 +162,7 @@ void					minimap_init(void);
 int						is_fixed_object(uint32_t x, uint32_t y);
 mlx_image_t				*new_image(t_vector size, t_vector origin);
 void					update_mlx_player(t_player *player);
-void					update_mlx_view(t_player player, \
+void					update_mlx_view(t_player player,
 							t_vector grid_distance);
 t_player				set_player(t_vector position_delta, double angle_delta);
 t_vector				get_grid_distance(t_player player);
@@ -164,24 +173,23 @@ void					cub3d_init(void);
 
 void					iter_image(mlx_image_t *image, void fn(mlx_image_t *,
 								uint32_t, uint32_t));
-int32_t					ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
 void					mlx_clear_image(mlx_image_t *image);
 
 void					draw_pixel(mlx_image_t *image, t_vector pixel,
 							int32_t color);
 t_vector				get_player_pos(int flag);
-
-void					draw_line(mlx_image_t *image, t_vector origin,
-							t_vector direction, int len, int color);
+;
 void					image_full_color(mlx_image_t *image, int32_t color);
 mlx_image_t				*new_image_full(void);
-void					draw_point(mlx_image_t *image, t_vector point, int color);
+void					draw_point(mlx_image_t *image, t_vector point,
+							int color);
 t_player				get_player(void);
+void					draw_intersect(t_player player, t_vector pos,
+							t_vector point, int color);
 // ----------------------------[DELETE BEFORE SUBMIT]---------------
 void					ft_print_split(char **split);
 
-# define DEBUG_PRINT() \
-    printf("%s:%d: ", __FILE__, __LINE__);
+# define DEBUG_PRINT() printf("%s:%d: ", __FILE__, __LINE__);
 
 #endif

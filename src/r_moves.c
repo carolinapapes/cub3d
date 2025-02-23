@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player_moves.c                                     :+:      :+:    :+:   */
+/*   moves.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:50:40 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/21 20:07:39 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/23 19:50:17 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	player_move(t_axis axis, int dir)
 
 	delta.arr[!axis] = 0;
 	delta.arr[axis] = collition_check(axis, dir);
-	if (delta.x != 0 || delta.y != 0)
+	if (delta.arr[axis] != 0)
 		set_player(delta, 0);
 }
 

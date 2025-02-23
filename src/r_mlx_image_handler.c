@@ -6,11 +6,41 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:57:39 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/21 18:00:55 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/23 19:52:17 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
+
+void	iter_image(mlx_image_t *image, void fn(mlx_image_t *, uint32_t,
+			uint32_t))
+{
+	uint32_t	x;
+	uint32_t	y;
+
+	y = 0;
+	while (y < image->height)
+	{
+		x = 0;
+		while (x < image->width)
+		{
+			fn(image, x, y);
+			x++;
+		}
+		y++;
+	}
+}
+
+void	image_full_color(mlx_image_t *image, int32_t color)
+{
+	memset(image->pixels, color, image->width * image->height
+		* sizeof(int32_t));
+}
+
+void	mlx_clear_image(mlx_image_t *image)
+{
+	image_full_color(image, 0x00000000);
+}
 
 // TODO create exit function
 mlx_image_t	*new_image(t_vector size, t_vector origin)
