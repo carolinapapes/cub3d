@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/21 19:56:07 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/23 17:04:11 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define PLAYER_COLOR 0x00FF00FF
 # define FOV_COLOR 0xB0B0B0B0
 # define GRID_COLOR 0xB0B0B0FF
-# define WALL_COLOR 0xB0B0B0FF
+# define WALL_COLOR 0xB0B0B0CC
 
 // Sizes definitions are variables
 # define MAP_SIZE_X 16
@@ -50,6 +50,8 @@
 # define GRID_SIZE 64
 # define PLAYER_SIZE 32
 # define PLAYER_MIDDLE 16
+# define HEX_RED 0xFF0000FF
+# define HEX_GREEN 0x00FF00FF
 
 # define FOV 60 // field of view maybe fixed
 
@@ -171,10 +173,10 @@ void					draw_pixel(mlx_image_t *image, t_vector pixel,
 t_vector				get_player_pos(int flag);
 
 void					draw_line(mlx_image_t *image, t_vector origin,
-							t_vector direction, int len);
+							t_vector direction, int len, int color);
 void					image_full_color(mlx_image_t *image, int32_t color);
 mlx_image_t				*new_image_full(void);
-void					draw_point(mlx_image_t *image, t_vector point);
+void					draw_point(mlx_image_t *image, t_vector point, int color);
 t_player				get_player(void);
 // ----------------------------[DELETE BEFORE SUBMIT]---------------
 void					ft_print_split(char **split);

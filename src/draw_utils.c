@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:31:42 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/21 20:14:58 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/23 15:40:41 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	draw_pixel(mlx_image_t *image, t_vector pixel, int32_t color)
 	mlx_put_pixel(image, pixel.x, pixel.y, color);
 }
 
-void	draw_point(mlx_image_t *image, t_vector point)
+void	draw_point(mlx_image_t *image, t_vector point, int color)
 {
 	int	width;
 	int	height;
@@ -35,7 +35,7 @@ void	draw_point(mlx_image_t *image, t_vector point)
 			x = point.x + width;
 			y = point.y + height;
 			if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
-				mlx_put_pixel(image, x, y, 0xFF0000FF);
+				mlx_put_pixel(image, x, y, color);
 		}
 	}
 }
@@ -43,18 +43,18 @@ void	draw_point(mlx_image_t *image, t_vector point)
 // TODO: check if mlx add pixel is needed
 // for each increment of length in draw_line
 void	draw_line(mlx_image_t *image, t_vector origin, t_vector direction,
-		int len)
+		int len, int color)
 {
 	t_vector	pixel;
 
 	if (len < 0)
-		len = 100;
+		return ;
 	while (len--)
 	{
 		pixel.x = origin.x + direction.x * len;
 		pixel.y = origin.y + direction.y * len;
 		if (pixel.x < 0 || pixel.x >= WIDTH || pixel.y < 0 || pixel.y >= HEIGHT)
 			break ;
-		draw_pixel(image, pixel, 0xFF0000FF);
+		draw_pixel(image, pixel, color);
 	}
 }

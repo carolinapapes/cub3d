@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 14:21:30 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/21 20:13:29 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/23 17:02:47 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,27 +42,66 @@ void	update_mlx_player(t_player *player)
 	player->mlx_player->instances[0].y = player->pos.y;
 }
 
-void	update_mlx_view(t_player player, t_vector grid_distance)
+void	draw_intersect(t_player player, t_vector pos, t_vector point, int len, int color)
+{
+	draw_line(player.mlx_view, pos, player.pov.t_ratio, len, color);
+	draw_point(player.mlx_view, point, color);
+}
+
+void	next_intersection_x(t_vector prev, t_player player)
+{
+	t_vector	next;
+	int			len;
+
+	next.x = prev.x + GRID_SIZE * player.pov.quadrant.x;
+	if (player.pov.quadrant.y == 0)
+		next.y = prev.y;
+	else
+		next.y = prev.y + GRID_SIZE * tan(player.pov.angle) * player.pov.quadrant.x;
+	len = (int)hypot(next.x - prev.x, next.y - prev.y);
+	draw_intersect(player, prev, next, len, HEX_RED - 0x00000088);
+	draw_point(player.mlx_view, next, HEX_RED - 0x00000088);
+}
+
+void	next_intersection_y(t_vector prev, t_player player)
+{
+	t_vector	next;
+	int			len;
+
+	next.y = prev.y + GRID_SIZE * player.pov.quadrant.y;
+	next.x = prev.x + GRID_SIZE / tan(player.pov.angle) * player.pov.quadrant.y;
+	len = (int)hypot(next.x - prev.x, next.y - prev.y);	
+	draw_intersect(player, prev, next, len, HEX_GREEN - 0x00000088);
+	draw_point(player.mlx_view, next, HEX_GREEN - 0x00000088);
+}
+
+void	first_intersections(t_player player, t_vector grid_distance)
 {
 	t_vector	pos;
-	t_vector	len_to_x;
-	t_vector	len_to_y;
-
+	t_vector	grid;
+	int			len;
 
 	pos = get_player_pos(PLAYER_PIXEL_CENTER);
-	mlx_clear_image(player.mlx_view);
-	len_to_x.x = grid_distance.x;
+	grid.x = grid_distance.x;
 	if (player.pov.quadrant.y == 0)
-		len_to_x.y = pos.y;
+		grid.y = pos.y;
 	else
-		len_to_x.y = pos.y + (grid_distance.x - pos.x) * tan(player.pov.angle);
-	len_to_y.y = grid_distance.y;
+		grid.y = pos.y + (grid_distance.x - pos.x) * tan(player.pov.angle);
+	len = (int)hypot(grid.x - pos.x, grid.y - pos.y);
+	draw_intersect(player, pos, grid, len, HEX_RED);
+	next_intersection_x(grid, player);
+	grid.y = grid_distance.y;
 	if (player.pov.quadrant.x == 0)
-		len_to_y.x = pos.x;
+		grid.x = pos.x;
 	else
-		len_to_y.x = pos.x + (grid_distance.y - pos.y) / tan(player.pov.angle);
-	draw_line(player.mlx_view, pos, player.pov.t_ratio, 100);
-	draw_line(player.mlx_view, pos, player.pov.t_ratio, 100);
-	draw_point(player.mlx_view, len_to_x);
-	draw_point(player.mlx_view, len_to_y);
+		grid.x = pos.x + (grid_distance.y - pos.y) / tan(player.pov.angle);
+	len = (int)hypot(grid.x - pos.x, grid.y - pos.y);
+	draw_intersect(player, pos, grid, len, HEX_GREEN);
+	next_intersection_y(grid, player);
+}
+
+void	update_mlx_view(t_player player, t_vector grid_distance)
+{
+	mlx_clear_image(player.mlx_view);
+	first_intersections(player, grid_distance);
 }

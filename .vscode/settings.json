@@ -6,6 +6,8 @@
         "string.h": "c",
         "mlx42.h": "c",
         "libft.h": "c",
-        "ranges": "c"
+        "ranges": "c",
+        "cmath": "c",
+        "numbers": "c"
     }
 }
