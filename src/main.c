@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/21 20:39:47 by kate             ###   ########.fr       */
+/*   Updated: 2025/02/23 19:56:29 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,17 @@ void	print_error(void)
 
 int32_t	main(int argc, char **argv)
 {
-	mlx_t	*mlx;
+	//mlx_t	*mlx;
 
 	if (parser_controler(argc, argv) == NULL)
 		return (print_error(), EXIT_FAILURE);
-	mlx = mlx_init(WIDTH, HEIGHT * 2, WINDOW_TITLE, true);
-	if (!mlx)
-		return (puts(mlx_strerror(mlx_errno)), EXIT_FAILURE);
-	set_minimap(mlx);
-	mlx_loop_hook(mlx, ft_hook, mlx);
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
+	//mlx = mlx_init(WIDTH, HEIGHT * 2, WINDOW_TITLE, true);
+	//if (!mlx)
+	//	return (puts(mlx_strerror(mlx_errno)), EXIT_FAILURE);
+	//set_minimap(mlx);
+	//mlx_loop_hook(mlx, ft_hook, mlx);
+	//mlx_loop(mlx);
+	//mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
 }
 
