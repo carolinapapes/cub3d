@@ -6,11 +6,22 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 15:39:47 by kkoval            #+#    #+#             */
-/*   Updated: 2025/02/23 16:14:15 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/02/23 18:51:43 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
+
+char	*free_line(char **line)
+{
+	if (line && *line)
+	{
+		free(*line);
+		*line = NULL;
+	}
+	return (NULL);
+}
+
 
 void	free_int_array(int ***array, int size_y)
 {
@@ -55,5 +66,6 @@ void	free_start(t_start *start)
 		free_char_array(&start->map.map);
 	if (start->map.map_int != NULL)
 		free_int_array(&start->map.map_int, start->map.size_int.y);
+	printf("he estado en el free start\n");
 	return ;
 }

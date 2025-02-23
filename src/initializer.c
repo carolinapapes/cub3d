@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 21:31:53 by kate              #+#    #+#             */
-/*   Updated: 2025/02/23 18:32:41 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/02/23 19:27:15 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,24 +180,26 @@ t_start	*start_initializer(char *line)
 
 	map = get_map(line);
 	if (!map)
-	{
-		free(line);
-		return(NULL);
-	}
+		return(free_line(&line), NULL);
 	elements = get_elements(line);
 	if (!elements)
-	{
-		free(line);
-		return (NULL);
-	}
+		return(free_line(&line), NULL);
 	free(line);
+	
 	start = malloc(sizeof(t_start));
 	if (!start)
 		return (NULL);
 	
-	start_map(start, map);
+	if (start_map(start, map) == 1)
+	{
+		printf("el mapa ha fallado\n");
+		//free map
+		//free elemnts
+		return(free_start(start), NULL);
+	}
 	//start_textures(start, elements);
 	//start_colour(start, elements);
 	//start_player(start);
+	//liberar elements y map!? Siii
 	return (start);
 }

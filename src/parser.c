@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:46:15 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/23 17:02:57 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/02/23 19:15:58 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 char **get_map(char *line)
 {
-	char **map;
-	char *map_start;
+	char	**map;
+	char	*map_start;
 	map_start = find_first_map_line(line);
 	if (map_start == NULL || *map_start == '\0' || check_map(map_start) == 1)
 		return (NULL);
 	map = ft_split(map_start, '\n');
 	if (check_empty_lines_in_map(map) == 1)
 	{
-		printf("lineas vacias en el map\n");
+		printf("lineas vacias en el map, hay free de map\n");
 		return (ft_split_free(map), NULL);
 	}
-	return map;
+	return (map);
 
 }
 
@@ -45,12 +45,10 @@ char	**get_elements(char *line)
 
 	elements = ft_split(line, '\n');
 	if (!elements)
-		return (ft_split_free(elements), NULL);
-	
+		return (NULL);
 	if (check_elements(elements) == 1)
 		return (ft_split_free(elements), NULL);
 	
-
 	//find map start and check for empty lines
 		//return (ft_split_free(file_lines), NULL);
 	//write(1, map_start, ft_strlen(map_start));

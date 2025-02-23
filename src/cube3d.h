@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/23 16:40:48 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/02/23 18:50:06 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ char					*find_first_map_line(char *input);
 char					**get_map(char *line);
 char					**get_elements(char *line);
 int						check_empty_lines_in_map(char **file);
+char					*free_line(char **line);
+void					free_start(t_start *start);
 
 //---------------------------- file_handler -------------------------
 int						check_file_extension(char *file);
