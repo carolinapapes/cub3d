@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 16:04:26 by kkoval            #+#    #+#             */
-/*   Updated: 2025/02/19 19:21:25 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/02/21 20:46:38 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,26 +83,16 @@ int	check_for_newlines_in_map(char *map)
 	return (0);
 }
 
-int	check_map(char *file_contents)
+int	check_map(char *line_map)
 {
-	char	*first_line;
-
-	first_line = find_first_map_line(file_contents);
-	if (first_line == NULL || *first_line == '\0')
-	{
-		printf("no hay primera linea\n");
-		return (1);
-	}
-	printf("The map is: \n%s", first_line);
-	if (is_one_view(first_line) == 1)
+	if (is_one_view(line_map) == 1)
 	{
 		printf("There are more that one direction\n"); // TODO delete later
 		return (1);
 	}
-	printf("%s\n", first_line); // TODO delete later
-	if (check_for_newlines_in_map(first_line) == 1)
+	if (check_for_newlines_in_map(line_map) == 1)
 	{
-		printf("%d  consecutive enter", check_for_newlines_in_map(first_line)); // TODO delete
+		printf("%d  consecutive enter", check_for_newlines_in_map(line_map)); // TODO delete
 		return (1);
 	}
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/12 18:12:50 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/21 20:39:47 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int32_t	main(int argc, char **argv)
 {
 	mlx_t	*mlx;
 
-	if (parser(argc, argv) == NULL)
+	if (parser_controler(argc, argv) == NULL)
 		return (print_error(), EXIT_FAILURE);
 	mlx = mlx_init(WIDTH, HEIGHT * 2, WINDOW_TITLE, true);
 	if (!mlx)

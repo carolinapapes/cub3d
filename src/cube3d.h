@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/18 22:25:52 by kate             ###   ########.fr       */
+/*   Updated: 2025/02/23 01:21:36 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,17 @@ typedef union u_coord
 	double				arr[2];
 }						t_coord;
 
+typedef	struct s_int_pair
+{
+	int	x;
+	int	y;
+}						t_int_pair;
+
 typedef struct s_map
 {
 	t_coord				size;
 	char				**map;
+	t_int_pair			size_int;
 	int					**map_int;
 }						t_map;
 
@@ -96,7 +103,7 @@ typedef struct s_start
 	t_map				map;
 	t_coord				player;
 	int					player_dir;
-
+	t_int_pair          player_pos;
 }						t_start;
 
 typedef enum e_axis
@@ -112,10 +119,26 @@ typedef enum e_dir
 }						t_dir;
 
 // ----------------------------[PARSER]----------------------------
-t_start					*parser(int argc, char **argv);
+t_start					*parser_controler(int argc, char **argv);
 int						ft_split_count(char **split);
 void					ft_split_free(char **split);
 int						check_map(char *file_contents);
+char					*find_first_map_line(char *input);
+char					**get_map(char *line);
+char					**get_elements(char *line);
+int						check_empty_lines_in_map(char **file);
+
+//---------------------------- file_handler -------------------------
+int						check_file_extension(char *file);
+int						get_line_length(int fd);
+char					*read_file(char *file);
+
+//                               INITILIAZER
+t_start					*start_initializer(char *line);
+int						is_map_character(char c);
+
+
+
 
 // ----------------------------[RENDER]----------------------------
 void					iter_image(mlx_image_t *image, void(fn)(mlx_image_t *,
