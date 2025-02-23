@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:46:15 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/23 16:42:53 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/02/23 17:02:57 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	check_elements(char **elements)
 {
 	//if (check_textures(elements) == 1)
 	//	return (1);
+	//if (check_colours())
 	if (ft_split_count(elements) < 9)
 		return (1);
 	return (0);

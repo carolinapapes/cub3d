@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 21:31:53 by kate              #+#    #+#             */
-/*   Updated: 2025/02/23 16:37:44 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/02/23 18:32:41 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,7 @@ t_start	*start_initializer(char *line)
 		free(line);
 		return (NULL);
 	}
+	free(line);
 	start = malloc(sizeof(t_start));
 	if (!start)
 		return (NULL);
