@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 16:04:26 by kkoval            #+#    #+#             */
-/*   Updated: 2025/02/21 20:46:38 by kate             ###   ########.fr       */
+/*   Updated: 2025/02/23 16:53:41 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ char	*find_first_map_line(char *input)
 		while (*input == '\n')
 			input++;
 		i = 0;
-		while (input[i] != '\0' && (is_map_character(input[i]) == 0 || input[i] == '\n'))
+		while (input[i] != '\0' && (is_map_character(input[i]) == 0 \
+			|| input[i] == '\n'))
 			i++;
 		if (input[i] == '\0' && i != 0)
 			return (input);
@@ -97,16 +98,3 @@ int	check_map(char *line_map)
 	}
 	return (0);
 }
-
-/*
-int main(void) 
-{
-    char input[] = "lalalalala \n lalalalal\n\n10101S10110";
-    if (check_map(input) == 1)
-	{
-		printf("error\n");
-		return(1);
-	}
-    return (0);
-}
-*/

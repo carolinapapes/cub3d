@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/23 01:21:36 by kate             ###   ########.fr       */
+/*   Updated: 2025/02/23 16:40:48 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,8 @@ char					*read_file(char *file);
 t_start					*start_initializer(char *line);
 int						is_map_character(char c);
 
-
+int						check_fill_flood(t_start *start);
+void					fill_flood(int	**arr, int x, int y, t_int_pair size);
 
 
 // ----------------------------[RENDER]----------------------------

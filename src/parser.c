@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:46:15 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/23 01:20:55 by kate             ###   ########.fr       */
+/*   Updated: 2025/02/23 16:42:53 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ char	**get_elements(char *line)
 	if (!elements)
 		return (ft_split_free(elements), NULL);
 	
-	//if (check_elements(elements) == 1)
-		//return (ft_split_free(elements), NULL);
+	if (check_elements(elements) == 1)
+		return (ft_split_free(elements), NULL);
 	
 
 	//find map start and check for empty lines
@@ -62,6 +62,7 @@ t_start	*parser_controler(int argc, char **argv)
 	t_start	*start;
 	char	*line;
 
+	start = NULL;
 	if (argc != 2)
 		return (NULL);
 	if (check_file_extension(argv[1]) == EXIT_FAILURE)
@@ -69,7 +70,6 @@ t_start	*parser_controler(int argc, char **argv)
 	line = read_file(argv[1]);
 	if (line == NULL)
 		return (NULL);
-	//more serious check for path and closed map
 	start = start_initializer(line);
 	return (start);
 }

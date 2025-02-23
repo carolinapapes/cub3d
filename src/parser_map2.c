@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_map2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 17:13:18 by kkoval            #+#    #+#             */
-/*   Updated: 2025/02/23 01:17:00 by kate             ###   ########.fr       */
+/*   Updated: 2025/02/23 16:56:09 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	ft_map_start(char **file)
 {
-	int l;
-	int i;
-	int start;
-	int valid;
+	int	l;
+	int	i;
+	int	start;
+	int	valid;
 
 	l = 0;
 	start = -1;
@@ -30,7 +30,7 @@ int	ft_map_start(char **file)
 			if (is_map_character(file[l][i]) == 1)
 			{
 				start = -1;
-				break;
+				break ;
 			}
 			if (file[l][i] != ' ')
 				valid = 1;
@@ -42,7 +42,6 @@ int	ft_map_start(char **file)
 	}
 	return (start);
 }
-
 
 int	check_empty_lines_in_map(char **file)
 {
@@ -66,7 +65,7 @@ int	check_empty_lines_in_map(char **file)
 				if (file[line][i] == '\0')
 					return (1);
 				else
-					break;
+					break ;
 			}
 			i++;
 		}
@@ -74,21 +73,3 @@ int	check_empty_lines_in_map(char **file)
 	}
 	return (0);
 }
-
-/*
-int	main(void)
-{
-	char	**test;
-
-	test = malloc(sizeof(char *) * 6);
-	if (!test)
-		return (0);
-	test[0] = "  0 ";
-	test[1] = "10 11 E 111";
-	test[2] = "1111111111111";
-	test[3] = "0000llll0";
-	test[4] = "101010";
-	test[5] = NULL;
-	printf("%d\n", check_empty_lines_in_map(test));
-	return(0);
-}*/
