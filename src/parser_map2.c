@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 17:13:18 by kkoval            #+#    #+#             */
-/*   Updated: 2025/02/23 16:56:09 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/02/25 14:42:58 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	check_empty_lines_in_map(char **file)
 		return (1);
 	while (file[line] != NULL)
 	{
-		printf("me he quedado atascado\n");
 		i = 0;
 		while (file[line][i] != '\0')
 		{

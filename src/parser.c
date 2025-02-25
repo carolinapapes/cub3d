@@ -6,26 +6,27 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:46:15 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/23 19:15:58 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/02/25 14:41:19 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-char **get_map(char *line)
+int	parse_map(char *line, char ***map)
 {
-	char	**map;
 	char	*map_start;
 	map_start = find_first_map_line(line);
 	if (map_start == NULL || *map_start == '\0' || check_map(map_start) == 1)
-		return (NULL);
-	map = ft_split(map_start, '\n');
-	if (check_empty_lines_in_map(map) == 1)
+		return (1);
+	*map = ft_split(map_start, '\n');
+	if (!*map)
+		return (1);
+	if (check_empty_lines_in_map(*map) == 1)
 	{
-		printf("lineas vacias en el map, hay free de map\n");
-		return (ft_split_free(map), NULL);
+		free_char_array(map);
+		return (1);
 	}
-	return (map);
+	return (0);
 
 }
 
@@ -39,36 +40,59 @@ int	check_elements(char **elements)
 	return (0);
 }
 
-char	**get_elements(char *line)
+int	parse_elements(char *line, char ***elements)
 {
-	char	**elements;
-
-	elements = ft_split(line, '\n');
-	if (!elements)
-		return (NULL);
-	if (check_elements(elements) == 1)
-		return (ft_split_free(elements), NULL);
+	*elements = ft_split(line, '\n');
+	if (!*elements)
+		return (1);
+	if (check_elements(*elements) == 1)
+	{
+		free_char_array(elements);
+		return (1);
+	}
 	
 	//find map start and check for empty lines
 		//return (ft_split_free(file_lines), NULL);
 	//write(1, map_start, ft_strlen(map_start));
 	
-	return (elements);
+	return (0);
 }
 
-t_start	*parser_controler(int argc, char **argv)
+int	parser_controler(int argc, char **argv, t_start *start)
 {
-	t_start	*start;
 	char	*line;
-
-	start = NULL;
+	char	**map;
+	char	**elements;
+	
+	line = NULL;
+	map = NULL;
+	elements = NULL;
 	if (argc != 2)
-		return (NULL);
+		return (1);
 	if (check_file_extension(argv[1]) == EXIT_FAILURE)
-		return (NULL);
-	line = read_file(argv[1]);
-	if (line == NULL)
-		return (NULL);
-	start = start_initializer(line);
-	return (start);
+		return (1);
+	if (read_file(argv[1], &line) == 1)
+		return (1);
+	if (parse_map(line, &map) == 1)
+	{
+		free(line);
+		return(1);
+	}
+	if (parse_elements(line, &elements) == 1)
+	{	
+		free(line);
+		free_char_array(&map);
+		return(1);
+	}
+	if (start_initializer(start, map, elements) == 1)
+	{
+		free(line);
+		free_char_array(&map);
+		free_char_array(&elements);
+		return (1);
+	}
+	free(line);
+	free_char_array(&map);
+	free_char_array(&elements);
+	return (0);
 }

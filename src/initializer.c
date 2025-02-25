@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 21:31:53 by kate              #+#    #+#             */
-/*   Updated: 2025/02/23 19:27:15 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/02/25 14:44:45 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	map_x_size(char **map)
 	int	i;
 
 	max_size = 0;
+	if (!map)
+		return (-1);
 	while(*map != NULL)
 	{
 		size = 0;
@@ -42,6 +44,8 @@ int	map_y_size(char **map)
 	int	size;
 
 	size = 0;
+	if (!map)
+		return(-1);
 	while(*map != NULL)
 	{
 		size++;
@@ -151,55 +155,35 @@ int	start_map(t_start *start, char **map)
 	}
 	start->map.size_int.x = size_x;
 	start->map.size_int.y = size_y;
-	start->map.map = map;
-	ft_print_split(start->map.map); // TODO delete later
 
 	start->map.map_int = char_to_int(map, size_x, size_y, start);
 	if (start->map.map_int == NULL)
 		return (1);
-	print_int_map(start->map.map_int, size_x, size_y);// TODO delete later
-	printf("\n\n");
-	printf("x: %d\n, y: %d\n    y la letra es: %c\n", start->player_pos.x, start->player_pos.y, start->player_dir);
+	//print_int_map(start->map.map_int, size_x, size_y);// TODO delete later
 	fill_flood(start->map.map_int, start->player_pos.x, start->player_pos.y, start->map.size_int);
 	if (check_fill_flood(start) == 1) //free start
 	{
 		printf("check fill flood ha encontrado error en el mapa\n");
 		return (1);
 	}
-	printf("\n\n");
-	print_int_map(start->map.map_int, size_x, size_y);
+	//print_int_map(start->map.map_int, size_x, size_y);
 	return (0);
 	
 }
 
-t_start	*start_initializer(char *line)
+int	start_initializer(t_start *start, char **map, char **elements)
 {
-	t_start	*start;
-	char	**map;
-	char	**elements;
+	(void)elements;
 
-	map = get_map(line);
-	if (!map)
-		return(free_line(&line), NULL);
-	elements = get_elements(line);
-	if (!elements)
-		return(free_line(&line), NULL);
-	free(line);
-	
-	start = malloc(sizeof(t_start));
-	if (!start)
-		return (NULL);
-	
 	if (start_map(start, map) == 1)
 	{
-		printf("el mapa ha fallado\n");
 		//free map
 		//free elemnts
-		return(free_start(start), NULL);
+		return(free_start(start), 1);
 	}
 	//start_textures(start, elements);
 	//start_colour(start, elements);
 	//start_player(start);
 	//liberar elements y map!? Siii
-	return (start);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/23 18:50:06 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/02/25 14:40:46 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,24 +119,24 @@ typedef enum e_dir
 }						t_dir;
 
 // ----------------------------[PARSER]----------------------------
-t_start					*parser_controler(int argc, char **argv);
+int						parser_controler(int argc, char **argv, t_start *start);
 int						ft_split_count(char **split);
 void					ft_split_free(char **split);
 int						check_map(char *file_contents);
 char					*find_first_map_line(char *input);
-char					**get_map(char *line);
-char					**get_elements(char *line);
+int						parse_map(char *line, char ***map);
+int						parse_elements(char *line, char ***elements);
 int						check_empty_lines_in_map(char **file);
 char					*free_line(char **line);
 void					free_start(t_start *start);
-
+void					free_char_array(char ***split);
 //---------------------------- file_handler -------------------------
 int						check_file_extension(char *file);
 int						get_line_length(int fd);
-char					*read_file(char *file);
+int						read_file(char *file, char **line);
 
 //                               INITILIAZER
-t_start					*start_initializer(char *line);
+int						start_initializer(t_start *start, char **map, char **elements);
 int						is_map_character(char c);
 
 int						check_fill_flood(t_start *start);

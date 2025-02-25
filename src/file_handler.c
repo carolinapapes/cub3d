@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 01:04:48 by kate              #+#    #+#             */
-/*   Updated: 2025/02/23 01:11:20 by kate             ###   ########.fr       */
+/*   Updated: 2025/02/25 14:46:52 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,38 +29,39 @@ int	get_line_length(int fd)
 	char	line[1];
 	int		res;
 
-	length = -1;
-	res = 1;
-	while (res != -1 && res != 0)
-	{
-		res = read(fd, line, 1);
+	length = 0;  // Fix: Start from 0
+	while ((res = read(fd, line, 1)) > 0)
 		length++;
-	}
+	if (res == -1)
+		return (-1);
 	return (length);
 }
 
-char	*read_file(char *file)
+int	read_file(char *file, char **line)
 {
 	int		fd;
-	int		ret;
-	char	*file_contents;
+	int		len;
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		return (NULL);
-	ret = get_line_length(fd);
+		return (1);
+	len = get_line_length(fd);
 	close(fd);
-	if (ret == 0)
-		return (NULL);
+	if (len <= 0)  // Fix: Handle errors and empty files correctly
+		return (1);
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		return (NULL);
-	file_contents = malloc(sizeof(char) * (ret + 1));
-	ret = read(fd, file_contents, ret);
-	file_contents[ret] = '\0';
-	if (ret == -1)
-		return (NULL);
+		return (1);
+	*line = malloc(len + 1);
+	if (!(*line))  // Fix: Check malloc success
+		return (1);
+	int read_bytes = read(fd, *line, len);
 	close(fd);
-	return (file_contents);
-	
+	if (read_bytes == -1)  // Fix: Check read() return value
+	{
+		free(*line);
+		return (1);
+	}
+	(*line)[read_bytes] = '\0';  // Fix: Only write null terminator if read() succeeds
+	return (0);
 }

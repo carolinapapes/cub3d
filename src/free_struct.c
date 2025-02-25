@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 15:39:47 by kkoval            #+#    #+#             */
-/*   Updated: 2025/02/23 18:51:43 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/02/25 14:48:57 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	free_int_array(int ***array, int size_y)
 	}
 	free(*array);
 	*array = NULL;
+	printf("he entrado al free int\n");
 	return ;
 }
 
@@ -54,6 +55,7 @@ void	free_char_array(char ***split)
 	}
 	free(*split);
 	*split = NULL;
+	printf("he entrado en free char\n");
 	return ;
 }
 
@@ -62,8 +64,6 @@ void	free_start(t_start *start)
 {
 	if (!start)
 		return ;
-	if (start->map.map != NULL)
-		free_char_array(&start->map.map);
 	if (start->map.map_int != NULL)
 		free_int_array(&start->map.map_int, start->map.size_int.y);
 	printf("he estado en el free start\n");

@@ -6,12 +6,11 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/23 19:56:29 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/02/25 14:39:50 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
-#include <unistd.h>
 
 void	ft_hook(void *param)
 {
@@ -40,12 +39,20 @@ void	print_error(void)
 	return ;
 }
 
-int32_t	main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	//mlx_t	*mlx;
+	t_start	*start;
 
-	if (parser_controler(argc, argv) == NULL)
+	start = malloc(sizeof(t_start));
+	if (!start)
+		return (1);
+	if (parser_controler(argc, argv, start) == 1)
+	{
+		//free_start(start);
+		free(start);
 		return (print_error(), EXIT_FAILURE);
+	}
 	//mlx = mlx_init(WIDTH, HEIGHT * 2, WINDOW_TITLE, true);
 	//if (!mlx)
 	//	return (puts(mlx_strerror(mlx_errno)), EXIT_FAILURE);
@@ -53,6 +60,8 @@ int32_t	main(int argc, char **argv)
 	//mlx_loop_hook(mlx, ft_hook, mlx);
 	//mlx_loop(mlx);
 	//mlx_terminate(mlx);
+	free_start(start);
+	free(start);
 	return (EXIT_SUCCESS);
 }
 
