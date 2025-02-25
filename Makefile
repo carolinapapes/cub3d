@@ -6,7 +6,7 @@
 #    By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/02/23 18:40:41 by kkoval           ###   ########.fr        #
+#    Updated: 2025/02/25 16:15:52 by kkoval           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ TARGET = main
 
 # Source files and objects
 MAIN_SRC = main.c minimap.c image_utils.c miniplayer.c miniview.c parser.c ft_split_utils.c parser_map.c \
-			parser_map2.c parser_map3.c initializer.c file_handler.c free_struct.c
+			parser_map2.c parser_map3.c initializer.c file_handler.c free_struct.c path.c
 MAIN_OBJ = $(patsubst %.c, $(OBJDIR)/%.o, $(MAIN_SRC))
 DEP_FILES = $(MAIN_OBJ:.o=.d)
 

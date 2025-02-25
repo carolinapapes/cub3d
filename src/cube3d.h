@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/25 14:40:46 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/02/25 18:15:04 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,10 @@ typedef struct s_map
 
 typedef struct s_start
 {
-	int					n_fd;
-	int					s_fd;
-	int					w_fd;
-	int					e_fd;
+	char				*n_fd;
+	char				*s_fd;
+	char				*w_fd;
+	char				*e_fd;
 	t_color				floor;
 	t_color				ceiling;
 	t_map				map;
@@ -125,11 +125,13 @@ void					ft_split_free(char **split);
 int						check_map(char *file_contents);
 char					*find_first_map_line(char *input);
 int						parse_map(char *line, char ***map);
-int						parse_elements(char *line, char ***elements);
+int						parse_elements(char *line, char ***elements, t_start *start);
 int						check_empty_lines_in_map(char **file);
 char					*free_line(char **line);
 void					free_start(t_start *start);
 void					free_char_array(char ***split);
+int						check_four_dir(t_start *start, char **elements);
+
 //---------------------------- file_handler -------------------------
 int						check_file_extension(char *file);
 int						get_line_length(int fd);

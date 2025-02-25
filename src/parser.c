@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:46:15 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/25 14:41:19 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/02/25 18:20:02 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,36 @@ int	parse_map(char *line, char ***map)
 
 }
 
-int	check_elements(char **elements)
+int	check_elements(char **elements, t_start *start)
 {
-	//if (check_textures(elements) == 1)
-	//	return (1);
+	
 	//if (check_colours())
 	if (ft_split_count(elements) < 9)
 		return (1);
+	if (check_four_dir(start, elements) == 1)
+	{
+		printf("falta path o hay alguno repetido\n");
+		return (1);
+	}
+	printf("%s\n", start->n_fd);
+	printf("%s\n", start->s_fd);
+	printf("%s\n", start->w_fd);
+	printf("%s\n", start->e_fd);
+	free_line(&start->n_fd);
+	free_line(&start->s_fd);
+	free_line(&start->w_fd);
+	free_line(&start->e_fd);
+	//	if (check_textures(elements) == 1)
+	//	return (1);
 	return (0);
 }
 
-int	parse_elements(char *line, char ***elements)
+int	parse_elements(char *line, char ***elements, t_start *start)
 {
 	*elements = ft_split(line, '\n');
 	if (!*elements)
 		return (1);
-	if (check_elements(*elements) == 1)
+	if (check_elements(*elements, start) == 1)
 	{
 		free_char_array(elements);
 		return (1);
@@ -78,7 +92,7 @@ int	parser_controler(int argc, char **argv, t_start *start)
 		free(line);
 		return(1);
 	}
-	if (parse_elements(line, &elements) == 1)
+	if (parse_elements(line, &elements, start) == 1)
 	{	
 		free(line);
 		free_char_array(&map);
