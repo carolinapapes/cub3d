@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   moves.c                                            :+:      :+:    :+:   */
+/*   r_moves.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:50:40 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/23 19:50:17 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/25 12:28:35 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	collition_check(int axis, int dir)
 	t_vector	position;
 
 	moves = 3 * dir;
-	position = get_player_pos(PLAYER_PIXEL_CENTER);
+	position = get_player_pos(CENTER_PX);
 	position.arr[axis] += PLAYER_MIDDLE * dir;
 	position.arr[axis] += moves;
 	while (moves && hits_wall(position, axis))

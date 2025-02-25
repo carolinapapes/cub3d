@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniplayer.c                                       :+:      :+:    :+:   */
+/*   r_player.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/23 18:24:58 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/25 20:20:51 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	update_pos(t_player *player, t_vector position)
 
 void	update_pov(t_player *player, double angle_delta)
 {
-	t_vector	grid_distance;
-
 	player->pov.angle += angle_delta * M_PI / 180;
 	player->pov.t_ratio.x = cos(player->pov.angle);
 	player->pov.t_ratio.y = sin(player->pov.angle);
@@ -31,8 +29,7 @@ void	update_pov(t_player *player, double angle_delta)
 		(player->pov.t_ratio.x > 0) - (player->pov.t_ratio.x < 0);
 	player->pov.quadrant.y = \
 		(player->pov.t_ratio.y > 0) -(player->pov.t_ratio.y < 0);
-	grid_distance = get_grid_distance(*player);
-	update_mlx_view(*player, grid_distance);
+	update_mlx_view(*player);
 }
 
 /* @brief Set the player position and return the player struct
@@ -77,10 +74,49 @@ t_vector	get_player_pos(int flag)
 
 	player = get_player();
 	pos = player.pos;
-	if (flag == PLAYER_PIXEL_CENTER)
-	{
+	if (flag & CENTER_X)
 		pos.x = pos.x + PLAYER_MIDDLE;
+	if (flag & CENTER_Y)
 		pos.y = pos.y + PLAYER_MIDDLE;
+	if (flag & RIGHT)
+		pos.x = pos.x + PLAYER_SIZE;
+	if (flag & BOTTOM)
+		pos.y = pos.y + PLAYER_SIZE;
+	if (!(flag & PIXEL))
+	{
+		pos.x = pos.x / GRID_SIZE;
+		pos.y = pos.y / GRID_SIZE;
 	}
 	return (pos);
+}
+
+t_vector	get_player_pos_by_quadrant(int flag)
+{
+	t_vector	pos;
+	t_player	player;
+
+	player = get_player();
+	pos = get_player_pos(PIXEL | CENTER);
+	if (flag == X)
+		pos.x = pos.x + PLAYER_MIDDLE * player.pov.quadrant.x;
+	if (flag == Y)
+		pos.y = pos.y + PLAYER_MIDDLE * player.pov.quadrant.y;
+	return (pos);
+}
+
+double	snap_to_grid_axis(double origin, int quadrant)
+{
+	origin = origin / GRID_SIZE;
+	if (floor(origin) == origin)
+		origin += quadrant;
+	else
+		origin = floor(origin) + (quadrant == POSITIVE);
+	origin = origin * GRID_SIZE;
+	return (origin);
+}
+
+t_vector	snap_to_grid(t_vector origin, t_axis axis, t_vector quadrant)
+{
+	origin.arr[axis] = snap_to_grid_axis(origin.arr[axis], quadrant.arr[axis]);
+	return (origin);
 }

@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/23 19:51:32 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/25 17:56:15 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define E 32
 # define W 64
 # define PLAYER 120
+# define OUTSIDE 128
 
 # define SET_PLAYER 1
 # define SET_INSTANCE 2
@@ -52,6 +53,9 @@
 # define PLAYER_MIDDLE 16
 # define HEX_RED 0xFF0000FF
 # define HEX_GREEN 0x00FF00FF
+# define HEX_BLUE 0x0000FFFF
+# define HEX_YELLOW 0xFFFF00FF
+# define HEX_PURPLE 0xFF00FFFF
 
 # define FOV 60 // field of view maybe fixed
 
@@ -65,7 +69,32 @@
 
 # define PLAYER_ORIGIN 1
 # define PLAYER_CENTER 2
-# define PLAYER_PIXEL_CENTER 3
+# define PLAYER_PIXEL_CENTER 0
+
+// When calling for the player position there are multiple 
+// options depending on the movement direction or axis needed to check
+# define LEFT 1
+# define RIGHT 2
+# define CENTER_X 4
+# define TOP 8
+# define BOTTOM 16
+# define CENTER_Y 32
+# define PIXEL 64
+# define CENTER 36 // CENTER_X | CENTER_Y
+# define TOP_LEFT 9 // LEFT_X | TOP_Y
+# define TOP_RIGHT 10 // RIGHT_X | TOP_Y
+# define BOTTOM_LEFT 17 // LEFT_X | BOTOM_Y
+# define BOTTOM_RIGHT 18 // RIGHT_X | BOTOM_Y
+# define CENTER_PX 100 // CENTER_X | CENTER_Y | PIXEL
+# define TOP_LEFT_PX 73 // LEFT_X | TOP_Y | PIXEL
+# define TOP_RIGHT_PX 74 // RIGHT_X | TOP_Y | PIXEL
+# define BOTTOM_LEFT_PX 81 // LEFT_X | BOTOM_Y | PIXEL
+# define BOTTOM_RIGHT_PX 82 // RIGHT_X | BOTOM_Y | PIXEL
+# define COORDINATE 128
+# define SNAP_TO_GRID 256
+
+# define FURTHER 1
+# define NEAREST -1
 
 typedef union u_color
 {
@@ -162,11 +191,11 @@ void					minimap_init(void);
 int						is_fixed_object(uint32_t x, uint32_t y);
 mlx_image_t				*new_image(t_vector size, t_vector origin);
 void					update_mlx_player(t_player *player);
-void					update_mlx_view(t_player player,
-							t_vector grid_distance);
+void					update_mlx_view(t_player player);
+int						is_axis_wall(t_vector coord, t_axis axis);
 t_player				set_player(t_vector position_delta, double angle_delta);
-t_vector				get_grid_distance(t_player player);
 mlx_image_t				*get_view(void);
+int						is_wall(t_vector coord);
 
 void					player_init(void);
 void					cub3d_init(void);
@@ -179,14 +208,17 @@ void					mlx_clear_image(mlx_image_t *image);
 void					draw_pixel(mlx_image_t *image, t_vector pixel,
 							int32_t color);
 t_vector				get_player_pos(int flag);
-;
+t_vector				get_player_pos_by_quadrant(int flag);
 void					image_full_color(mlx_image_t *image, int32_t color);
 mlx_image_t				*new_image_full(void);
 void					draw_point(mlx_image_t *image, t_vector point,
 							int color);
 t_player				get_player(void);
 void					draw_intersect(t_player player, t_vector pos,
-							t_vector point, int color);
+							int color);
+t_vector				snap_to_grid(t_vector origin, t_axis axis,
+							t_vector quadrant);
+void					draw_axis_line(int position, int axis);
 // ----------------------------[DELETE BEFORE SUBMIT]---------------
 void					ft_print_split(char **split);
 
