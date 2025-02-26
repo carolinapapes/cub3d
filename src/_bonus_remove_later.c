@@ -6,41 +6,11 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 14:21:30 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/26 13:23:49 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/26 17:31:07 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
-
-mlx_image_t	*init_player_image(void)
-{
-	t_vector	size;
-	t_vector	origin;
-	mlx_image_t	*image;
-
-	origin.x = 0;
-	origin.y = 0;
-	size.x = PLAYER_SIZE;
-	size.y = PLAYER_SIZE;
-	image = new_image(size, origin);
-	image_full_color(image, PLAYER_COLOR);
-	return (image);
-}
-
-mlx_image_t	*get_view(void)
-{
-	static mlx_image_t	*mlx_view;
-
-	if (!mlx_view)
-		mlx_view = new_image_full();
-	return (mlx_view);
-}
-
-void	update_mlx_player(t_player *player)
-{
-	player->mlx_player->instances[0].x = player->pos.x;
-	player->mlx_player->instances[0].y = player->pos.y;
-}
 
 t_vector	next_grid(t_vector_full ray, t_axis axis)
 {
@@ -95,18 +65,26 @@ void	draw_view_plane(void)
 	}
 }
 
-void	update_mlx_view(t_player player)
+t_vector_full	get_ray(t_player player)
 {
 	t_vector_full	ray;
 
-	mlx_clear_image(player.mlx_view);
-	mlx_clear_image(get_aux());
 	ray.distance = 0;
 	ray.direction = player.pov.t_ratio;
 	ray.origin = get_player_pos(PIXEL | CENTER);
 	ray.end = ray.origin;
 	ray.quadrant = player.pov.quadrant;
 	ray.tan = player.pov.tan;
+	return (ray);
+}
+
+void	update_mlx_view(t_player player)
+{
+	t_vector_full	ray;
+
+	mlx_clear_image(player.mlx_view);
+	mlx_clear_image(get_aux());
+	ray = get_ray(player);
 	ray = intersect(ray, X);
 	if (ray.distance != 0)
 		draw_intersect_2(ray, HEX_RED);
@@ -123,9 +101,9 @@ void	update_mlx_view(t_player player)
 // 	player->pov.t_ratio.x = cos(player->pov.angle);
 // 	player->pov.t_ratio.y = sin(player->pov.angle);
 // 	player->pov.tan = tan(player->pov.angle);
-// 	player->pov.quadrant.x = \
+// 	player->pov.quadrant.x = 
 // 		(player->pov.t_ratio.x > 0) - (player->pov.t_ratio.x < 0);
-// 	player->pov.quadrant.y = \
+// 	player->pov.quadrant.y = 
 // 		(player->pov.t_ratio.y > 0) -(player->pov.t_ratio.y < 0);
 // }
 
