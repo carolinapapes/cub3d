@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:00:50 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/25 18:00:45 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/26 19:04:03 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int	is_fixed_object(uint32_t x, uint32_t y)
 }
 
 // BONUS FN
-static void	draw_minimap(mlx_image_t *image, uint32_t x, uint32_t y)
+void	draw_minimap(mlx_image_t *image, uint32_t x, uint32_t y)
 {
 	int	content;
 
@@ -126,14 +126,4 @@ static void	draw_minimap(mlx_image_t *image, uint32_t x, uint32_t y)
 		mlx_put_pixel(image, x, y, GRID_COLOR);
 	if (content & WALL)
 		mlx_put_pixel(image, x, y, WALL_COLOR);
-}
-
-// THIS FUNCTION WILL BE REMOVED AND REPLACED 
-// BY THE PARSER RESULT CALL TO SET PLAYER
-void	minimap_init(void)
-{
-	mlx_image_t	*minimap;
-
-	minimap = new_image_full();
-	iter_image(minimap, draw_minimap);
 }

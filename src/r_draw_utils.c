@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:31:42 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/26 12:20:45 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/26 18:58:02 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,23 +78,3 @@ void	draw_axis_line(int position, int axis)
 	}
 }
 
-void	draw_intersect(t_player player, t_vector next, int color)
-{
-	int			len;
-	t_vector	origin;
-
-	origin = get_player_pos(PIXEL | CENTER);
-	len = abs((int)hypot(next.x - origin.x, next.y - origin.y));
-	draw_line(origin, player.pov.t_ratio, len, color);
-	draw_point(next, color);
-}
-
-void	draw_intersect_2(t_vector_full vector, int color)
-{
-	printf("origin: %f, %f\n", vector.origin.x, vector.origin.y);
-	printf("end: %f, %f\n", vector.end.x, vector.end.y);
-	printf("direction: %f, %f\n", vector.direction.x, vector.direction.y);
-	printf("distance: %f\n", vector.distance);
-	draw_line(vector.origin, vector.direction, vector.distance, color);
-	draw_point(vector.end, color);
-}

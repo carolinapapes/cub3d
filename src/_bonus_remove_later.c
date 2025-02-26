@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 14:21:30 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/26 17:31:07 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/26 18:59:26 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,33 +38,6 @@ t_vector_full	intersect(t_vector_full ray, int axis)
 	return (ray);
 }
 
-void	draw_view_plane(void)
-{
-	t_player	player;
-	t_vector	inverse;
-	t_vector	origin;
-
-	player = get_player();
-	origin = get_player_pos(PIXEL | CENTER);
-	inverse.x = -player.pov.t_ratio.y;
-	inverse.y = player.pov.t_ratio.x;
-	while (origin.x >= 0 && origin.x < WIDTH && origin.y >= 0
-		&& origin.y < HEIGHT)
-	{
-		draw_pixel(player.mlx_view, origin, HEX_BLUE);
-		origin.x += inverse.x;
-		origin.y += inverse.y;
-	}
-	origin = get_player_pos(PIXEL | CENTER);
-	while (origin.x >= 0 && origin.x < WIDTH && origin.y >= 0
-		&& origin.y < HEIGHT)
-	{
-		draw_pixel(player.mlx_view, origin, HEX_BLUE);
-		origin.x -= inverse.x;
-		origin.y -= inverse.y;
-	}
-}
-
 t_vector_full	get_ray(t_player player)
 {
 	t_vector_full	ray;
@@ -87,11 +60,11 @@ void	update_mlx_view(t_player player)
 	ray = get_ray(player);
 	ray = intersect(ray, X);
 	if (ray.distance != 0)
-		draw_intersect_2(ray, HEX_RED);
+		draw_intersect(ray, HEX_RED);
 	ray.end = ray.origin;
 	ray = intersect(ray, Y);
 	if (ray.distance != 0)
-		draw_intersect_2(ray, HEX_GREEN);
+		draw_intersect(ray, HEX_GREEN);
 	draw_view_plane();
 }
 

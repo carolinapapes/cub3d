@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/26 18:55:50 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/26 19:04:37 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,19 +192,27 @@ void					ft_split_free(char **split);
 
 // ----------------------------[RENDER]----------------------------
 
-// bonus
+// _aux_images.c
+mlx_image_t				*init_player_image(void);
+void					update_mlx_player(t_player *player);
+mlx_image_t				*get_view(void);
+mlx_image_t				*get_aux(void);
+
+// _bonus_remove_later.c
+void					update_mlx_view(t_player player);
+
+// _minimap.c
+void					draw_minimap(mlx_image_t *image,
+							uint32_t x, uint32_t y);
+
 mlx_t					*get_mlx(void);
 void					player_rotate(int dir);
 void					player_move(t_axis axis, int dir);
-mlx_image_t				*init_player_image(void);
 void					minimap_init(void);
 int						is_fixed_object(uint32_t x, uint32_t y);
 mlx_image_t				*new_image(t_vector size, t_vector origin);
-void					update_mlx_player(t_player *player);
-void					update_mlx_view(t_player player);
 int						is_axis_wall(t_vector coord, t_axis axis);
 t_player				set_player(t_vector position_delta, double angle_delta);
-mlx_image_t				*get_view(void);
 int						is_wall(t_vector coord);
 
 void					player_init(void);
@@ -224,13 +232,11 @@ mlx_image_t				*new_image_full(void);
 void					draw_point(t_vector point,
 							int color);
 t_player				get_player(void);
-void					draw_intersect(t_player player, t_vector pos,
-							int color);
 
 void					draw_axis_line(int position, int axis);
 void					draw_line(t_vector origin, t_vector direction, int len, int color);
-void					draw_intersect_2(t_vector_full vector, int color);
-mlx_image_t				*get_aux(void);
+void					draw_intersect(t_vector_full vector, int color);
+void					draw_view_plane(void);
 double					snap_to_grid(double origin, int quadrant);
 // ----------------------------[DELETE BEFORE SUBMIT]---------------
 void					ft_print_split(char **split);
