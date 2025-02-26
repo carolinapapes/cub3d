@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 14:21:30 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/25 20:23:10 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/26 13:23:49 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,67 +42,30 @@ void	update_mlx_player(t_player *player)
 	player->mlx_player->instances[0].y = player->pos.y;
 }
 
-t_vector	intersection(t_pov pov, t_vector grid, t_axis axis, t_vector origin)
+t_vector	next_grid(t_vector_full ray, t_axis axis)
 {
 	t_vector	next;
 
-	if (pov.quadrant.arr[!axis] == 0)
-		return (origin);
-	if (axis == Y)
-		pov.tan = 1 / pov.tan;
-	next.arr[axis] = grid.arr[axis];
-	next.arr[!axis] = origin.arr[!axis]
-		+ (grid.arr[axis] - origin.arr[axis]) * pov.tan;
+	next.arr[axis] = snap_to_grid(ray.end.arr[axis], ray.quadrant.arr[axis]);
+	next.arr[!axis] = ray.end.arr[!axis]
+		+ (next.arr[axis] - ray.end.arr[axis]) * ray.tan.arr[axis];
 	return (next);
 }
 
-void	next_intersection(t_vector pos, t_vector intersect, t_player player, int axis)
+t_vector_full	intersect(t_vector_full ray, int axis)
 {
-	t_vector	next;
-	t_vector	next_intersect;
+	int				type;
 
-	next.arr[axis] = pos.arr[!axis] + (player.pov.t_ratio.arr[!axis] * -30);
-	next.arr[!axis] = pos.arr[axis] + player.pov.t_ratio.arr[axis] * 30;
-	draw_point(player.mlx_view, next, HEX_PURPLE);
-	next_intersect.arr[!axis] = intersect.arr[!axis] + (player.pov.t_ratio.arr[!axis] * 30);
-	next_intersect.arr[axis] = intersect.arr[axis];
-	draw_point(player.mlx_view, next_intersect, HEX_PURPLE);
-}
-
-double	intersect_with_wall(t_player player, int axis, uint32_t color,
-	t_vector origin)
-{
-	t_vector	intersect;
-	t_vector	grid_snap;
-	t_vector	pos;
-	double		len;
-	int			res;
-
-	if (player.pov.quadrant.arr[!axis] == 0)
-		return (0);
-	grid_snap = snap_to_grid(origin, axis, player.pov.quadrant);
-	intersect = intersection(player.pov, grid_snap, axis, origin);
-	len = 0;
-	res = is_axis_wall(intersect, axis);
-	if (res == OUTSIDE)
-		return (0);
-	if (res == WALL)
-	{
-		pos = get_player_pos(PIXEL | CENTER);
-		len = hypot(intersect.x - pos.x, intersect.y - pos.y);
-		draw_intersect(player, intersect, color);
-		draw_axis_line(grid_snap.arr[axis], axis);
-	}
-	else
-		len = intersect_with_wall(player, axis, color, intersect);
-	return (len);
-}
-
-double	get_min(double a, double b)
-{
-	if (a < b)
-		return (a);
-	return (b);
+	if (ray.quadrant.arr[!axis] == 0)
+		return (ray);
+	ray.end = next_grid(ray, axis);
+	type = is_axis_wall(ray.end, axis);
+	if (type == OUTSIDE)
+		return (ray);
+	if (type == GRID)
+		return (intersect(ray, axis));
+	ray.distance = hypot(ray.end.x - ray.origin.x, ray.end.y - ray.origin.y);
+	return (ray);
 }
 
 void	draw_view_plane(void)
@@ -132,34 +95,90 @@ void	draw_view_plane(void)
 	}
 }
 
-void update_player(t_player *player, double angle_delta)
-{
-	player->pov.angle += angle_delta * M_PI / 180;
-	player->pov.t_ratio.x = cos(player->pov.angle);
-	player->pov.t_ratio.y = sin(player->pov.angle);
-	player->pov.tan = tan(player->pov.angle);
-	player->pov.quadrant.x = \
-		(player->pov.t_ratio.x > 0) - (player->pov.t_ratio.x < 0);
-	player->pov.quadrant.y = \
-		(player->pov.t_ratio.y > 0) -(player->pov.t_ratio.y < 0);
-}
-
 void	update_mlx_view(t_player player)
 {
-	t_vector	origin;
-	double		fov;
+	t_vector_full	ray;
 
-	fov = 30;
 	mlx_clear_image(player.mlx_view);
-	origin = get_player_pos(CENTER_PX);
-	intersect_with_wall(player, X, HEX_RED, origin);
-	intersect_with_wall(player, Y, HEX_GREEN, origin);
+	mlx_clear_image(get_aux());
+	ray.distance = 0;
+	ray.direction = player.pov.t_ratio;
+	ray.origin = get_player_pos(PIXEL | CENTER);
+	ray.end = ray.origin;
+	ray.quadrant = player.pov.quadrant;
+	ray.tan = player.pov.tan;
+	ray = intersect(ray, X);
+	if (ray.distance != 0)
+		draw_intersect_2(ray, HEX_RED);
+	ray.end = ray.origin;
+	ray = intersect(ray, Y);
+	if (ray.distance != 0)
+		draw_intersect_2(ray, HEX_GREEN);
 	draw_view_plane();
-	while (fov)
-	{
-		fov -= 5;
-		update_player(&player, 5);		
-		intersect_with_wall(player, X, HEX_RED, origin);
-		intersect_with_wall(player, Y, HEX_GREEN, origin);
-	}
 }
+
+// void update_player(t_player *player, double angle_delta)
+// {
+// 	player->pov.angle += angle_delta * M_PI / 180;
+// 	player->pov.t_ratio.x = cos(player->pov.angle);
+// 	player->pov.t_ratio.y = sin(player->pov.angle);
+// 	player->pov.tan = tan(player->pov.angle);
+// 	player->pov.quadrant.x = \
+// 		(player->pov.t_ratio.x > 0) - (player->pov.t_ratio.x < 0);
+// 	player->pov.quadrant.y = \
+// 		(player->pov.t_ratio.y > 0) -(player->pov.t_ratio.y < 0);
+// }
+
+// update_player(&player, 30);
+// intersect_with_wall(player, X, HEX_RED, origin);
+// intersect_with_wall(player, Y, HEX_GREEN, origin);
+// update_player(&player, -60);
+// intersect_with_wall(player, X, HEX_RED, origin);
+// intersect_with_wall(player, Y, HEX_GREEN, origin);
+
+// // Calculate the determinant (Delta)
+// // If determinant is zero, the lines are parallel (no intersection)
+// void	draw_next_grid_intersections(t_vector quadrant,
+// 		t_vector intersect, int axis, u_int32_t color)
+// {
+// 	t_vector	grid_snap;
+// 	t_vector	inverse;
+// 	t_vector	dir;
+// 	int			original_len;
+// 	int			len;
+// 	t_vector	pos;
+
+// 	dir = get_player().pov.t_ratio;
+// 	pos = get_player_pos(PIXEL | CENTER);
+// 	grid_snap = snap_to_grid(intersect, !axis, quadrant);
+// 	draw_point(grid_snap, color - 0x00000088);
+// 	inverse.x = -dir.y;
+// 	inverse.y = dir.x;
+// 	draw_line(grid_snap, inverse, 100, HEX_GREEN - 0x00000088);
+// 	inverse.x = -inverse.x;
+// 	inverse.y = -inverse.y;
+// 	draw_line(grid_snap, inverse, 100, HEX_GREEN - 0x00000088);
+// 	inverse.x = -dir.x;
+// 	inverse.y = -dir.y;
+// 	original_len = hypot(intersect.x - pos.x, intersect.y - pos.y);
+// 	len = intersect.arr[!axis] - grid_snap.arr[!axis];
+// 	len = get_player().pov.tan * len;
+// 	printf("len: %d\n", len);
+// 	draw_line(grid_snap, inverse, abs(original_len + len), HEX_GREEN);
+// 	quadrant.arr[!axis] = (quadrant.arr[!axis] < 0) - (quadrant.arr[!axis] > 0);
+// 	grid_snap = snap_to_grid(intersect, !axis, quadrant);
+// 	draw_point(grid_snap, color - 0x00000088);
+// 	inverse.x = -dir.y;
+// 	inverse.y = dir.x;
+// 	draw_line(grid_snap, inverse, 100, HEX_GREEN - 0x00000088);
+// 	inverse.x = -inverse.x;
+// 	inverse.y = -inverse.y;
+// 	draw_line(grid_snap, inverse, 100, HEX_GREEN - 0x00000088);
+// 	inverse.x = -dir.x;
+// 	inverse.y = -dir.y;
+// 	original_len = fabs(hypot(intersect.x - pos.x, intersect.y - pos.y));
+// 	len = fabs(intersect.arr[!axis] - grid_snap.arr[!axis]);
+// 	len = fabs(get_player().pov.tan * len);
+// 	printf("len: %d\n", len);
+// 	draw_line(grid_snap, inverse, original_len - len, HEX_GREEN);
+// }

@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/25 20:20:51 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/26 13:23:12 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	update_pov(t_player *player, double angle_delta)
 	player->pov.angle += angle_delta * M_PI / 180;
 	player->pov.t_ratio.x = cos(player->pov.angle);
 	player->pov.t_ratio.y = sin(player->pov.angle);
-	player->pov.tan = tan(player->pov.angle);
+	player->pov.tan.x = tan(player->pov.angle);
+	player->pov.tan.y = 1 / player->pov.tan.x;
 	player->pov.quadrant.x = \
 		(player->pov.t_ratio.x > 0) - (player->pov.t_ratio.x < 0);
 	player->pov.quadrant.y = \
@@ -104,7 +105,7 @@ t_vector	get_player_pos_by_quadrant(int flag)
 	return (pos);
 }
 
-double	snap_to_grid_axis(double origin, int quadrant)
+double	snap_to_grid(double origin, int quadrant)
 {
 	origin = origin / GRID_SIZE;
 	if (floor(origin) == origin)
@@ -112,11 +113,5 @@ double	snap_to_grid_axis(double origin, int quadrant)
 	else
 		origin = floor(origin) + (quadrant == POSITIVE);
 	origin = origin * GRID_SIZE;
-	return (origin);
-}
-
-t_vector	snap_to_grid(t_vector origin, t_axis axis, t_vector quadrant)
-{
-	origin.arr[axis] = snap_to_grid_axis(origin.arr[axis], quadrant.arr[axis]);
 	return (origin);
 }

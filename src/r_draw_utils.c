@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:31:42 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/25 20:18:37 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/26 12:20:45 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@ void	draw_pixel(mlx_image_t *image, t_vector pixel, int32_t color)
 	mlx_put_pixel(image, pixel.x, pixel.y, color);
 }
 
-void	draw_point(mlx_image_t *image, t_vector point, int color)
+void	draw_point(t_vector point, int color)
 {
-	int	width;
-	int	height;
-	int	x;
-	int	y;
+	int			width;
+	int			height;
+	int			x;
+	int			y;
+	mlx_image_t	*aux;
 
+	aux = get_aux();
 	if (point.x < 0 || point.x >= WIDTH || point.y < 0 || point.y >= HEIGHT)
 		return ;
 	width = 5;
@@ -35,18 +37,19 @@ void	draw_point(mlx_image_t *image, t_vector point, int color)
 			x = point.x + width;
 			y = point.y + height;
 			if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
-				mlx_put_pixel(image, x, y, color);
+				mlx_put_pixel(aux, x, y, color);
 		}
 	}
 }
 
 // TODO: check if mlx add pixel is needed
-// for each increment of length in draw_line
-void	draw_line(mlx_image_t *image, t_vector origin, t_vector direction,
-		int len, int color)
+void	draw_line(t_vector origin, t_vector direction, int len, int color)
 {
 	t_vector	pixel;
+	mlx_image_t	*image;
 
+	image = get_aux();
+	len = abs(len);
 	if (len < 0)
 		return ;
 	while (len--)
@@ -75,14 +78,23 @@ void	draw_axis_line(int position, int axis)
 	}
 }
 
-void	draw_intersect(t_player player, t_vector next,
-	int color)
+void	draw_intersect(t_player player, t_vector next, int color)
 {
 	int			len;
 	t_vector	origin;
 
 	origin = get_player_pos(PIXEL | CENTER);
-	len = (int)hypot(next.x - origin.x, next.y - origin.y);
-	draw_line(player.mlx_view, origin, player.pov.t_ratio, len, color);
-	draw_point(player.mlx_view, next, color);
+	len = abs((int)hypot(next.x - origin.x, next.y - origin.y));
+	draw_line(origin, player.pov.t_ratio, len, color);
+	draw_point(next, color);
+}
+
+void	draw_intersect_2(t_vector_full vector, int color)
+{
+	printf("origin: %f, %f\n", vector.origin.x, vector.origin.y);
+	printf("end: %f, %f\n", vector.end.x, vector.end.y);
+	printf("direction: %f, %f\n", vector.direction.x, vector.direction.y);
+	printf("distance: %f\n", vector.distance);
+	draw_line(vector.origin, vector.direction, vector.distance, color);
+	draw_point(vector.end, color);
 }

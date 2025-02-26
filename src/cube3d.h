@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/25 17:56:15 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/26 13:22:59 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,16 @@ typedef union u_coord
 	double				arr[2];
 }						t_vector;
 
+typedef struct s_vector_full
+{
+	t_vector			origin;
+	t_vector			end;
+	t_vector			direction;
+	t_vector			quadrant;
+	t_vector			tan;
+	double				distance;
+}					t_vector_full;
+
 typedef struct s_map
 {
 	t_vector			size;
@@ -152,7 +162,7 @@ typedef struct s_pov
 	double				angle;
 	t_vector			t_ratio;
 	t_vector			quadrant;
-	double				tan;
+	t_vector			tan;
 }						t_pov;
 
 typedef struct s_player
@@ -211,14 +221,17 @@ t_vector				get_player_pos(int flag);
 t_vector				get_player_pos_by_quadrant(int flag);
 void					image_full_color(mlx_image_t *image, int32_t color);
 mlx_image_t				*new_image_full(void);
-void					draw_point(mlx_image_t *image, t_vector point,
+void					draw_point(t_vector point,
 							int color);
 t_player				get_player(void);
 void					draw_intersect(t_player player, t_vector pos,
 							int color);
-t_vector				snap_to_grid(t_vector origin, t_axis axis,
-							t_vector quadrant);
+
 void					draw_axis_line(int position, int axis);
+void					draw_line(t_vector origin, t_vector direction, int len, int color);
+void					draw_intersect_2(t_vector_full vector, int color);
+mlx_image_t				*get_aux(void);
+double					snap_to_grid(double origin, int quadrant);
 // ----------------------------[DELETE BEFORE SUBMIT]---------------
 void					ft_print_split(char **split);
 
