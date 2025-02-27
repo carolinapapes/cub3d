@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colour.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 18:35:14 by kkoval            #+#    #+#             */
-/*   Updated: 2025/02/25 18:52:03 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/02/27 03:15:48 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,37 +18,54 @@
 	4. saves the color to the struct
 */
 
-int	is_letter(char *line, char *c)
+
+int	convert_colour()
+
+int	is_letter(char *line, char *c, int *colour)
 {
 	if (!line || !c)
-		return (1);
-	while(*line)
+		return (-1);
+	while (*line)
 		line++;
 	if (*line == '\0' || *line != c)
+		return (-1);
+	if (ft_strncmp(line, c, ft_strlen(c)) != 0)
 		return (1);
+	line++;
+	
+
 	//function to check if enough material for color
 	//function to unite numbers for a colour
-	
+	return (0);
 }
 
-int	check_line_for_colour(char **elements)
+int	check_line_for_colour(t_start *start, char **elements)
 {
-	int	line;
+	int	i;
+	int	c_count;
+	int	f_count;
 
-	line = 0;
-	while (elements[line] != NULL)
+	i = 0;
+	c_count = 0;
+	f_count = 0;
+	while (elements[i] != NULL)
 	{
-		if (is_letter(elements[line], "C") == 0)
-		if 
-			return (1);
-		line++;
+		if (is_letter(elements[i], "C", &(start->ceiling)) == 0)
+			c_count++;
+		else if (is_letter(elements[i], "F", &(start->floor)) == 0)
+			f_count++;
+		i++;
 	}
+	if (c_count != 1 || f_count != 1)
+		return (1);
+	return (0);
 }
 
-check_for_color(char **elements)
+check_for_color(t_start *start, char **elements)
 {
-	if (check_line_for_color(elements) == 1)
+	if (check_line_for_color(start, elements) == 1)
 	{
+		printf("no hay colorsitos para el suelo o para el cielo :(\n)");
 		return (1);
 	}
 	return (0);

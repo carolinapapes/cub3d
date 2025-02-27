@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:01:54 by kkoval            #+#    #+#             */
-/*   Updated: 2025/02/25 18:17:40 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/02/27 03:07:40 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,24 +89,17 @@ int	check_dir(char **elements, char *dir_name, char **future_path)
 	while (elements[line] != NULL)
 	{
 		if (is_dir(future_path, elements[line], dir_name) == 0)
-		{
 			found_count++;
-			if (found_count > 1)
-			{
-				printf("there are two directions of %s\n", dir_name);
-				return (1);
-			}
-		}
 		line++;
 	}
-	if (found_count == 0)
+	if (found_count != 1)
 		return (1);
 	return (0);
 }
 
 int	check_four_dir(t_start *start, char **elements)
 {
-	start->n_fd = NULL;
+	start->n_fd = NULL; // TODO initiate in the start
 	start->s_fd = NULL;
 	start->w_fd = NULL;
 	start->e_fd = NULL;
