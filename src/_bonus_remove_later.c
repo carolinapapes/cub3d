@@ -6,54 +6,29 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 14:21:30 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 11:18:12 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/27 16:43:06 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-t_vector	next_grid(t_vector_full ray, t_axis axis)
+void	draw_rendered_view(double distance, uint32_t color, int iter)
 {
-	t_vector	next;
-
-	next.arr[axis] = snap_to_grid(ray.end.arr[axis], ray.quadrant.arr[axis]);
-	next.arr[!axis] = ray.end.arr[!axis]
-		+ (next.arr[axis] - ray.end.arr[axis]) * ray.tan.arr[axis];
-	return (next);
-}
-
-t_vector_full	intersect(t_vector_full ray, int axis)
-{
-	int				type;
-
-	if (ray.quadrant.arr[!axis] == 0)
-		return (ray);
-	ray.end = next_grid(ray, axis);
-	type = is_axis_wall(ray.end, axis);
-	if (type == OUTSIDE)
-		return (ray);
-	if (type == GRID)
-		return (intersect(ray, axis));
-	ray.distance = hypot(ray.end.x - ray.origin.x, ray.end.y - ray.origin.y);
-	return (ray);
-}
-
-void	draw_rendered_view(double wall_distance, u_int32_t color, int iter)
-{
-	int				wall_strip_height;
+	int				strip_height;
 	int				start;
 	int				end;
 	t_vector		wall_start;
 	t_constants		constants;
 
-	start = iter * constants.wall_strip_width;
-	end = start + constants.wall_strip_width;
-	wall_strip_height = constants.wall_strip_height / wall_distance;
-	wall_start.y = (HEIGHT - wall_strip_height) / 2;
+	constants = game_constants();
+	start = iter * constants.strip_width;
+	end = start + constants.strip_width;
+	strip_height = constants.strip_height / distance;
+	wall_start.y = (HEIGHT - strip_height) / 2;
 	while (start < end && start < WIDTH)
 	{
 		wall_start.x = start;
-		draw_line_render(wall_start, constants.dir_y, wall_strip_height, color);
+		draw_line_render(wall_start, constants.dir_y, strip_height, color);
 		start++;
 	}
 }
@@ -104,7 +79,8 @@ void	pov_iter(t_vector origin, double angle_fov)
 	t_vector_full	ray;
 
 	iter = 0;
-	angle = angle.fov - constants.fov_delta_start;
+	constants = game_constants();
+	angle = angle_fov - constants.fov_delta_start;
 	while (iter++ < 61)
 	{
 		angle += constants.angle_step;

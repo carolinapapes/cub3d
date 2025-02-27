@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/26 13:23:12 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/27 16:47:35 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,8 @@ t_vector	get_player_pos_by_quadrant(int flag)
 	return (pos);
 }
 
-double	snap_to_grid(double origin, int quadrant)
+void	update_mlx_player(t_player *player)
 {
-	origin = origin / GRID_SIZE;
-	if (floor(origin) == origin)
-		origin += quadrant;
-	else
-		origin = floor(origin) + (quadrant == POSITIVE);
-	origin = origin * GRID_SIZE;
-	return (origin);
+	player->mlx_player->instances[0].x = player->pos.x;
+	player->mlx_player->instances[0].y = player->pos.y;
 }

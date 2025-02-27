@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:03:16 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/26 21:26:07 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/27 16:40:22 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,6 @@ mlx_image_t	*init_player_image(void)
 	image = new_image(size, origin);
 	image_full_color(image, PLAYER_COLOR);
 	return (image);
-}
-
-void	update_mlx_player(t_player *player)
-{
-	player->mlx_player->instances[0].x = player->pos.x;
-	player->mlx_player->instances[0].y = player->pos.y;
 }
 
 mlx_image_t	*get_view(void)

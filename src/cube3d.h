@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 11:16:32 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/27 16:44:44 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,8 +191,9 @@ typedef struct s_constants
 {
 	double		angle_step;
 	double		fov;
-	int			wall_strip_width;
-	int			wall_strip_height;
+	int			strip_width;
+	double		fov_delta_start;
+	int			strip_height;
 	t_vector	dir_x;
 	t_vector	dir_y;
 }				t_constants;
@@ -243,9 +244,8 @@ void					image_full_color(mlx_image_t *image, int32_t color);
 mlx_image_t				*new_image_full(void);
 void					draw_point(t_vector point,
 							int color);
-void	draw_line_render(t_vector origin, t_vector direction, int len, int color)
-;
-t_constants game_constants(void);
+void					draw_line_render(t_vector origin, t_vector direction, int len, int color);
+t_constants				game_constants(void);
 t_player				get_player(void);
 mlx_image_t				*get_render(void);
 void					draw_axis_line(int position, int axis);
@@ -253,6 +253,11 @@ void					draw_line(t_vector origin, t_vector direction, int len, int color);
 void					draw_intersect(t_vector_full vector, int color);
 void					draw_view_plane(void);
 double					snap_to_grid(double origin, int quadrant);
+
+// r_ray_distance.c
+t_vector				next_grid(t_vector_full ray, t_axis axis);
+t_vector_full			intersect(t_vector_full ray, int axis);
+
 // ----------------------------[DELETE BEFORE SUBMIT]---------------
 void					ft_print_split(char **split);
 

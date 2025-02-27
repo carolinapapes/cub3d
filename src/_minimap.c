@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:00:50 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 00:09:15 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/27 16:43:31 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,7 @@ int	is_wall(t_vector coord)
 	if (x < 0 || x >= 16 || y < 0 || y >= 16)
 		return (OUTSIDE);
 	if (g_map[y][x] == WALL)
-	{
-		// coordinate_paint(x, y);
 		return (WALL);
-	}
 	return (GRID);
 }
 

@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 11:16:19 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/27 16:39:31 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ t_constants	game_constants(void)
 	{
 		constants.fov = 60;
 		constants.angle_step = M_PI / 180;
-		constants.wall_strip_width = WIDTH / constants.fov;
-		constants.wall_strip_height = (HEIGHT * 150);
+		constants.strip_width = WIDTH / constants.fov;
+		constants.strip_height = (HEIGHT * 150);
 		constants.fov_delta_start = -31.0 * constants.angle_step;
 		constants.dir_y.x = 0;
 		constants.dir_y.y = 1;

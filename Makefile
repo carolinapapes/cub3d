@@ -6,7 +6,7 @@
 #    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/02/26 21:10:50 by capapes          ###   ########.fr        #
+#    Updated: 2025/02/27 16:48:02 by capapes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ MAIN_SRC = _bonus_remove_later.c \
 			r_mlx_handler.c \
 			r_mlx_image_handler.c \
 			r_moves.c \
+			r_ray_distance.c \
 			r_player.c 
 MAIN_OBJ = $(patsubst %.c, $(OBJDIR)/%.o, $(MAIN_SRC))
 DEP_FILES = $(MAIN_OBJ:.o=.d)
