@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 18:14:11 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/27 19:28:09 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	update_pos(t_player *player, t_vector position)
 {
 	player->pos.x += position.x;
 	player->pos.y += position.y;
-	update_mlx_player();
+	update_mlx_player(position);
 }
 
 static void	update_pov(t_player *player, double angle_delta)
@@ -35,6 +35,12 @@ t_player	set_player(t_vector position_delta, double angle_delta)
 {
 	static t_player	player;
 
+	if (!player.initilized)
+	{
+		player.initilized = 1;
+		player.pos.x = 0;
+		player.pos.y = 0;
+	}
 	if ((int)position_delta.x || (int)position_delta.y)
 		update_pos(&player, position_delta);
 	if ((int)position_delta.x || (int)position_delta.y || angle_delta)

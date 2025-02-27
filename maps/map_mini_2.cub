@@ -1,0 +1,13 @@
+NO ./maps/test.cub
+SO ./maps/test.cub
+WE ./maps/test.cub
+EA ./maps/test.cub
+
+F 220,100,0
+C 225,30,0
+
+111111111111
+1S0000000011
+111100001111
+111100001001
+111111111111

@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_image_handler.c                                :+:      :+:    :+:   */
+/*   r_mlx_image_handler.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:57:39 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/23 19:52:17 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/27 19:12:14 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
 void	iter_image(mlx_image_t *image, void fn(mlx_image_t *, uint32_t,
-			uint32_t))
+			uint32_t, t_start *start), t_start *start)
 {
 	uint32_t	x;
 	uint32_t	y;
@@ -24,7 +24,7 @@ void	iter_image(mlx_image_t *image, void fn(mlx_image_t *, uint32_t,
 		x = 0;
 		while (x < image->width)
 		{
-			fn(image, x, y);
+			fn(image, x, y, start);
 			x++;
 		}
 		y++;

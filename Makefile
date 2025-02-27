@@ -6,7 +6,7 @@
 #    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/02/27 18:29:18 by capapes          ###   ########.fr        #
+#    Updated: 2025/02/27 18:31:40 by capapes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,17 +54,23 @@ MAIN_SRC = _bonus_remove_later.c \
 			_parser_hardcoded.c \
 			_minimap.c \
 			_r_draw_minimap_utils.c \
+			file_handler.c \
+			free_struct.c \
 			ft_split_utils.c \
+			initializer.c \
 			main.c \
+			parser_map.c \
+			parser_map2.c \
+			parser_map3.c \
+			parser_utils.c \
 			parser.c \
+			path.c \
 			r_draw_utils.c \
 			r_mlx_handler.c \
 			r_mlx_image_handler.c \
 			r_moves.c \
 			r_ray_distance.c \
-			r_player.c \
-			main.c minimap.c image_utils.c miniplayer.c miniview.c parser.c ft_split_utils.c parser_map.c \
-			parser_map2.c parser_map3.c initializer.c file_handler.c free_struct.c path.c 
+			r_player.c
 MAIN_OBJ = $(patsubst %.c, $(OBJDIR)/%.o, $(MAIN_SRC))
 DEP_FILES = $(MAIN_OBJ:.o=.d)
 

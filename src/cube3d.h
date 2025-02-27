@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 18:27:58 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/27 19:33:59 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define WINDOW_TITLE "Cube3D"
 
 # define WALL 1
-# define SPACE 2
+# define SPACE 5
 # define GRID 4
 # define N 8
 # define S 16
@@ -132,6 +132,7 @@ typedef struct s_player
 {
 	t_vector			pos;
 	double				pov;
+	bool				initilized;
 }						t_player;
 
 typedef enum e_axis
@@ -183,7 +184,6 @@ int						is_map_character(char c);
 int						check_fill_flood(t_start *start);
 void					fill_flood(int	**arr, int x, int y, t_int_pair size);
 
-
 // ----------------------------[RENDER]----------------------------
 
 // _aux_images.c
@@ -191,27 +191,28 @@ mlx_image_t				*get_player_image(void);
 mlx_image_t				*get_view_image(void);
 mlx_image_t				*get_aux_img(void);
 mlx_image_t				*get_render_image(void);
-void					get_minimap_image(void);
+void					get_minimap_image(t_start *start);
 
 // _bonus_remove_later.c
 void					pov_iter(t_vector origin, double angle_fov);
 
 // _minimap.c
-void					update_mlx_player(void);
+void					update_mlx_player(t_vector pos_delta);
 void					draw_minimap(mlx_image_t *image,
-							uint32_t x, uint32_t y);
-int						is_fixed_object(uint32_t x, uint32_t y);
+							uint32_t x, uint32_t y, t_start *start);
+int						is_fixed_object(uint32_t x, uint32_t y, t_start *start);
 int						is_axis_wall(t_vector coord, t_axis axis,
 							t_vector_full ray);
 
 // _parser_hardcoded.c
-void					player_init(void);
+void					player_init(t_start *start);
 
 // _r_draw_minimap_utils.c
 void					draw_intersect(t_vector_full vector, int color);
 
 // main.c
 t_constants				game_constants(void);
+t_start					*get_start(void);
 
 // r_draw_utils.c
 void					draw_point(t_vector point, int color);
@@ -226,7 +227,7 @@ void					cub3d_init(void);
 
 // r_mlx_image_handler.c
 void					iter_image(mlx_image_t *image, void fn(mlx_image_t *,
-								uint32_t, uint32_t));
+								uint32_t, uint32_t, t_start *start), t_start *start);
 void					image_full_color(mlx_image_t *image, int32_t color);
 void					mlx_clear_image(mlx_image_t *image);
 mlx_image_t				*new_image(t_vector size, t_vector origin);

@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 18:25:07 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/27 19:32:36 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,29 @@ void	print_error(void)
 	return ;
 }
 
+t_start	*get_start(void)
+{
+	static t_start	start;
+
+	return (&start);
+}
+
 int	main(int argc, char **argv)
 {
 	t_start	*start;
 
-	start = malloc(sizeof(t_start));
+	start = get_start();
 	if (!start)
 		return (1);
 	if (parser_controler(argc, argv, start) == 1)
 	{
-		free(start);
+		free_start(start);
 		return (print_error(), EXIT_FAILURE);
 	}
-	get_minimap_image();
-	player_init();
+	get_minimap_image(start);
+	player_init(start);
 	cub3d_init();
 	free_start(start);
-	free(start);
+	// free(start);
 	return (EXIT_SUCCESS);
 }
