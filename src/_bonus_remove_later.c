@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 14:21:30 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/26 18:59:26 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/27 10:25:40 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,78 @@ t_vector_full	get_ray(t_player player)
 	return (ray);
 }
 
+void	draw_rendered_view(double wall_distance, u_int32_t color, int iter)
+{
+	int				wall_strip_height;
+	int				wall_strip_width;
+	int				start;
+	int				end;
+	t_vector		wall_start;
+	t_vector		direction;
+
+	wall_strip_width = WIDTH / 60;
+	start = iter * wall_strip_width;
+	end = (iter + 1) * wall_strip_width;
+	wall_strip_height = (HEIGHT * 150) / wall_distance;
+	wall_start.y = HEIGHT / 2 - wall_strip_height / 2;
+	direction.y = 1;
+	direction.x = 0;
+	while (start < end && start < WIDTH)
+	{
+		wall_start.x = start;
+		draw_line_render(wall_start, direction, wall_strip_height, color);
+		start++;
+	}
+}
+
+t_vector_full	update_ray(t_vector_full ray, double angle)
+{
+	ray.direction.x = cos(angle);
+	ray.direction.y = sin(angle);
+	ray.tan.x = tan(angle);
+	ray.tan.y = 1 / ray.tan.x;
+	ray.quadrant.x = \
+		(ray.direction.x > 0) - (ray.direction.x < 0);
+	ray.quadrant.y = \
+		(ray.direction.y > 0) -(ray.direction.y < 0);
+	ray.end = ray.origin;
+	ray.distance = 0;
+	return (ray);
+}
+
 void	update_mlx_view(t_player player)
 {
+	t_vector_full	ray_x;
+	t_vector_full	ray_y;
 	t_vector_full	ray;
+	double			angle;
+	double			iter;
 
+	ray = get_ray(player);
 	mlx_clear_image(player.mlx_view);
 	mlx_clear_image(get_aux());
-	ray = get_ray(player);
-	ray = intersect(ray, X);
-	if (ray.distance != 0)
-		draw_intersect(ray, HEX_RED);
-	ray.end = ray.origin;
-	ray = intersect(ray, Y);
-	if (ray.distance != 0)
-		draw_intersect(ray, HEX_GREEN);
-	draw_view_plane();
+	mlx_clear_image(get_render());
+	iter = 0;
+	angle = player.pov.angle;
+	while (iter < 60)
+	{
+		angle = player.pov.angle + (iter - 30) * M_PI / 180;
+		ray = update_ray(ray, angle);
+		ray_x = intersect(ray, X);
+		ray_y = intersect(ray, Y);
+		if (ray_x.distance != 0 && (ray_x.distance <= ray_y.distance || ray_y.distance == 0))
+		{
+			draw_intersect(ray_x, HEX_GREY);
+			draw_rendered_view(ray_x.distance, HEX_GREEN - 0x00000066, iter);
+		}
+		else if (ray_y.distance != 0 && (ray_y.distance < ray_x.distance || ray_x.distance == 0))
+		{
+			draw_rendered_view(ray_y.distance, HEX_RED - 0x00000066, iter);
+			draw_intersect(ray_y, HEX_GREY);
+		}
+		iter++;
+	}
+	// draw_view_plane();
 }
 
 // void update_player(t_player *player, double angle_delta)

@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:31:42 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/26 18:58:02 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/27 00:13:36 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,26 @@ void	draw_line(t_vector origin, t_vector direction, int len, int color)
 		pixel.x = origin.x + direction.x * len;
 		pixel.y = origin.y + direction.y * len;
 		if (pixel.x < 0 || pixel.x >= WIDTH || pixel.y < 0 || pixel.y >= HEIGHT)
-			break ;
+			continue ;
+		draw_pixel(image, pixel, color);
+	}
+}
+
+void	draw_line_render(t_vector origin, t_vector direction, int len, int color)
+{
+	t_vector	pixel;
+	mlx_image_t	*image;
+
+	image = get_render();
+	len = abs(len);
+	if (len < 0)
+		return ;
+	while (len--)
+	{
+		pixel.x = origin.x + direction.x * len;
+		pixel.y = origin.y + direction.y * len;
+		if (pixel.x < 0 || pixel.x >= WIDTH || pixel.y < 0 || pixel.y >= HEIGHT)
+			continue ;
 		draw_pixel(image, pixel, color);
 	}
 }

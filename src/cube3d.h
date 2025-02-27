@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/26 19:04:37 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/27 00:13:52 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@
 # define FOV_COLOR 0xB0B0B0B0
 # define GRID_COLOR 0xB0B0B0FF
 # define WALL_COLOR 0xB0B0B0CC
+# define HEX_GREY 0xd5dbdbff
+# define HEX_GREY_2 0xe5e7e9ff
 
 // Sizes definitions are variables
 # define MAP_SIZE_X 16
@@ -51,8 +53,8 @@
 # define GRID_SIZE 64
 # define PLAYER_SIZE 32
 # define PLAYER_MIDDLE 16
-# define HEX_RED 0xFF0000FF
-# define HEX_GREEN 0x00FF00FF
+# define HEX_RED 0xe74c3cff
+# define HEX_GREEN 0x1abc9cff
 # define HEX_BLUE 0x0000FFFF
 # define HEX_YELLOW 0xFFFF00FF
 # define HEX_PURPLE 0xFF00FFFF
@@ -231,8 +233,10 @@ void					image_full_color(mlx_image_t *image, int32_t color);
 mlx_image_t				*new_image_full(void);
 void					draw_point(t_vector point,
 							int color);
+void	draw_line_render(t_vector origin, t_vector direction, int len, int color)
+;
 t_player				get_player(void);
-
+mlx_image_t				*get_render(void);
 void					draw_axis_line(int position, int axis);
 void					draw_line(t_vector origin, t_vector direction, int len, int color);
 void					draw_intersect(t_vector_full vector, int color);

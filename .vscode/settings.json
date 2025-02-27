@@ -1,5 +1,7 @@
 {
     "files.associations": {
+        "*.c": "c",
+        "*.h": "c",
         "cube3d.h": "c",
         "stdlib.h": "c",
         "stdio.h": "c",
@@ -8,6 +10,8 @@
         "libft.h": "c",
         "ranges": "c",
         "cmath": "c",
-        "numbers": "c"
+        "numbers": "c",
+        "__locale": "c",
+        "ios": "c"
     }
 }

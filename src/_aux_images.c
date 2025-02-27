@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:03:16 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/26 19:03:46 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/26 21:26:07 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,15 @@ mlx_image_t	*get_aux(void)
 	if (!mlx_aux)
 		mlx_aux = new_image_full();
 	return (mlx_aux);
+}
+
+mlx_image_t	*get_render(void)
+{
+	static mlx_image_t	*mlx_render;
+
+	if (!mlx_render)
+		mlx_render = new_image_full();
+	return (mlx_render);
 }
 
 void	minimap_init(void)
