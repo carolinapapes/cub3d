@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 00:13:52 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/27 11:16:32 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,16 @@ typedef enum e_dir
 	POSITIVE = 1
 }						t_dir;
 
+typedef struct s_constants
+{
+	double		angle_step;
+	double		fov;
+	int			wall_strip_width;
+	int			wall_strip_height;
+	t_vector	dir_x;
+	t_vector	dir_y;
+}				t_constants;
+
 // ----------------------------[PARSER]----------------------------
 t_start					*parser(int argc, char **argv);
 int						ft_split_count(char **split);
@@ -235,6 +245,7 @@ void					draw_point(t_vector point,
 							int color);
 void	draw_line_render(t_vector origin, t_vector direction, int len, int color)
 ;
+t_constants game_constants(void);
 t_player				get_player(void);
 mlx_image_t				*get_render(void);
 void					draw_axis_line(int position, int axis);

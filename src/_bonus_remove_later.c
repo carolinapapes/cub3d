@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 14:21:30 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 11:03:15 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/27 11:18:12 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,39 +38,22 @@ t_vector_full	intersect(t_vector_full ray, int axis)
 	return (ray);
 }
 
-t_vector_full	get_ray(t_player player)
-{
-	t_vector_full	ray;
-
-	ray.distance = 0;
-	ray.direction = player.pov.t_ratio;
-	ray.origin = get_player_pos(PIXEL | CENTER);
-	ray.end = ray.origin;
-	ray.quadrant = player.pov.quadrant;
-	ray.tan = player.pov.tan;
-	return (ray);
-}
-
 void	draw_rendered_view(double wall_distance, u_int32_t color, int iter)
 {
 	int				wall_strip_height;
-	int				wall_strip_width;
 	int				start;
 	int				end;
 	t_vector		wall_start;
-	t_vector		direction;
+	t_constants		constants;
 
-	wall_strip_width = WIDTH / 60;
-	start = iter * wall_strip_width;
-	end = (iter + 1) * wall_strip_width;
-	wall_strip_height = (HEIGHT * 150) / wall_distance;
-	wall_start.y = HEIGHT / 2 - wall_strip_height / 2;
-	direction.y = 1;
-	direction.x = 0;
+	start = iter * constants.wall_strip_width;
+	end = start + constants.wall_strip_width;
+	wall_strip_height = constants.wall_strip_height / wall_distance;
+	wall_start.y = (HEIGHT - wall_strip_height) / 2;
 	while (start < end && start < WIDTH)
 	{
 		wall_start.x = start;
-		draw_line_render(wall_start, direction, wall_strip_height, color);
+		draw_line_render(wall_start, constants.dir_y, wall_strip_height, color);
 		start++;
 	}
 }
@@ -93,7 +76,7 @@ t_vector_full	update_ray(t_vector origin, double angle)
 	return (ray);
 }
 
-void draw_render_inter(t_vector_full ray, int iter)
+void	draw_render_inter(t_vector_full ray, int iter)
 {
 	t_vector_full	ray_x;
 	t_vector_full	ray_y;
@@ -113,21 +96,18 @@ void draw_render_inter(t_vector_full ray, int iter)
 	}
 }
 
-void	pov_iter(t_player player)
+void	pov_iter(t_vector origin, double angle_fov)
 {
-	double			angle_step;
-	double			iter;
 	double			angle;
-	t_vector		origin;
+	double			iter;
+	t_constants		constants;
 	t_vector_full	ray;
 
 	iter = 0;
-	angle_step = M_PI / 180;
-	angle = player.pov.angle - 31.0 * angle_step;
-	origin = get_player_pos(PIXEL | CENTER);
+	angle = angle.fov - constants.fov_delta_start;
 	while (iter++ < 61)
 	{
-		angle += angle_step;
+		angle += constants.angle_step;
 		ray = update_ray(origin, angle);
 		draw_render_inter(ray, iter);
 	}
@@ -135,8 +115,11 @@ void	pov_iter(t_player player)
 
 void	update_mlx_view(t_player player)
 {
+	t_vector		origin;
+
+	origin = get_player_pos(PIXEL | CENTER);
 	mlx_clear_image(player.mlx_view);
 	mlx_clear_image(get_aux());
 	mlx_clear_image(get_render());
-	pov_iter(player);
+	pov_iter(origin, player.pov.angle);
 }
