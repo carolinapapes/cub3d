@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   image_utils.c                                      :+:      :+:    :+:   */
+/*   mlx_image_handler.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/06 16:21:45 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/12 21:25:25 by capapes          ###   ########.fr       */
+/*   Created: 2025/02/20 16:57:39 by capapes           #+#    #+#             */
+/*   Updated: 2025/02/23 19:52:17 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-void	iter_image(mlx_image_t *image, void(fn)(mlx_image_t *, uint32_t,
+void	iter_image(mlx_image_t *image, void fn(mlx_image_t *, uint32_t,
 			uint32_t))
 {
 	uint32_t	x;
@@ -31,27 +31,40 @@ void	iter_image(mlx_image_t *image, void(fn)(mlx_image_t *, uint32_t,
 	}
 }
 
-int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
+void	image_full_color(mlx_image_t *image, int32_t color)
 {
-	return (r << 24 | g << 16 | b << 8 | a);
+	memset(image->pixels, color, image->width * image->height
+		* sizeof(int32_t));
 }
 
 void	mlx_clear_image(mlx_image_t *image)
 {
-	memset(image->pixels, 0, image->width * image->height
-		* sizeof(int32_t));
+	image_full_color(image, 0x00000000);
 }
 
-mlx_image_t	*mlx_add_image(mlx_t *mlx, uint32_t width, uint32_t height, int *pos)
+// TODO create exit function
+mlx_image_t	*new_image(t_vector size, t_vector origin)
 {
+	mlx_t		*mlx;
 	mlx_image_t	*image;
 
-	image = mlx_new_image(mlx, width, height);
-	if (mlx_image_to_window(mlx, image, pos[X], pos[Y]) == -1)
-	{
-		mlx_close_window(mlx);
-		puts(mlx_strerror(mlx_errno));
+	mlx = get_mlx();
+	image = mlx_new_image(mlx, size.x, size.y);
+	if (!image)
+		exit (1);
+	if (mlx_image_to_window(mlx, image, origin.x, origin.y) == -1)
 		exit(1);
-	}
 	return (image);
+}
+
+mlx_image_t	*new_image_full(void)
+{
+	t_vector	size;
+	t_vector	origin;
+
+	size.x = WIDTH;
+	size.y = HEIGHT;
+	origin.x = 0;
+	origin.y = 0;
+	return (new_image(size, origin));
 }

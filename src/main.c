@@ -3,34 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/25 14:39:50 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/02/27 18:25:07 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
+#include <unistd.h>
 
-void	ft_hook(void *param)
+t_constants	game_constants(void)
 {
-	mlx_t	*mlx;
+	static t_constants	constants;
 
-	mlx = param;
-	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(mlx);
-	if (mlx_is_key_down(mlx, MLX_KEY_UP))
-		miniplayer_hook(Y, NEGATIVE);
-	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
-		miniplayer_hook(Y, POSITIVE);
-	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-		miniplayer_hook(X, NEGATIVE);
-	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-		miniplayer_hook(X, POSITIVE);
-	if (mlx_is_key_down(mlx, MLX_KEY_W))
-		view_rotate(NEGATIVE);
-	if (mlx_is_key_down(mlx, MLX_KEY_S))
-		view_rotate(POSITIVE);
+	if (!constants.angle_step)
+	{
+		constants.fov = 60;
+		constants.angle_step = M_PI / 180;
+		constants.strip_width = WIDTH / constants.fov;
+		constants.strip_height = (HEIGHT * 150);
+		constants.fov_delta_start = -31.0 * constants.angle_step;
+		constants.dir_y.x = 0;
+		constants.dir_y.y = 1;
+		constants.dir_x.x = 1;
+		constants.dir_x.y = 0;
+	}
+	return (constants);
 }
 
 void	print_error(void)
@@ -41,7 +40,6 @@ void	print_error(void)
 
 int	main(int argc, char **argv)
 {
-	//mlx_t	*mlx;
 	t_start	*start;
 
 	start = malloc(sizeof(t_start));
@@ -49,21 +47,13 @@ int	main(int argc, char **argv)
 		return (1);
 	if (parser_controler(argc, argv, start) == 1)
 	{
-		//free_start(start);
 		free(start);
 		return (print_error(), EXIT_FAILURE);
 	}
-	//mlx = mlx_init(WIDTH, HEIGHT * 2, WINDOW_TITLE, true);
-	//if (!mlx)
-	//	return (puts(mlx_strerror(mlx_errno)), EXIT_FAILURE);
-	//set_minimap(mlx);
-	//mlx_loop_hook(mlx, ft_hook, mlx);
-	//mlx_loop(mlx);
-	//mlx_terminate(mlx);
+	get_minimap_image();
+	player_init();
+	cub3d_init();
 	free_start(start);
 	free(start);
 	return (EXIT_SUCCESS);
 }
-
-// TODO
-// - Create structure mvp needed for the project

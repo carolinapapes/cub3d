@@ -1,10 +1,17 @@
 {
     "files.associations": {
+        "*.c": "c",
+        "*.h": "c",
         "cube3d.h": "c",
         "stdlib.h": "c",
         "stdio.h": "c",
         "string.h": "c",
         "mlx42.h": "c",
-        "libft.h": "c"
+        "libft.h": "c",
+        "ranges": "c",
+        "cmath": "c",
+        "numbers": "c",
+        "__locale": "c",
+        "ios": "c"
     }
 }
