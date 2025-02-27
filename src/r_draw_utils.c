@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:31:42 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 00:13:36 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/27 10:51:15 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	draw_line_render(t_vector origin, t_vector direction, int len, int color)
 
 	image = get_render();
 	len = abs(len);
+	printf("len: %d\n", len);
 	if (len < 0)
 		return ;
 	while (len--)
