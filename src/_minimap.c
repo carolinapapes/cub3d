@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:00:50 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 16:43:31 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/27 18:05:54 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,32 +31,7 @@ int	g_map[16][16] = {\
 	{1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}, \
 	};
 
-void	coordinate_paint(int x, int y)
-{
-	mlx_image_t	*view;
-	int			width;
-	int			height;
-
-	view = get_view();
-	x *= GRID_SIZE;
-	y *= GRID_SIZE;
-	width = 0;
-	while (width < GRID_SIZE)
-	{
-		height = 0;
-		while (height < GRID_SIZE)
-		{
-			if (x + width > WIDTH || y + height > HEIGHT)
-				return ;
-			mlx_put_pixel(view, x + width, y + height,
-				HEX_PURPLE - width * 0x00000100 - height * 0x00010000);
-			height++;
-		}
-		width++;
-	}
-}
-
-int	is_wall(t_vector coord)
+static int	is_wall(t_vector coord)
 {
 	int	x;
 	int	y;
@@ -70,14 +45,14 @@ int	is_wall(t_vector coord)
 	return (GRID);
 }
 
-int	is_axis_wall(t_vector coord, t_axis axis)
+int	is_axis_wall(t_vector coord, t_axis axis, t_vector_full ray)
 {
 	t_vector	prev;
 	int			dir;
 	int			prev_res;
 	int			res;
 
-	dir = get_player().pov.quadrant.arr[axis];
+	dir = ray.quadrant.arr[axis];
 	coord.x = coord.x / GRID_SIZE;
 	coord.y = coord.y / GRID_SIZE;
 	prev = coord;
@@ -120,7 +95,18 @@ void	draw_minimap(mlx_image_t *image, uint32_t x, uint32_t y)
 
 	content = is_fixed_object(x, y);
 	if (content & GRID)
-		mlx_put_pixel(image, x, y, GRID_COLOR);
+		mlx_put_pixel(image, x, y, HEX_GRID);
 	if (content & WALL)
-		mlx_put_pixel(image, x, y, WALL_COLOR);
+		mlx_put_pixel(image, x, y, HEX_WALL);
+}
+
+void	update_mlx_player(void)
+{
+	mlx_image_t	*mlx_player;
+	t_vector	pos;
+
+	pos = get_player_pos(0);
+	mlx_player = get_player_image();
+	mlx_player->instances[0].x = pos.x;
+	mlx_player->instances[0].y = pos.y;
 }

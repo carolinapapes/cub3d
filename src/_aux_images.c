@@ -6,28 +6,30 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:03:16 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 16:40:22 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/27 17:25:53 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-mlx_image_t	*init_player_image(void)
+mlx_image_t	*get_player_image(void)
 {
-	t_vector	size;
-	t_vector	origin;
-	mlx_image_t	*image;
+	t_vector			size;
+	t_vector			origin;
+	static mlx_image_t	*image;
 
+	if (image)
+		return (image);
 	origin.x = 0;
 	origin.y = 0;
 	size.x = PLAYER_SIZE;
 	size.y = PLAYER_SIZE;
 	image = new_image(size, origin);
-	image_full_color(image, PLAYER_COLOR);
+	image_full_color(image, HEX_PLAYER);
 	return (image);
 }
 
-mlx_image_t	*get_view(void)
+mlx_image_t	*get_view_image(void)
 {
 	static mlx_image_t	*mlx_view;
 
@@ -36,7 +38,7 @@ mlx_image_t	*get_view(void)
 	return (mlx_view);
 }
 
-mlx_image_t	*get_aux(void)
+mlx_image_t	*get_aux_img(void)
 {
 	static mlx_image_t	*mlx_aux;
 
@@ -45,7 +47,7 @@ mlx_image_t	*get_aux(void)
 	return (mlx_aux);
 }
 
-mlx_image_t	*get_render(void)
+mlx_image_t	*get_render_image(void)
 {
 	static mlx_image_t	*mlx_render;
 
@@ -54,7 +56,7 @@ mlx_image_t	*get_render(void)
 	return (mlx_render);
 }
 
-void	minimap_init(void)
+void	get_minimap_image(void)
 {
 	mlx_image_t	*minimap;
 

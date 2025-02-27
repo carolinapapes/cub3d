@@ -6,13 +6,13 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:31:42 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 10:51:15 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/27 18:09:03 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-void	draw_pixel(mlx_image_t *image, t_vector pixel, int32_t color)
+static void	draw_pixel(mlx_image_t *image, t_vector pixel, int32_t color)
 {
 	mlx_put_pixel(image, pixel.x, pixel.y, color);
 }
@@ -25,7 +25,7 @@ void	draw_point(t_vector point, int color)
 	int			y;
 	mlx_image_t	*aux;
 
-	aux = get_aux();
+	aux = get_aux_img();
 	if (point.x < 0 || point.x >= WIDTH || point.y < 0 || point.y >= HEIGHT)
 		return ;
 	width = 5;
@@ -48,7 +48,7 @@ void	draw_line(t_vector origin, t_vector direction, int len, int color)
 	t_vector	pixel;
 	mlx_image_t	*image;
 
-	image = get_aux();
+	image = get_aux_img();
 	len = abs(len);
 	if (len < 0)
 		return ;
@@ -62,14 +62,14 @@ void	draw_line(t_vector origin, t_vector direction, int len, int color)
 	}
 }
 
-void	draw_line_render(t_vector origin, t_vector direction, int len, int color)
+void	draw_line_render(t_vector origin, t_vector direction,
+	int len, int color)
 {
 	t_vector	pixel;
 	mlx_image_t	*image;
 
-	image = get_render();
+	image = get_render_image();
 	len = abs(len);
-	printf("len: %d\n", len);
 	if (len < 0)
 		return ;
 	while (len--)
@@ -81,20 +81,3 @@ void	draw_line_render(t_vector origin, t_vector direction, int len, int color)
 		draw_pixel(image, pixel, color);
 	}
 }
-
-void	draw_axis_line(int position, int axis)
-{
-	t_vector	pixel;
-	int			len;
-	mlx_image_t	*image;
-
-	len = WIDTH;
-	image = get_view();
-	while (len--)
-	{
-		pixel.arr[axis] = position;
-		pixel.arr[!axis] = len;
-		draw_pixel(image, pixel, HEX_PURPLE - 0x00000088);
-	}
-}
-

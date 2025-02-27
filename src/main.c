@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 16:39:31 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/27 16:56:55 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int32_t	main(int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
-	minimap_init();
+	get_minimap_image();
 	player_init();
 	cub3d_init();
 	return (EXIT_SUCCESS);

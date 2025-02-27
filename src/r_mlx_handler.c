@@ -12,7 +12,7 @@
 
 #include "cube3d.h"
 
-void	cub3d_hook(void *param)
+static void	cub3d_hook(void *param)
 {
 	mlx_t		*mlx;
 

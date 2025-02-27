@@ -6,13 +6,13 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:50:40 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/25 12:28:35 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/27 18:12:46 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-int	hits_wall(t_vector pos, int axis)
+static int	hits_wall(t_vector pos, int axis)
 {
 	pos.arr[!axis] -= PLAYER_SIZE / 2;
 	if (is_fixed_object(pos.x, pos.y) & WALL)
@@ -23,7 +23,7 @@ int	hits_wall(t_vector pos, int axis)
 	return (0);
 }
 
-int	collition_check(int axis, int dir)
+static int	collition_check(int axis, int dir)
 {
 	int			moves;
 	t_vector	position;

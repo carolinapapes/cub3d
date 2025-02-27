@@ -6,34 +6,29 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 14:21:30 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 16:43:06 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/27 18:02:31 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-void	draw_rendered_view(double distance, uint32_t color, int iter)
+static void	draw_render(double distance, uint32_t color, int iter)
 {
 	int				strip_height;
-	int				start;
 	int				end;
 	t_vector		wall_start;
 	t_constants		constants;
 
 	constants = game_constants();
-	start = iter * constants.strip_width;
-	end = start + constants.strip_width;
+	wall_start.x = (iter - 1) * constants.strip_width;
+	end = wall_start.x + constants.strip_width;
 	strip_height = constants.strip_height / distance;
 	wall_start.y = (HEIGHT - strip_height) / 2;
-	while (start < end && start < WIDTH)
-	{
-		wall_start.x = start;
+	while (wall_start.x++ < end && wall_start.x < WIDTH)
 		draw_line_render(wall_start, constants.dir_y, strip_height, color);
-		start++;
-	}
 }
 
-t_vector_full	update_ray(t_vector origin, double angle)
+static t_vector_full	update_ray(t_vector origin, double angle)
 {
 	t_vector_full	ray;
 
@@ -51,7 +46,7 @@ t_vector_full	update_ray(t_vector origin, double angle)
 	return (ray);
 }
 
-void	draw_render_inter(t_vector_full ray, int iter)
+static void	draw_render_inter(t_vector_full ray, int iter)
 {
 	t_vector_full	ray_x;
 	t_vector_full	ray_y;
@@ -62,11 +57,11 @@ void	draw_render_inter(t_vector_full ray, int iter)
 		&& (ray_x.distance <= ray_y.distance || ray_y.distance == 0))
 	{
 		draw_intersect(ray_x, HEX_GREY);
-		draw_rendered_view(ray_x.distance, HEX_GREEN - 0x00000066, iter);
+		draw_render(ray_x.distance, HEX_GREEN - 0x00000066, iter);
 	}
 	else if (ray_y.distance != 0)
 	{
-		draw_rendered_view(ray_y.distance, HEX_RED - 0x00000066, iter);
+		draw_render(ray_y.distance, HEX_RED - 0x00000066, iter);
 		draw_intersect(ray_y, HEX_GREY);
 	}
 }
@@ -87,15 +82,4 @@ void	pov_iter(t_vector origin, double angle_fov)
 		ray = update_ray(origin, angle);
 		draw_render_inter(ray, iter);
 	}
-}
-
-void	update_mlx_view(t_player player)
-{
-	t_vector		origin;
-
-	origin = get_player_pos(PIXEL | CENTER);
-	mlx_clear_image(player.mlx_view);
-	mlx_clear_image(get_aux());
-	mlx_clear_image(get_render());
-	pov_iter(origin, player.pov.angle);
 }

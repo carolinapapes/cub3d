@@ -6,13 +6,13 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 16:40:59 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 16:42:57 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/27 18:15:35 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-double	snap_to_grid(double origin, int quadrant)
+static double	snap_to_grid(double origin, int quadrant)
 {
 	origin = origin / GRID_SIZE;
 	if (floor(origin) == origin)
@@ -40,7 +40,7 @@ t_vector_full	intersect(t_vector_full ray, int axis)
 	if (ray.quadrant.arr[!axis] == 0)
 		return (ray);
 	ray.end = next_grid(ray, axis);
-	type = is_axis_wall(ray.end, axis);
+	type = is_axis_wall(ray.end, axis, ray);
 	if (type == OUTSIDE)
 		return (ray);
 	if (type == GRID)
