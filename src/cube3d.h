@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 11:17:31 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 14:09:04 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,8 +192,7 @@ void					fill_flood(int	**arr, int x, int y, t_int_pair size);
 // ----------------------------[RENDER]----------------------------
 
 // _aux_images.c
-mlx_image_t				*get_player_image(void);
-mlx_image_t				*get_view_image(void);
+mlx_image_t				*get_miniplayer_image(void);
 mlx_image_t				*get_aux_img(void);
 mlx_image_t				*get_render_image(void);
 mlx_image_t				*get_minimap_image(void);
@@ -208,7 +207,7 @@ int						is_fixed_object(t_vector coord);
 int						is_axis_wall(t_vector coord, t_axis axis,
 							t_vector_full ray);
 void					draw_minimap(t_vector coord);
-void					iter_map(void fn(t_vector));
+// void					iter_map(void fn(t_vector));
 
 // _parser_hardcoded.c
 void					player_init(t_start *start);
@@ -232,8 +231,7 @@ mlx_t					*get_mlx(void);
 void					cub3d_init(void);
 
 // r_mlx_image_handler.c
-void					iter_image(mlx_image_t *image, void fn(mlx_image_t *,
-								uint32_t, uint32_t, t_start *start), t_start *start);
+void					generic_matrix_iter(t_vector constrains, void fn(t_vector));
 void					image_full_color(mlx_image_t *image, int32_t color);
 void					mlx_clear_image(mlx_image_t *image);
 mlx_image_t				*new_image(t_vector size, t_vector origin);

@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 10:59:56 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 13:52:20 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,7 @@ static void	update_pov(t_player *player, double angle_delta)
 
 	if (player->pos.x <= WIDTH - GRID_SIZE - PLAYER_SIZE
 		|| player->pos.y <= HEIGHT - GRID_SIZE - PLAYER_SIZE)
-	{
-		mlx_clear_image(get_view_image());
 		mlx_clear_image(get_aux_img());
-	}
 	mlx_clear_image(get_render_image());
 	player->pov += angle_delta * M_PI / 180;
 	if (player->pov > 2 * M_PI)

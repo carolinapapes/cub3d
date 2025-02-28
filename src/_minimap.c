@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:00:50 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 01:29:46 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 14:08:58 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,30 +68,30 @@ int	is_fixed_object(t_vector coord)
 	return (content);
 }
 
-void	iter_map(void fn(t_vector))
-{
-	t_vector	coord;
-	t_start		*start;
-	double		cell_quantity;
-	double		current_cell;
+// void	iter_map(t_vector constrains, void fn(t_vector))
+// {
+// 	t_vector	coord;
+// 	t_start		*start;
+// 	double		cell_quantity;
+// 	double		current_cell;
 
-	coord.y = 0;
-	coord.x = 0;
-	start = get_start();
-	current_cell = 0;
-	cell_quantity = start->map.size_int.x * start->map.size_int.y;
-	while (current_cell < cell_quantity)
-	{
-		if (coord.x >= start->map.size_int.x)
-		{
-			coord.x = 0;
-			coord.y++;
-		}
-		fn(coord);
-		coord.x++;
-		current_cell++;
-	}
-}
+// 	coord.y = 0;
+// 	coord.x = 0;
+// 	start = get_start();
+// 	current_cell = 0;
+// 	cell_quantity = start->map.size_int.x * start->map.size_int.y;
+// 	while (current_cell < cell_quantity)
+// 	{
+// 		if (coord.x >= start->map.size_int.x)
+// 		{
+// 			coord.x = 0;
+// 			coord.y++;
+// 		}
+// 		fn(coord);
+// 		coord.x++;
+// 		current_cell++;
+// 	}
+// }
 
 void	draw_minimap(t_vector coord)
 {
@@ -101,7 +101,7 @@ void	draw_minimap(t_vector coord)
 	image = get_minimap_image();
 	content = is_fixed_object(coord);
 	mlx_put_pixel(image, (uint32_t)coord.x * GRID_SIZE,
-		(u_int32_t)coord.y * GRID_SIZE, HEX_GRID);
+		(uint32_t)coord.y * GRID_SIZE, HEX_GRID);
 	if (content == WALL)
 		coordinate_paint((int)coord.x, (int)coord.y);
 }
@@ -110,7 +110,7 @@ void	update_mlx_player(t_vector pos_delta, int axis)
 {
 	mlx_image_t	*mlx_player;
 
-	mlx_player = get_player_image();
+	mlx_player = get_miniplayer_image();
 	if (axis == Y)
 		mlx_player->instances[0].y += pos_delta.y;
 	if (axis == X)

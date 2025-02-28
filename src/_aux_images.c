@@ -6,13 +6,13 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:03:16 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 11:16:28 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 13:54:49 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-mlx_image_t	*get_player_image(void)
+mlx_image_t	*get_miniplayer_image(void)
 {
 	t_vector			size;
 	t_vector			origin;
@@ -28,33 +28,6 @@ mlx_image_t	*get_player_image(void)
 		image_full_color(image, HEX_PLAYER);
 	}
 	return (image);
-}
-
-mlx_image_t	*get_view_image(void)
-{
-	static mlx_image_t	*mlx_view;
-
-	if (!mlx_view)
-		mlx_view = new_image_full();
-	return (mlx_view);
-}
-
-mlx_image_t	*get_aux_img(void)
-{
-	static mlx_image_t	*mlx_aux;
-
-	if (!mlx_aux)
-		mlx_aux = new_image_full();
-	return (mlx_aux);
-}
-
-mlx_image_t	*get_render_image(void)
-{
-	static mlx_image_t	*mlx_render;
-
-	if (!mlx_render)
-		mlx_render = new_image_full();
-	return (mlx_render);
 }
 
 mlx_image_t	*get_minimap_image(void)
@@ -75,7 +48,25 @@ mlx_image_t	*get_minimap_image(void)
 	return (mlx_minimap);
 }
 
-mlx_image_t *get_background_image(void)
+mlx_image_t	*get_aux_img(void)
+{
+	static mlx_image_t	*mlx_aux;
+
+	if (!mlx_aux)
+		mlx_aux = new_image_full();
+	return (mlx_aux);
+}
+
+mlx_image_t	*get_render_image(void)
+{
+	static mlx_image_t	*mlx_render;
+
+	if (!mlx_render)
+		mlx_render = new_image_full();
+	return (mlx_render);
+}
+
+mlx_image_t	*get_background_image(void)
 {
 	static mlx_image_t	*mlx_background;
 	t_vector			origin;
@@ -98,7 +89,6 @@ mlx_image_t *get_background_image(void)
 			}
 			origin.y++;
 		}
-
 	}
 	return (mlx_background);
 }

@@ -6,28 +6,26 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:57:39 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 00:33:16 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 14:05:40 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-void	iter_image(mlx_image_t *image, void fn(mlx_image_t *, uint32_t,
-			uint32_t, t_start *start), t_start *start)
+void	generic_matrix_iter(t_vector constrains, void fn(t_vector))
 {
-	uint32_t	x;
-	uint32_t	y;
+	t_vector	coord;
 
-	y = 0;
-	while (y < image->height)
+	coord.y = 0;
+	while (coord.y < constrains.y)
 	{
-		x = 0;
-		while (x < image->width)
+		coord.x = 0;
+		while (coord.x < constrains.x)
 		{
-			fn(image, x, y, start);
-			x++;
+			fn(coord);
+			coord.x++;
 		}
-		y++;
+		coord.y++;
 	}
 }
 

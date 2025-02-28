@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:31:42 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 18:09:03 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 13:50:07 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ void	draw_line_render(t_vector origin, t_vector direction,
 
 	image = get_render_image();
 	len = abs(len);
-	if (len < 0)
-		return ;
 	while (len--)
 	{
 		pixel.x = origin.x + direction.x * len;
