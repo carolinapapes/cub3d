@@ -6,36 +6,41 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 14:35:25 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 18:17:46 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static void	update_pos(t_player *player, t_vector position)
+static void	update_minimap_pos(t_vector position)
 {
 	mlx_image_t	*image;
+	t_vector	constants;
 
 	image = get_minimap_image();
+	constants = game_constants().limit_movement;
+	if (position.x <= constants.x)
+		update_mlx_miniplayer_pos(position, X);
+	else
+		image->instances[0].x += position.x;
+	if (position.y <= constants.y)
+		update_mlx_miniplayer_pos(position, Y);
+	else
+		image->instances[0].y += position.y;
+}
+
+static void	update_pos(t_player *player, t_vector position)
+{
 	player->pos.x += position.x;
 	player->pos.y += position.y;
-	if (player->pos.x <= WIDTH - GRID_SIZE - PLAYER_SIZE)
-		update_mlx_miniplayer(position, X);
-	else
-		image->instances[0].x -= position.x;
-	if (player->pos.y <= HEIGHT - GRID_SIZE - PLAYER_SIZE)
-		update_mlx_miniplayer(position, Y);
-	else
-		image->instances[0].y -= position.y;
+	update_minimap_pos(position);
 }
 
 static void	update_pov(t_player *player, double angle_delta)
 {
-	t_vector		origin;
+	t_vector	origin;
 
-	if (player->pos.x <= WIDTH - GRID_SIZE - PLAYER_SIZE
-		|| player->pos.y <= HEIGHT - GRID_SIZE - PLAYER_SIZE)
-		mlx_clear_image(get_aux_img());
+	mlx_clear_image(get_miniview_image());
 	mlx_clear_image(get_render_image());
 	player->pov += angle_delta * M_PI / 180;
 	if (player->pov > 2 * M_PI)

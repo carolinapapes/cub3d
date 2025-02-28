@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 14:35:25 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 18:10:40 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@
 # include <stdlib.h>
 # include <string.h>
 
-# define WIDTH 			1024
-# define HEIGHT 		1024
-# define GRID_SIZE 		32
-# define PLAYER_SIZE 	16
-# define PLAYER_MIDDLE 	8
+# define WIDTH 				1024
+# define HEIGHT 			1024
+# define HEIGHT_MIDDLE 		512
+# define GRID_SIZE 			32
+# define PLAYER_SIZE 		16
+# define PLAYER_MIDDLE 		8
 
 # define WINDOW_TITLE "Cube3D"
 
@@ -92,6 +93,7 @@ typedef struct s_vector_full
 	t_vector			quadrant;
 	t_vector			tan;
 	double				distance;
+	int					axis;
 }					t_vector_full;
 
 typedef	struct s_int_pair
@@ -161,7 +163,17 @@ typedef struct s_constants
 	int			strip_height;
 	t_vector	dir_x;
 	t_vector	dir_y;
+	t_vector	limit_movement;
 }				t_constants;
+
+typedef enum e_image_type
+{
+	MINIPLAYER,
+	MINIMAP,
+	MINIVIEW,
+	BACKGROUND,
+	RENDER
+}	t_image_type;
 
 // ----------------------------[PARSER]----------------------------
 int						parser_controler(int argc, char **argv, t_start *start);
@@ -193,7 +205,7 @@ void					fill_flood(int	**arr, int x, int y, t_int_pair size);
 
 // _aux_images.c
 mlx_image_t				*get_miniplayer_image(void);
-mlx_image_t				*get_aux_img(void);
+mlx_image_t				*get_miniview_image(void);
 mlx_image_t				*get_render_image(void);
 mlx_image_t				*get_minimap_image(void);
 mlx_image_t				*get_background_image(void);
@@ -202,12 +214,13 @@ mlx_image_t				*get_background_image(void);
 void					pov_iter(t_vector origin, double angle_fov);
 
 // _minimap.c
-void					update_mlx_miniplayer(t_vector pos_delta, int axis);
+void					update_mlx_miniplayer_pos(t_vector pos_delta, int axis);
 int						is_fixed_object(t_vector coord);
 int						is_axis_wall(t_vector coord, t_axis axis,
 							t_vector_full ray);
 void					draw_minimap(t_vector coord);
-// void					iter_map(void fn(t_vector));
+void					draw_pixel(mlx_image_t *image, t_vector pixel, int32_t color);
+void					update_mlx_miniplayer_pos(t_vector pos_delta, int axis);
 
 // _parser_hardcoded.c
 void					player_init(t_start *start);
@@ -225,6 +238,7 @@ void					draw_line(t_vector origin, t_vector direction,
 							int len, int color);
 void					draw_line_render(t_vector origin, t_vector direction,
 							int len, int color);
+void					draw_render(double distance, uint32_t color, int iter);
 
 // r_mlx_handler.c
 mlx_t					*get_mlx(void);
@@ -246,7 +260,12 @@ t_player				set_player(t_vector position_delta, double angle_delta);
 t_vector				get_player_pos(int flag);
 
 // r_ray_distance.c
-t_vector_full			intersect(t_vector_full ray, int axis);
+t_vector_full			get_ray_intersection(t_vector_full ray, int axis);
+
+// r_trigonometry.c
+double					get_hypot(t_vector a, t_vector b);
+double					get_side_len(t_vector a1, t_vector a2, t_vector tan,
+							t_axis axis);
 
 // ----------------------------[DELETE BEFORE SUBMIT]---------------
 void					ft_print_split(char **split);

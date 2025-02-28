@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:00:50 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 14:51:36 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 18:17:34 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,33 @@ void	draw_minimap(t_vector coord)
 
 	image = get_minimap_image();
 	content = is_fixed_object(coord);
-	mlx_put_pixel(image, (uint32_t)coord.x * GRID_SIZE,
-		(uint32_t)coord.y * GRID_SIZE, HEX_GRID);
+	if (content == OUTSIDE)
+		return ;
+	if (coord.x && coord.y)
+		mlx_put_pixel(image, (uint32_t)coord.x * GRID_SIZE,
+			(uint32_t)coord.y * GRID_SIZE, HEX_GRID);
 	if (content == WALL)
 		coordinate_paint((int)coord.x, (int)coord.y);
 }
 
-void	update_mlx_miniplayer(t_vector pos_delta, int axis)
+void	update_mlx_miniplayer_pos(t_vector position, int axis)
 {
 	mlx_image_t	*mlx_player;
 
 	mlx_player = get_miniplayer_image();
 	if (axis == Y)
-		mlx_player->instances[0].y += pos_delta.y;
+		mlx_player->instances[0].y += position.y;
 	if (axis == X)
-		mlx_player->instances[0].x += pos_delta.x;
+		mlx_player->instances[0].x += position.x;
+}
+
+void	update_mlx_miniview_position(t_vector pos_delta, int axis)
+{
+	mlx_image_t	*mlx_aux;
+
+	mlx_aux = get_miniview_image();
+	if (axis == Y)
+		mlx_aux->instances[0].y += pos_delta.y;
+	if (axis == X)
+		mlx_aux->instances[0].x += pos_delta.x;
 }

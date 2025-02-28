@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 16:40:59 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 01:52:02 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 16:54:33 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 static double	snap_to_grid(double origin, int quadrant)
 {
 	origin = origin / GRID_SIZE;
-	if (floor(origin) == origin)
+	if ((int)origin == origin)
 		origin += quadrant;
 	else
-		origin = floor(origin) + (quadrant == POSITIVE);
+		origin = (int)origin + (quadrant == POSITIVE);
 	origin = origin * GRID_SIZE;
 	return (origin);
 }
@@ -29,11 +29,11 @@ t_vector	next_grid(t_vector_full ray, t_axis axis)
 
 	next.arr[axis] = snap_to_grid(ray.end.arr[axis], ray.quadrant.arr[axis]);
 	next.arr[!axis] = ray.end.arr[!axis]
-		+ (next.arr[axis] - ray.end.arr[axis]) * ray.tan.arr[axis];
+		+ get_side_len(next, ray.end, ray.tan, axis);
 	return (next);
 }
 
-t_vector_full	intersect(t_vector_full ray, int axis)
+t_vector_full	get_ray_intersection(t_vector_full ray, int axis)
 {
 	int				type;
 
@@ -44,7 +44,7 @@ t_vector_full	intersect(t_vector_full ray, int axis)
 	if (type == OUTSIDE)
 		return (ray);
 	if (type == GRID)
-		return (intersect(ray, axis));
-	ray.distance = hypot(ray.end.x - ray.origin.x, ray.end.y - ray.origin.y);
+		return (get_ray_intersection(ray, axis));
+	ray.distance = get_hypot(ray.origin, ray.end);
 	return (ray);
 }

@@ -54,4 +54,3 @@ void	cub3d_init(void)
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 }
-
