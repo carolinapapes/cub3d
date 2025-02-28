@@ -6,13 +6,13 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 18:17:46 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 19:21:20 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static void	update_minimap_pos(t_vector position)
+static void	update_minimap_pos(t_vector position, t_vector position_delta)
 {
 	mlx_image_t	*image;
 	t_vector	constants;
@@ -20,20 +20,20 @@ static void	update_minimap_pos(t_vector position)
 	image = get_minimap_image();
 	constants = game_constants().limit_movement;
 	if (position.x <= constants.x)
-		update_mlx_miniplayer_pos(position, X);
+		update_mlx_miniplayer_pos(position_delta, X);
 	else
-		image->instances[0].x += position.x;
+		image->instances[0].x -= position_delta.x;
 	if (position.y <= constants.y)
-		update_mlx_miniplayer_pos(position, Y);
+		update_mlx_miniplayer_pos(position_delta, Y);
 	else
-		image->instances[0].y += position.y;
+		image->instances[0].y -= position_delta.y;
 }
 
 static void	update_pos(t_player *player, t_vector position)
 {
 	player->pos.x += position.x;
 	player->pos.y += position.y;
-	update_minimap_pos(position);
+	update_minimap_pos(player->pos, position);
 }
 
 static void	update_pov(t_player *player, double angle_delta)

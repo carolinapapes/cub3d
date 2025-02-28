@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:18:39 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 18:02:11 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 19:36:05 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,6 @@
 
 void	draw_intersect(t_vector_full vector, int color)
 {
-	t_vector	constants;
-
-	constants = game_constants().limit_movement;
-	if (vector.origin.x > constants.x)
-	{
-		vector.origin.x = constants.x;
-		vector.end.x += constants.x * vector.direction.x;
-	}
-	if (vector.origin.y > constants.y)
-	{
-		vector.origin.y = constants.y;
-		vector.end.y += constants.y * vector.direction.y;
-	}
 	draw_line(vector.origin, vector.direction, vector.distance, color);
 	draw_point(vector.end, color);
 }
