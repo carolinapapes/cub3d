@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 01:30:50 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 10:59:56 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ static void	update_pov(t_player *player, double angle_delta)
 	}
 	mlx_clear_image(get_render_image());
 	player->pov += angle_delta * M_PI / 180;
+	if (player->pov > 2 * M_PI)
+		player->pov -= 2 * M_PI;
+	if (player->pov < 0)
+		player->pov += 2 * M_PI;
 	origin = get_player_pos(PIXEL | CENTER);
 	pov_iter(origin, player->pov);
 }

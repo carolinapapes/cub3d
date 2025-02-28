@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:03:16 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 00:30:25 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 11:16:28 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,32 @@ mlx_image_t	*get_minimap_image(void)
 		mlx_minimap = new_image(size, origin);
 	}
 	return (mlx_minimap);
+}
+
+mlx_image_t *get_background_image(void)
+{
+	static mlx_image_t	*mlx_background;
+	t_vector			origin;
+
+	if (!mlx_background)
+	{
+		mlx_background = new_image_full();
+		origin.y = 0;
+		origin.x = 0;
+		while (origin.y < HEIGHT)
+		{
+			origin.x = 0;
+			while (origin.x < WIDTH)
+			{
+				if (origin.y < HEIGHT / 2)
+					mlx_put_pixel(mlx_background, origin.x, origin.y, HEX_CEILING);
+				else
+					mlx_put_pixel(mlx_background, origin.x, origin.y, HEX_FLOOR);
+				origin.x++;
+			}
+			origin.y++;
+		}
+
+	}
+	return (mlx_background);
 }

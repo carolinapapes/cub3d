@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 00:16:08 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 11:19:36 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	main(int argc, char **argv)
 		free_start(start);
 		return (print_error(), EXIT_FAILURE);
 	}
+	get_background_image();
 	iter_map(draw_minimap);
 	player_init(start);
 	cub3d_init();

@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 14:21:30 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 01:17:41 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 11:20:18 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static t_vector_full	update_ray(t_vector origin, double angle)
 	return (ray);
 }
 
-static void	draw_render_inter(t_vector_full ray, int iter)
+static void	draw_render_inter(t_vector_full ray, int iter, double diff)
 {
 	t_vector_full	ray_x;
 	t_vector_full	ray_y;
@@ -58,12 +58,16 @@ static void	draw_render_inter(t_vector_full ray, int iter)
 		&& (ray_x.distance <= ray_y.distance || ray_y.distance == 0))
 	{
 		draw_intersect(ray_x, HEX_GREY);
-		draw_render(ray_x.distance, HEX_GREEN - 0x00000066, iter);
+		if (diff != 0)
+			ray_x.distance *= cos(diff);
+		draw_render(ray_x.distance, HEX_GREEN, iter);
 	}
 	else if (ray_y.distance != 0)
 	{
 		draw_intersect(ray_y, HEX_GREY);
-		draw_render(ray_y.distance, HEX_RED - 0x00000066, iter);
+		if (diff != 0)
+			ray_y.distance *= cos(diff);
+		draw_render(ray_y.distance, HEX_RED, iter);
 	}
 }
 
@@ -74,13 +78,13 @@ void	pov_iter(t_vector origin, double angle_fov)
 	t_constants		constants;
 	t_vector_full	ray;
 
-	iter = 0;
+	iter = -1;
 	constants = game_constants();
-	angle = angle_fov - constants.fov_delta_start;
+	angle = angle_fov + constants.fov_delta_start;
 	while (iter++ < 61)
 	{
 		angle += constants.angle_step;
 		ray = update_ray(origin, angle);
-		draw_render_inter(ray, iter);
+		draw_render_inter(ray, iter, angle - angle_fov);
 	}
 }

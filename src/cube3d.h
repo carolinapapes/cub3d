@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 01:29:06 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 11:17:31 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@
 # define HEX_GREEN 		0x1ABC9CFF
 # define HEX_BLUE 		0x0000FFFF
 # define HEX_PURPLE 	0xFF00FFFF
+# define HEX_CEILING 	0x555555FF
+# define HEX_FLOOR 		0xBBBBBBFF
 
 # ifndef M_PI
 #  define M_PI 3.14159265358979323846
@@ -195,6 +197,7 @@ mlx_image_t				*get_view_image(void);
 mlx_image_t				*get_aux_img(void);
 mlx_image_t				*get_render_image(void);
 mlx_image_t				*get_minimap_image(void);
+mlx_image_t				*get_background_image(void);
 
 // _bonus_remove_later.c
 void					pov_iter(t_vector origin, double angle_fov);
