@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 14:09:04 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 14:35:25 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ mlx_image_t				*get_background_image(void);
 void					pov_iter(t_vector origin, double angle_fov);
 
 // _minimap.c
-void					update_mlx_player(t_vector pos_delta, int axis);
+void					update_mlx_miniplayer(t_vector pos_delta, int axis);
 int						is_fixed_object(t_vector coord);
 int						is_axis_wall(t_vector coord, t_axis axis,
 							t_vector_full ray);

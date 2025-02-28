@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 13:52:20 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 14:35:25 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ static void	update_pos(t_player *player, t_vector position)
 	player->pos.x += position.x;
 	player->pos.y += position.y;
 	if (player->pos.x <= WIDTH - GRID_SIZE - PLAYER_SIZE)
-		update_mlx_player(position, X);
+		update_mlx_miniplayer(position, X);
 	else
 		image->instances[0].x -= position.x;
 	if (player->pos.y <= HEIGHT - GRID_SIZE - PLAYER_SIZE)
-		update_mlx_player(position, Y);
+		update_mlx_miniplayer(position, Y);
 	else
 		image->instances[0].y -= position.y;
 }

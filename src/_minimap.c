@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:00:50 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 14:08:58 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 14:51:36 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,31 +29,27 @@ static int	is_wall(t_vector coord)
 	return (GRID);
 }
 
-int	is_axis_wall(t_vector coord, t_axis axis, t_vector_full ray)
+int	is_axis_wall(t_vector axis_positive, t_axis axis, t_vector_full ray)
 {
-	t_vector	prev;
-	int			dir;
-	int			prev_res;
+	t_vector	axis_negative;
 	int			res;
 
-	dir = ray.quadrant.arr[axis];
-	coord.x = coord.x / GRID_SIZE;
-	coord.y = coord.y / GRID_SIZE;
-	prev = coord;
-	prev.arr[axis] = prev.arr[axis] - 1;
-	if (dir == 1)
+	axis_positive.x = axis_positive.x / GRID_SIZE;
+	axis_positive.y = axis_positive.y / GRID_SIZE;
+	axis_negative = axis_positive;
+	axis_negative.arr[axis] = axis_negative.arr[axis] - 1;
+	if (ray.quadrant.arr[axis] == 1)
 	{
-		prev_res = is_wall(prev);
-		if (prev_res == WALL)
-			return (prev_res);
-		res = is_wall(coord);
+		if (is_wall(axis_negative) == WALL)
+			return (WALL);
+		res = is_wall(axis_positive);
 		return (res);
 	}
-	res = is_wall(coord);
+	res = is_wall(axis_positive);
 	if (res == WALL)
 		return (res);
-	prev_res = is_wall(prev);
-	return (prev_res);
+	res = is_wall(axis_negative);
+	return (res);
 }
 
 int	is_fixed_object(t_vector coord)
@@ -68,31 +64,6 @@ int	is_fixed_object(t_vector coord)
 	return (content);
 }
 
-// void	iter_map(t_vector constrains, void fn(t_vector))
-// {
-// 	t_vector	coord;
-// 	t_start		*start;
-// 	double		cell_quantity;
-// 	double		current_cell;
-
-// 	coord.y = 0;
-// 	coord.x = 0;
-// 	start = get_start();
-// 	current_cell = 0;
-// 	cell_quantity = start->map.size_int.x * start->map.size_int.y;
-// 	while (current_cell < cell_quantity)
-// 	{
-// 		if (coord.x >= start->map.size_int.x)
-// 		{
-// 			coord.x = 0;
-// 			coord.y++;
-// 		}
-// 		fn(coord);
-// 		coord.x++;
-// 		current_cell++;
-// 	}
-// }
-
 void	draw_minimap(t_vector coord)
 {
 	int			content;
@@ -106,7 +77,7 @@ void	draw_minimap(t_vector coord)
 		coordinate_paint((int)coord.x, (int)coord.y);
 }
 
-void	update_mlx_player(t_vector pos_delta, int axis)
+void	update_mlx_miniplayer(t_vector pos_delta, int axis)
 {
 	mlx_image_t	*mlx_player;
 
