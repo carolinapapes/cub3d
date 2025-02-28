@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 19:33:59 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 01:29:06 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
 
 # define WIDTH 			1024
 # define HEIGHT 		1024
-# define GRID_SIZE 		64
-# define PLAYER_SIZE 	32
-# define PLAYER_MIDDLE 	16
+# define GRID_SIZE 		32
+# define PLAYER_SIZE 	16
+# define PLAYER_MIDDLE 	8
 
 # define WINDOW_TITLE "Cube3D"
 
@@ -41,14 +41,14 @@
 # define OUTSIDE 128
 
 // ----------------------------[COLORS]----------------------------
-# define HEX_PLAYER 0x00FF00FF
-# define HEX_GRID 0xB0B0B0FF
-# define HEX_WALL 0xB0B0B0CC
-# define HEX_GREY 0xD5DBDBFF
-# define HEX_RED 0xE72D2DFF
-# define HEX_GREEN 0x1ABC9CFF
-# define HEX_BLUE 0x0000FFFF
-# define HEX_PURPLE 0xFF00FFFF
+# define HEX_PLAYER 	0x00FF00FF
+# define HEX_GRID 		0xB0B0B0FF
+# define HEX_WALL 		0xB0B0B0CC
+# define HEX_GREY 		0xD5DBDBFF
+# define HEX_RED 		0xE72D2DFF
+# define HEX_GREEN 		0x1ABC9CFF
+# define HEX_BLUE 		0x0000FFFF
+# define HEX_PURPLE 	0xFF00FFFF
 
 # ifndef M_PI
 #  define M_PI 3.14159265358979323846
@@ -125,7 +125,7 @@ typedef struct s_start
 	t_map				map;
 	t_vector			player;
 	int					player_dir;
-	t_int_pair          player_pos;
+	t_int_pair			player_pos;
 }						t_start;
 
 typedef struct s_player
@@ -140,6 +140,9 @@ typedef enum e_axis
 	X = 0,
 	Y = 1
 }						t_axis;
+
+# define PLAYER_MOVE_X 1
+# define PLAYER_MOVE_Y 2
 
 typedef enum e_dir
 {
@@ -191,25 +194,25 @@ mlx_image_t				*get_player_image(void);
 mlx_image_t				*get_view_image(void);
 mlx_image_t				*get_aux_img(void);
 mlx_image_t				*get_render_image(void);
-void					get_minimap_image(t_start *start);
+mlx_image_t				*get_minimap_image(void);
 
 // _bonus_remove_later.c
 void					pov_iter(t_vector origin, double angle_fov);
 
 // _minimap.c
-void					update_mlx_player(t_vector pos_delta);
-void					draw_minimap(mlx_image_t *image,
-							uint32_t x, uint32_t y, t_start *start);
-int						is_fixed_object(uint32_t x, uint32_t y, t_start *start);
+void					update_mlx_player(t_vector pos_delta, int axis);
+int						is_fixed_object(t_vector coord);
 int						is_axis_wall(t_vector coord, t_axis axis,
 							t_vector_full ray);
+void					draw_minimap(t_vector coord);
+void					iter_map(void fn(t_vector));
 
 // _parser_hardcoded.c
 void					player_init(t_start *start);
 
 // _r_draw_minimap_utils.c
 void					draw_intersect(t_vector_full vector, int color);
-
+void					coordinate_paint(int x, int y);
 // main.c
 t_constants				game_constants(void);
 t_start					*get_start(void);

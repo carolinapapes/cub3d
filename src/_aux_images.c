@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:03:16 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 19:23:27 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 00:30:25 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,20 @@ mlx_image_t	*get_render_image(void)
 	return (mlx_render);
 }
 
-void	get_minimap_image(t_start *start)
+mlx_image_t	*get_minimap_image(void)
 {
-	mlx_image_t	*minimap;
+	static mlx_image_t	*mlx_minimap;
+	t_start				*start;
+	t_vector			size;
+	t_vector			origin;
 
-	minimap = new_image_full();
-	iter_image(minimap, draw_minimap, start);
+	if (!mlx_minimap)
+	{
+		start = get_start();
+		size.x = start->map.size_int.x * GRID_SIZE;
+		size.y = start->map.size_int.y * GRID_SIZE;
+		ft_memset(&origin, 0, sizeof(t_vector));
+		mlx_minimap = new_image(size, origin);
+	}
+	return (mlx_minimap);
 }

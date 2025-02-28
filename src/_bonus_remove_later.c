@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 14:21:30 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 19:05:26 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 01:17:41 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ static void	draw_render_inter(t_vector_full ray, int iter)
 	if (ray_x.distance != 0
 		&& (ray_x.distance <= ray_y.distance || ray_y.distance == 0))
 	{
-		// draw_intersect(ray_x, HEX_GREY);
-		// draw_render(ray_x.distance, HEX_GREEN - 0x00000066, iter);
+		draw_intersect(ray_x, HEX_GREY);
+		draw_render(ray_x.distance, HEX_GREEN - 0x00000066, iter);
 	}
 	else if (ray_y.distance != 0)
 	{
-		// draw_render(ray_y.distance, HEX_RED - 0x00000066, iter);
-		// draw_intersect(ray_y, HEX_GREY);
+		draw_intersect(ray_y, HEX_GREY);
+		draw_render(ray_y.distance, HEX_RED - 0x00000066, iter);
 	}
 }
 

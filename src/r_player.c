@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 19:28:09 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 01:30:50 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,31 @@
 
 static void	update_pos(t_player *player, t_vector position)
 {
+	mlx_image_t	*image;
+
+	image = get_minimap_image();
 	player->pos.x += position.x;
 	player->pos.y += position.y;
-	update_mlx_player(position);
+	if (player->pos.x <= WIDTH - GRID_SIZE - PLAYER_SIZE)
+		update_mlx_player(position, X);
+	else
+		image->instances[0].x -= position.x;
+	if (player->pos.y <= HEIGHT - GRID_SIZE - PLAYER_SIZE)
+		update_mlx_player(position, Y);
+	else
+		image->instances[0].y -= position.y;
 }
 
 static void	update_pov(t_player *player, double angle_delta)
 {
 	t_vector		origin;
 
-	mlx_clear_image(get_view_image());
-	mlx_clear_image(get_aux_img());
+	if (player->pos.x <= WIDTH - GRID_SIZE - PLAYER_SIZE
+		|| player->pos.y <= HEIGHT - GRID_SIZE - PLAYER_SIZE)
+	{
+		mlx_clear_image(get_view_image());
+		mlx_clear_image(get_aux_img());
+	}
 	mlx_clear_image(get_render_image());
 	player->pov += angle_delta * M_PI / 180;
 	origin = get_player_pos(PIXEL | CENTER);

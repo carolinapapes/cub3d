@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:50:40 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 19:33:42 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 01:46:04 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 
 static int	hits_wall(t_vector pos, int axis)
 {
-	t_start	*start;
+	t_vector	position_coord;
 
-	start = get_start();
-	pos.arr[!axis] -= PLAYER_SIZE / 2;
-	if (is_fixed_object(pos.x, pos.y, start) == WALL)
+	pos.arr[!axis] += PLAYER_MIDDLE;
+	position_coord.x = pos.x / GRID_SIZE;
+	position_coord.y = pos.y / GRID_SIZE;
+	if (is_fixed_object(position_coord) == WALL)
 		return (1);
-	pos.arr[!axis] += PLAYER_SIZE - 1;
-	if (is_fixed_object(pos.x, pos.y, start) == WALL)
+	pos.arr[!axis] -= PLAYER_SIZE - 1;
+	position_coord.arr[!axis] = pos.arr[!axis] / GRID_SIZE;
+	if (is_fixed_object(position_coord) == WALL)
 		return (1);
 	return (0);
 }
