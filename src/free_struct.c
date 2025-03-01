@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 15:39:47 by kkoval            #+#    #+#             */
-/*   Updated: 2025/02/25 14:48:57 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/02/28 01:49:17 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ char	*free_line(char **line)
 	}
 	return (NULL);
 }
-
 
 void	free_int_array(int ***array, int size_y)
 {
