@@ -49,6 +49,9 @@ void	cub3d_init(void)
 	mlx_t		*mlx;
 
 	mlx = get_mlx();
+	init_background();
+	init_minimap();
+	init_player();
 	if (mlx_loop_hook(mlx, cub3d_hook, mlx) == 0)
 		exit(1);
 	mlx_loop(mlx);

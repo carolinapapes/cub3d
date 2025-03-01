@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 18:10:40 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 23:03:14 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,6 @@ typedef struct s_player
 {
 	t_vector			pos;
 	double				pov;
-	bool				initilized;
 }						t_player;
 
 typedef enum e_axis
@@ -161,9 +160,11 @@ typedef struct s_constants
 	int			strip_width;
 	double		fov_delta_start;
 	int			strip_height;
+	double		double_pi;
 	t_vector	dir_x;
 	t_vector	dir_y;
 	t_vector	limit_movement;
+	t_vector	zero;
 }				t_constants;
 
 typedef enum e_image_type
@@ -208,22 +209,24 @@ mlx_image_t				*get_miniplayer_image(void);
 mlx_image_t				*get_miniview_image(void);
 mlx_image_t				*get_render_image(void);
 mlx_image_t				*get_minimap_image(void);
-mlx_image_t				*get_background_image(void);
+void					init_background(void);
 
 // _bonus_remove_later.c
 void					pov_iter(t_vector origin, double angle_fov);
 
 // _minimap.c
 void					update_mlx_miniplayer_pos(t_vector pos_delta, int axis);
-int						is_fixed_object(t_vector coord);
+int						get_cell_content(t_vector coord);
 int						is_axis_wall(t_vector coord, t_axis axis,
 							t_vector_full ray);
 void					draw_minimap(t_vector coord);
 void					draw_pixel(mlx_image_t *image, t_vector pixel, int32_t color);
 void					update_mlx_miniplayer_pos(t_vector pos_delta, int axis);
+void					update_minimap_pos(t_vector position, t_vector position_delta);
+void					init_minimap(void);
 
 // _parser_hardcoded.c
-void					player_init(t_start *start);
+void					init_player(void);
 
 // _r_draw_minimap_utils.c
 void					draw_intersect(t_vector_full vector, int color);
@@ -257,7 +260,7 @@ mlx_image_t				*new_image_full(void);
 
 // r_player.c
 t_player				set_player(t_vector position_delta, double angle_delta);
-t_vector				get_player_pos(int flag);
+t_vector				get_player_center_px(void);
 
 // r_ray_distance.c
 t_vector_full			get_ray_intersection(t_vector_full ray, int axis);
@@ -266,6 +269,7 @@ t_vector_full			get_ray_intersection(t_vector_full ray, int axis);
 double					get_hypot(t_vector a, t_vector b);
 double					get_side_len(t_vector a1, t_vector a2, t_vector tan,
 							t_axis axis);
+double					radian_overflow(double angle);
 
 // ----------------------------[DELETE BEFORE SUBMIT]---------------
 void					ft_print_split(char **split);

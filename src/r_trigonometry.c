@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:54:32 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 15:41:05 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 21:46:06 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,16 @@ double	get_side_len(t_vector next, t_vector end, t_vector tan,
 double	get_hypot(t_vector a, t_vector b)
 {
 	return (hypot(b.x - a.x, b.y - a.y));
+}
+
+double	radian_overflow(double angle)
+{
+	double	limit;
+
+	limit = game_constants().double_pi;
+	if (angle > limit)
+		angle -= limit;
+	if (angle < 0)
+		angle += limit;
+	return (angle);
 }

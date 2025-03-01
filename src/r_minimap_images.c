@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 16:56:22 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 18:00:23 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 22:15:40 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ mlx_image_t	*init_minimap_image(void)
 {
 	t_start				*start;
 	t_vector			size;
-	t_vector			origin;
+	t_vector			zero;
 
 	start = get_start();
 	size.x = start->map.size_int.x * GRID_SIZE;
 	size.y = start->map.size_int.y * GRID_SIZE;
-	ft_memset(&origin, 0, sizeof(t_vector));
-	return (new_image(size, origin));
+	zero = game_constants().zero;
+	return (new_image(size, zero));
 }
 
 mlx_image_t	*get_minimap_image(void)
@@ -65,4 +65,15 @@ mlx_image_t	*get_miniview_image(void)
 	if (!mlx_aux)
 		mlx_aux = new_image_full();
 	return (mlx_aux);
+}
+
+void	init_minimap(void)
+{
+	t_start				*start;
+	t_vector			size;
+
+	start = get_start();
+	size.x = start->map.size_int.x;
+	size.y = start->map.size_int.y;
+	generic_matrix_iter(size, draw_minimap);
 }

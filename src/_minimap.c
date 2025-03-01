@@ -6,63 +6,13 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:00:50 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 18:17:34 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 23:03:14 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static int	is_wall(t_vector coord)
-{
-	int		x;
-	int		y;
-	t_start	*start;
 
-	start = get_start();
-	x = (int)coord.x;
-	y = (int)coord.y;
-	if (x < 0 || y < 0
-		|| x >= start->map.size_int.x || y >= start->map.size_int.y)
-		return (OUTSIDE);
-	if (start->map.map_int[y][x] == WALL)
-		return (WALL);
-	return (GRID);
-}
-
-int	is_axis_wall(t_vector axis_positive, t_axis axis, t_vector_full ray)
-{
-	t_vector	axis_negative;
-	int			res;
-
-	axis_positive.x = axis_positive.x / GRID_SIZE;
-	axis_positive.y = axis_positive.y / GRID_SIZE;
-	axis_negative = axis_positive;
-	axis_negative.arr[axis] = axis_negative.arr[axis] - 1;
-	if (ray.quadrant.arr[axis] == 1)
-	{
-		if (is_wall(axis_negative) == WALL)
-			return (WALL);
-		res = is_wall(axis_positive);
-		return (res);
-	}
-	res = is_wall(axis_positive);
-	if (res == WALL)
-		return (res);
-	res = is_wall(axis_negative);
-	return (res);
-}
-
-int	is_fixed_object(t_vector coord)
-{
-	int			content;
-	t_start		*start;
-
-	start = get_start();
-	if (coord.x >= start->map.size_int.x || coord.y >= start->map.size_int.y)
-		return (OUTSIDE);
-	content = start->map.map_int[(int)coord.y][(int)coord.x];
-	return (content);
-}
 
 void	draw_minimap(t_vector coord)
 {
@@ -70,7 +20,7 @@ void	draw_minimap(t_vector coord)
 	mlx_image_t	*image;
 
 	image = get_minimap_image();
-	content = is_fixed_object(coord);
+	content = get_cell_content(coord);
 	if (content == OUTSIDE)
 		return ;
 	if (coord.x && coord.y)
@@ -100,4 +50,21 @@ void	update_mlx_miniview_position(t_vector pos_delta, int axis)
 		mlx_aux->instances[0].y += pos_delta.y;
 	if (axis == X)
 		mlx_aux->instances[0].x += pos_delta.x;
+}
+
+void	update_minimap_pos(t_vector position, t_vector position_delta)
+{
+	mlx_image_t	*image;
+	t_vector	constants;
+
+	image = get_minimap_image();
+	constants = game_constants().limit_movement;
+	if (position.x <= constants.x)
+		update_mlx_miniplayer_pos(position_delta, X);
+	else
+		image->instances[0].x -= position_delta.x;
+	if (position.y <= constants.y)
+		update_mlx_miniplayer_pos(position_delta, Y);
+	else
+		image->instances[0].y -= position_delta.y;
 }

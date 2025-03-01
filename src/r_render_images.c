@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _aux_images.c                                      :+:      :+:    :+:   */
+/*   r_render_images.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:03:16 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 17:04:31 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 22:23:40 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ mlx_image_t	*get_render_image(void)
 	return (mlx_render);
 }
 
-void	init_background_colors(mlx_image_t	*mlx_background)
+void	set_background(mlx_image_t	*mlx_background)
 {
 	t_vector			origin;
 
-	ft_memset(&origin, 0, sizeof(t_vector));
+	origin = game_constants().zero;
 	while (origin.y < HEIGHT)
 	{
 		origin.x = 0;
@@ -41,14 +41,10 @@ void	init_background_colors(mlx_image_t	*mlx_background)
 	}
 }
 
-mlx_image_t	*get_background_image(void)
+void	init_background(void)
 {
-	static mlx_image_t	*mlx_background;
+	mlx_image_t	*mlx_background;
 
-	if (!mlx_background)
-	{
-		mlx_background = new_image_full();
-		init_background_colors(mlx_background);
-	}
-	return (mlx_background);
+	mlx_background = new_image_full();
+	set_background(mlx_background);
 }

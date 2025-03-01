@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 17:49:36 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 22:22:32 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ t_constants	game_constants(void)
 		constants.dir_x.y = 0;
 		constants.limit_movement.x = WIDTH - GRID_SIZE - PLAYER_SIZE;
 		constants.limit_movement.y = HEIGHT - GRID_SIZE - PLAYER_SIZE;
+		constants.zero.x = 0;
+		constants.zero.y = 0;
+		constants.double_pi = 2 * M_PI;
 	}
 	return (constants);
 }
@@ -50,7 +53,6 @@ t_start	*get_start(void)
 int	main(int argc, char **argv)
 {
 	t_start		*start;
-	t_vector	constrains;
 
 	start = get_start();
 	if (!start)
@@ -60,11 +62,6 @@ int	main(int argc, char **argv)
 		free_start(start);
 		return (print_error(), EXIT_FAILURE);
 	}
-	constrains.x = start->map.size_int.x - 1;
-	constrains.y = start->map.size_int.y - 1;
-	get_background_image();
-	generic_matrix_iter(constrains, draw_minimap);
-	player_init(start);
 	cub3d_init();
 	free_start(start);
 	return (EXIT_SUCCESS);

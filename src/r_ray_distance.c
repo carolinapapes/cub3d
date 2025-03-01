@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 16:40:59 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 16:54:33 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 23:07:54 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_vector_full	get_ray_intersection(t_vector_full ray, int axis)
 	type = is_axis_wall(ray.end, axis, ray);
 	if (type == OUTSIDE)
 		return (ray);
-	if (type == GRID)
+	if (type != WALL)
 		return (get_ray_intersection(ray, axis));
 	ray.distance = get_hypot(ray.origin, ray.end);
 	return (ray);
