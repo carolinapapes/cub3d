@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 19:32:36 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/01 03:49:16 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ int	main(int argc, char **argv)
 		free_start(start);
 		return (print_error(), EXIT_FAILURE);
 	}
-	get_minimap_image(start);
-	player_init(start);
-	cub3d_init();
+	//get_minimap_image(start);
+	//player_init(start);
+	//cub3d_init();
 	free_start(start);
 	// free(start);
 	return (EXIT_SUCCESS);

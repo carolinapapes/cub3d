@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 16:04:26 by kkoval            #+#    #+#             */
-/*   Updated: 2025/02/23 16:53:41 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/01 04:28:33 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,11 @@ int	check_for_newlines_in_map(char *map)
 		if (map[i] == '\n')
 		{
 			i++;
+			if (map[i] == '\0')
+				return (0);
 			if (map[i] == '\n')
 			{
-				while (map[i] != '\0' && map[i] == '\n')
+				while (map[i] == '\n')
 					i++;
 				if (map[i] == '\0')
 					return (0);
