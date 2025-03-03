@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 16:04:26 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/01 04:28:33 by kate             ###   ########.fr       */
+/*   Updated: 2025/03/02 21:53:19 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ char	*find_first_map_line(char *input)
 
 	while (*input)
 	{
-		while (*input != '\n')
+		while (*input && *input != '\n')
 			input++;
+		if (*input == '\0')
+			return (NULL);
 		while (*input == '\n')
 			input++;
 		i = 0;
