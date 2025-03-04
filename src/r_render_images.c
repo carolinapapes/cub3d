@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:03:16 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 22:23:40 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/04 21:13:07 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,15 @@ mlx_image_t	*get_render_image(void)
 	if (!mlx_render)
 		mlx_render = new_image_full();
 	return (mlx_render);
+}
+
+mlx_image_t	*get_shadow_image(void)
+{
+	static mlx_image_t	*mlx_shadow;
+
+	if (!mlx_shadow)
+		mlx_shadow = new_image_full();
+	return (mlx_shadow);
 }
 
 void	set_background(mlx_image_t	*mlx_background)

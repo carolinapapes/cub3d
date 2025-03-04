@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 23:03:14 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/04 21:47:08 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,15 @@ typedef union u_coord
 	};
 	double				arr[2];
 }						t_vector;
+
+typedef struct s_texture
+{
+	t_vector			pixel;
+	t_vector			scale;
+	t_vector			origin;
+	uint32_t			color;
+	mlx_image_t			*image;
+}						t_texture;
 
 typedef struct s_vector_full
 {
@@ -165,6 +174,9 @@ typedef struct s_constants
 	t_vector	dir_y;
 	t_vector	limit_movement;
 	t_vector	zero;
+	double		texture_width;
+	double		texture_height;
+	float		texture_step[64];
 }				t_constants;
 
 typedef enum e_image_type
@@ -210,6 +222,7 @@ mlx_image_t				*get_miniview_image(void);
 mlx_image_t				*get_render_image(void);
 mlx_image_t				*get_minimap_image(void);
 void					init_background(void);
+mlx_image_t				*get_shadow_image(void);
 
 // _bonus_remove_later.c
 void					pov_iter(t_vector origin, double angle_fov);
@@ -239,9 +252,8 @@ t_start					*get_start(void);
 void					draw_point(t_vector point, int color);
 void					draw_line(t_vector origin, t_vector direction,
 							int len, int color);
-void					draw_line_render(t_vector origin, t_vector direction,
-							int len, int color);
-void					draw_render(double distance, uint32_t color, int iter);
+void					draw_line_render(t_vector origin, t_vector direction, int len);
+void					draw_render(double distance, int iter);
 
 // r_mlx_handler.c
 mlx_t					*get_mlx(void);
@@ -270,6 +282,9 @@ double					get_hypot(t_vector a, t_vector b);
 double					get_side_len(t_vector a1, t_vector a2, t_vector tan,
 							t_axis axis);
 double					radian_overflow(double angle);
+
+
+t_texture	get_texture(int set, double wall_height, double origin_x_percent);
 
 // ----------------------------[DELETE BEFORE SUBMIT]---------------
 void					ft_print_split(char **split);

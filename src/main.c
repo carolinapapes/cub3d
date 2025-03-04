@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 22:22:32 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/04 18:54:15 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_constants	game_constants(void)
 		constants.angle_step = M_PI / 180;
 		constants.strip_width = WIDTH / constants.fov;
 		constants.strip_height = HEIGHT * 10;
-		constants.fov_delta_start = -31.0 * constants.angle_step;
+		constants.fov_delta_start = -31.0 * M_PI / 180;
 		constants.dir_y.x = 0;
 		constants.dir_y.y = 1;
 		constants.dir_x.x = 1;
@@ -52,7 +52,7 @@ t_start	*get_start(void)
 
 int	main(int argc, char **argv)
 {
-	t_start		*start;
+	t_start	*start;
 
 	start = get_start();
 	if (!start)

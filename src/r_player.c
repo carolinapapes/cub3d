@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 22:16:57 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/04 21:34:39 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ static void	update_pos(t_player *player, t_vector position)
 static void	update_pov(t_player *player, double angle_delta)
 {
 	t_vector	origin;
+	t_constants	constants;
 
-	player->pov += angle_delta * M_PI / 180;
+	constants = game_constants();
+	player->pov += angle_delta * constants.angle_step;
 	player->pov = radian_overflow(player->pov);
 	origin = get_player_center_px();
 	pov_iter(origin, player->pov);
@@ -63,5 +65,12 @@ void	init_player(void)
 	start = get_start();
 	initial_pos.x = (start->player_pos.x + 0.25) * GRID_SIZE;
 	initial_pos.y = (start->player_pos.y + 0.25) * GRID_SIZE;
-	set_player(initial_pos, 0);
+	if (start->player_dir == 'E')
+		set_player(initial_pos, 0);
+	else if (start->player_dir == 'S')
+		set_player(initial_pos, 90);
+	else if (start->player_dir == 'W')
+		set_player(initial_pos, 180);
+	else if (start->player_dir == 'N')
+		set_player(initial_pos, 270);
 }
