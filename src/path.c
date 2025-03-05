@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:01:54 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/05 15:11:06 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/05 16:13:24 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,22 @@ char	*save_path(char *path)
 
 int	is_path_valid(char *path)
 {
-    struct stat st;
-	
-    if (stat(path, &st) == -1) {
-        perror("stat");
-        return 0; // Assume it's not a directory if stat fails
-    }
-    return S_ISDIR(st.st_mode);
+    int	dir;
+	int	fd;
 
-	/*int	fd;
-
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
+	dir = open(path, O_DIRECTORY);
+	if (dir == -1)
 	{
-		printf("Error: Texture path is not valid\n");
+		fd = open(path, O_RDONLY);
+		if (fd != -1)
+		{
+			close (fd);
+			return (0);
+		}
 		return (1);
 	}
-	close(fd);
-	return (0);*/
+	close(dir);
+	return (1);
 }
 
 int	is_dir(char **future_path, char *line, char *dir_name)
