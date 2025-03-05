@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/04 21:47:08 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/05 10:34:02 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ typedef union u_coord
 typedef struct s_texture
 {
 	t_vector			pixel;
-	t_vector			scale;
+	t_vector			step;
 	t_vector			origin;
 	uint32_t			color;
 	mlx_image_t			*image;
@@ -252,7 +252,8 @@ t_start					*get_start(void);
 void					draw_point(t_vector point, int color);
 void					draw_line(t_vector origin, t_vector direction,
 							int len, int color);
-void					draw_line_render(t_vector origin, t_vector direction, int len);
+void					draw_line_render(t_vector origin, t_vector direction,
+							int height_len, t_texture texture);
 void					draw_render(double distance, int iter);
 
 // r_mlx_handler.c
@@ -282,9 +283,7 @@ double					get_hypot(t_vector a, t_vector b);
 double					get_side_len(t_vector a1, t_vector a2, t_vector tan,
 							t_axis axis);
 double					radian_overflow(double angle);
-
-
-t_texture	get_texture(int set, double wall_height, double origin_x_percent);
+t_texture				get_texture(int set, double origin_x_percent, double distance);
 
 // ----------------------------[DELETE BEFORE SUBMIT]---------------
 void					ft_print_split(char **split);

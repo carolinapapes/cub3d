@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:31:42 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/04 21:53:44 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/05 10:40:20 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,42 +88,39 @@ t_color get_shadow_color(double distance)
 	return (shadow_color);
 }
 
-uint32_t	get_texture_color(int y, t_texture texture)
+uint32_t	get_texture_color(t_texture texture)
 {
 	uint32_t	color;
 	uint32_t	pixel_index;
 
-	texture.origin.y = y * texture.scale.y;
-	pixel_index = texture.origin.y * texture.image->width;
+	pixel_index = texture.image->width * (int)(texture.origin.y)
+		+ (int)(texture.origin.x);
 	if (pixel_index >= texture.image->width * texture.image->height)
 		pixel_index = texture.image->width * texture.image->height - 1;
 	color = get_pixel_info(texture.image, pixel_index);
 	return (color);
 }
 
-void	draw_line_render(t_vector origin, t_vector direction, int height_len)
+void	draw_line_render(t_vector origin, t_vector direction,
+		int height_len, t_texture texture)
 {
 	t_vector		pixel;
 	mlx_image_t		*image;
 	mlx_image_t		*shadow;
 	t_color			shadow_color;
-	t_texture		texture;
 
 	image = get_render_image();
 	shadow = get_shadow_image();
 	shadow_color = get_shadow_color(height_len);
-	height_len = abs(height_len);
-	texture = get_texture(0, 0, 0);
 	while (height_len--)
 	{
 		pixel.x = origin.x + direction.x * height_len;
 		pixel.y = origin.y + direction.y * height_len;
+		texture.origin.y -= texture.step.y;
 		if (pixel.x < 0 || pixel.x >= WIDTH || pixel.y < 0 || pixel.y >= HEIGHT)
-			continue ;
-		draw_pixel(image, pixel, HEX_BLUE);
+		continue ;
+		draw_pixel(image, pixel, get_texture_color(texture));
 		draw_pixel(shadow, pixel, shadow_color.rgba);
-		texture.origin.y -= texture.scale.y;
-		texture.origin.x += texture.scale.x;
 	}
 }
 
@@ -134,12 +131,21 @@ void	draw_render(double distance, int iter)
 	int				end;
 	t_vector		wall_start;
 	t_constants		constants;
-
+	t_texture		texture;
+	
 	constants = game_constants();
 	wall_start.x = (iter - 1) * constants.strip_width;
 	end = wall_start.x + constants.strip_width;
-	strip_height = constants.strip_height / distance;
+	strip_height = fabs(constants.strip_height / distance);
 	wall_start.y = (HEIGHT - strip_height) / 2;
+	texture = get_texture(0, 0, 0);
+	texture.step.y = (double)texture.image->height / strip_height;
 	while (wall_start.x++ < end && wall_start.x < WIDTH)
-		draw_line_render(wall_start, constants.dir_y, strip_height);
+	{
+		texture.origin.x += texture.step.x;
+		if (texture.origin.x >= texture.image->width)
+			texture.origin.x = fmod(texture.step.x, 1024);
+		printf("Y = %.2f | x %.2f\n", texture.origin.y, texture.origin.x);
+		draw_line_render(wall_start, constants.dir_y, strip_height, texture);
+	}
 }

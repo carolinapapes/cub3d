@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 14:21:30 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/04 21:51:30 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/05 10:39:13 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ t_vector_full	get_ray(t_vector_full ray)
 	return (ray_y);
 }
 
-
-t_texture	get_texture(int set, double wall_height, double origin_x_percent)
+t_texture	get_texture(int set, double origin_axis_pixel, double distance)
 {
 	static t_texture	texture;
 	mlx_texture_t		*mlx_texture;
+	t_constants			constants;
 
 	if (!texture.image)
 	{
@@ -61,9 +61,12 @@ t_texture	get_texture(int set, double wall_height, double origin_x_percent)
 	}
 	if (set)
 	{
-		texture.scale.x = texture.image->width / GRID_SIZE;
-		texture.scale.y = texture.image->height / wall_height;
-		texture.origin.x = origin_x_percent * texture.scale.x;
+		constants = game_constants();
+		origin_axis_pixel = (double)((int)origin_axis_pixel % GRID_SIZE) / GRID_SIZE;
+		printf("%.2f\n",origin_axis_pixel);
+		texture.step.x = (double)texture.image->width / (constants.strip_width * distance);
+		texture.origin.y = texture.image->height;
+		texture.origin.x = origin_axis_pixel * (double)texture.image->width;
 	}
 	return (texture);
 }
@@ -75,11 +78,8 @@ void	draw_ray(t_vector_full ray, double angle, double iter)
 	draw_intersect(ray, HEX_GREY);
 	if (angle != 0)
 		ray.distance *= cos(angle);
-	get_texture(1, ray.distance, fmod(ray.end.x, GRID_SIZE));
-	if (ray.axis == X)
-		draw_render(ray.distance, iter);
-	else
-		draw_render(ray.distance, iter);
+	get_texture(1, ray.end.arr[!ray.axis], ray.distance);
+	draw_render(ray.distance, iter);
 }
 
 /*
