@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 19:33:59 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/05 16:38:27 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ void					free_char_array(char ***split);
 int						check_four_dir(t_start *start, char **elements);
 
 //---------------------------- file_handler -------------------------
-int						check_file_extension(char *file);
+int						check_file_extension(char *file, char *extension_name);
 int						get_line_length(int fd);
 int						read_file(char *file, char **line);
 

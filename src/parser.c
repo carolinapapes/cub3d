@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:46:15 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 18:36:54 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/05 16:44:54 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	parser_controler(int argc, char **argv, t_start *start)
 	elements = NULL;
 	if (argc != 2)
 		return (1);
-	if (check_file_extension(argv[1]) == EXIT_FAILURE)
+	if (check_file_extension(argv[1], ".cub") == EXIT_FAILURE)
 		return (1);
 	if (read_file(argv[1], &line) == 1)
 		return (1);
