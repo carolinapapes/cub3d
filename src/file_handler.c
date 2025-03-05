@@ -6,18 +6,22 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 01:04:48 by kate              #+#    #+#             */
-/*   Updated: 2025/02/25 14:46:52 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/05 16:18:43 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //all functions to read the file and check
 #include "cube3d.h"
 
-int	check_file_extension(char *file)
+int	check_file_extension(char *file, char *exten_name)
 {
 	char	*extension;
+	int		exten_len;
 
+	if (!file || !exten_name)
+		return (EXIT_FAILURE);
 	extension = ft_strrchr(file, '.');
+	exten_len = ft_strlen(exten_name);
 	if (!extension || ft_strncmp(extension, ".cub", 5))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
