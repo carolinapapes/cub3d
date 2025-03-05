@@ -6,7 +6,7 @@
 #    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/02/28 23:08:43 by capapes          ###   ########.fr        #
+#    Updated: 2025/03/05 16:53:22 by capapes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,7 @@ MAIN_SRC = \
 			r_ray.c \
 			r_ray_distance.c \
 			r_render_images.c \
+			r_texture.c \
 			r_trigonometry.c
 MAIN_OBJ = $(patsubst %.c, $(OBJDIR)/%.o, $(MAIN_SRC))
 DEP_FILES = $(MAIN_OBJ:.o=.d)

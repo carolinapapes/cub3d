@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 14:21:30 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/05 10:39:13 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/05 16:54:40 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,31 +46,6 @@ t_vector_full	get_ray(t_vector_full ray)
 	return (ray_y);
 }
 
-t_texture	get_texture(int set, double origin_axis_pixel, double distance)
-{
-	static t_texture	texture;
-	mlx_texture_t		*mlx_texture;
-	t_constants			constants;
-
-	if (!texture.image)
-	{
-		mlx_texture = mlx_load_png("./textures/texture_10.png");
-		if (!mlx_texture)
-			exit(1);
-		texture.image = mlx_texture_to_image(get_mlx(), mlx_texture);
-	}
-	if (set)
-	{
-		constants = game_constants();
-		origin_axis_pixel = (double)((int)origin_axis_pixel % GRID_SIZE) / GRID_SIZE;
-		printf("%.2f\n",origin_axis_pixel);
-		texture.step.x = (double)texture.image->width / (constants.strip_width * distance);
-		texture.origin.y = texture.image->height;
-		texture.origin.x = origin_axis_pixel * (double)texture.image->width;
-	}
-	return (texture);
-}
-
 void	draw_ray(t_vector_full ray, double angle, double iter)
 {
 	if (!ray.distance)
@@ -78,7 +53,7 @@ void	draw_ray(t_vector_full ray, double angle, double iter)
 	draw_intersect(ray, HEX_GREY);
 	if (angle != 0)
 		ray.distance *= cos(angle);
-	get_texture(1, ray.end.arr[!ray.axis], ray.distance);
+	get_texture(1, ray.end.arr[!ray.axis]);
 	draw_render(ray.distance, iter);
 }
 
@@ -100,7 +75,7 @@ void	pov_iter(t_vector origin, double pov)
 	mlx_clear_image(get_miniview_image());
 	mlx_clear_image(get_render_image());
 	mlx_clear_image(get_shadow_image());
-	while (iter++ < 60)
+	while (iter++ < WIDTH)
 	{
 		angle += constants.angle_step;
 		ray = init_ray(origin, angle);

@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/05 10:34:02 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/05 19:00:09 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 # define HEX_GRID 		0xB0B0B0FF
 # define HEX_WALL 		0xB0B0B0CC
 # define HEX_GREY 		0xD5DBDBFF
-# define HEX_RED 		0xE72D2DFF
+# define HEX_RED 		0xFF0000FF
 # define HEX_GREEN 		0x1ABC9CFF
 # define HEX_BLUE 		0x0000FFFF
 # define HEX_PURPLE 	0xFF00FFFF
@@ -176,7 +176,7 @@ typedef struct s_constants
 	t_vector	zero;
 	double		texture_width;
 	double		texture_height;
-	float		texture_step[64];
+	double		angle_sec[1024];
 }				t_constants;
 
 typedef enum e_image_type
@@ -233,7 +233,7 @@ int						get_cell_content(t_vector coord);
 int						is_axis_wall(t_vector coord, t_axis axis,
 							t_vector_full ray);
 void					draw_minimap(t_vector coord);
-void					draw_pixel(mlx_image_t *image, t_vector pixel, int32_t color);
+void					draw_pixel(mlx_image_t *image, t_vector pixel, uint32_t color);
 void					update_mlx_miniplayer_pos(t_vector pos_delta, int axis);
 void					update_minimap_pos(t_vector position, t_vector position_delta);
 void					init_minimap(void);
@@ -252,8 +252,6 @@ t_start					*get_start(void);
 void					draw_point(t_vector point, int color);
 void					draw_line(t_vector origin, t_vector direction,
 							int len, int color);
-void					draw_line_render(t_vector origin, t_vector direction,
-							int height_len, t_texture texture);
 void					draw_render(double distance, int iter);
 
 // r_mlx_handler.c
@@ -283,7 +281,10 @@ double					get_hypot(t_vector a, t_vector b);
 double					get_side_len(t_vector a1, t_vector a2, t_vector tan,
 							t_axis axis);
 double					radian_overflow(double angle);
-t_texture				get_texture(int set, double origin_x_percent, double distance);
+t_texture				get_texture(int set, double origin_x_percent);
+uint32_t				get_pixel_info(mlx_image_t *texture,
+							uint16_t pixel_index);
+uint32_t				get_texture_color(t_texture texture);
 
 // ----------------------------[DELETE BEFORE SUBMIT]---------------
 void					ft_print_split(char **split);

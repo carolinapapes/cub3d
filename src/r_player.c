@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/04 21:34:39 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/05 15:17:40 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	update_pov(t_player *player, double angle_delta)
 	t_constants	constants;
 
 	constants = game_constants();
-	player->pov += angle_delta * constants.angle_step;
+	player->pov += angle_delta * constants.angle_step * 20;
 	player->pov = radian_overflow(player->pov);
 	origin = get_player_center_px();
 	pov_iter(origin, player->pov);
