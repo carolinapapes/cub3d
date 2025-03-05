@@ -1,7 +1,7 @@
-NO ./maps/test.cub
-SO ./maps/test.cub
-WE ./maps/test.cub
-EA ./maps/test.cub
+NO ./maps/test.png
+SO ./maps/test.png
+WE ./maps/test.png
+EA ./maps/test.png
 
 F 220,100,0
 C 225,30,0

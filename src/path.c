@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:01:54 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/05 16:13:24 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/05 16:58:30 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ int	is_dir(char **future_path, char *line, char *dir_name)
 		return (1);
 	}
 	if (is_path_valid(line) == 1)
+		return (1);
+	if (check_file_extension(line, ".png") == 1)
 		return (1);
 	*future_path = save_path(line);
 	if (*future_path == NULL)
