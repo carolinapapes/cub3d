@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:01:54 by kkoval            #+#    #+#             */
-/*   Updated: 2025/02/27 03:07:40 by kate             ###   ########.fr       */
+/*   Updated: 2025/03/05 15:11:06 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
     2. mirar que tengan una extension correcta
     3. mirar que se puedan abrir
     4. guardar la direccion en la esctrucura
+	5. checkear si es un directio chekear si es.png
 */
 #include "cube3d.h"
+#include <sys/stat.h>
 
 char	*save_path(char *path)
 {
@@ -40,7 +42,15 @@ char	*save_path(char *path)
 
 int	is_path_valid(char *path)
 {
-	int	fd;
+    struct stat st;
+	
+    if (stat(path, &st) == -1) {
+        perror("stat");
+        return 0; // Assume it's not a directory if stat fails
+    }
+    return S_ISDIR(st.st_mode);
+
+	/*int	fd;
 
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
@@ -49,7 +59,7 @@ int	is_path_valid(char *path)
 		return (1);
 	}
 	close(fd);
-	return (0);
+	return (0);*/
 }
 
 int	is_dir(char **future_path, char *line, char *dir_name)
