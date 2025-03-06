@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 14:21:30 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/05 16:54:40 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/06 13:00:43 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	draw_ray(t_vector_full ray, double angle, double iter)
 {
 	if (!ray.distance)
 		return ;
-	draw_intersect(ray, HEX_GREY);
+	draw_intersect(ray, HEX_GREY - 0x20202020);
 	if (angle != 0)
 		ray.distance *= cos(angle);
 	get_texture(1, ray.end.arr[!ray.axis]);

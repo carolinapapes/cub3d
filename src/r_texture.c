@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 16:29:31 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/05 19:02:49 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/06 15:52:23 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ uint32_t	get_pixel_info(mlx_image_t *texture, uint16_t pixel_index)
 	uint8_t	r;
 	uint8_t	g;
 	uint8_t	b;
-	// uint8_t	a;
+	uint8_t	a;
 
-	r = texture->pixels[pixel_index - 1];
-	g = texture->pixels[pixel_index];
-	b = texture->pixels[pixel_index + 1];
-	// a = texture->pixels[pixel_index + 3];
-	return (r << 24 | g << 16 | b << 8 | 255);
+	r = texture->pixels[pixel_index];
+	g = texture->pixels[pixel_index + 1];
+	b = texture->pixels[pixel_index + 2];
+	a = texture->pixels[pixel_index + 3];
+	return (r << 24 | g << 16 | b << 8 | a);
 }
 
 uint32_t	get_texture_color(t_texture texture)
@@ -33,8 +33,7 @@ uint32_t	get_texture_color(t_texture texture)
 
 	pixel_index = texture.image->width * (int)(texture.origin.y)
 		+ (int)(texture.origin.x);
-	if (pixel_index >= texture.image->width * texture.image->height)
-		pixel_index = texture.image->width * texture.image->height - 1;
+	pixel_index *= 4;
 	color = get_pixel_info(texture.image, pixel_index);
 	return (color);
 }
@@ -43,13 +42,18 @@ t_texture	get_texture(int set, double origin_axis_pixel)
 {
 	static t_texture	texture;
 	mlx_texture_t		*mlx_texture;
+	// mlx_t				*mlx;
 
 	if (!texture.image)
 	{
-		mlx_texture = mlx_load_png("./textures/rojo.png");
+		mlx_texture = mlx_load_png("./textures/mario.png");
 		if (!mlx_texture)
 			exit(1);
 		texture.image = mlx_texture_to_image(get_mlx(), mlx_texture);
+		printf("Texture loaded\n");
+		// mlx = get_mlx();
+		// mlx_image_to_window(mlx, texture.image, 0, 0);
+		// printf("middle of texture: %x\n", texture.image->pixels[texture.image->width * texture.image->height * 4 / 2]);
 	}
 	if (set)
 	{

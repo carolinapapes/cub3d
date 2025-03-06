@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:31:42 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/05 19:01:02 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/06 12:56:50 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,7 @@ void	draw_line_render(t_vector origin, int len)
 			|| origin.y < 0 || origin.y >= HEIGHT)
 			continue ;
 		// draw_pixel(shadow, origin, shadow_color.rgba);
-		if (get_texture_color(texture) != HEX_RED)
-			printf("TEXTURE COLOR %x %x\n", get_texture_color(texture), HEX_RED);
-		draw_pixel(image, origin, HEX_RED);
+		draw_pixel(image, origin, get_texture_color(texture));
 	}
 }
 
