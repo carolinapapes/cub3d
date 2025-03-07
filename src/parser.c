@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:46:15 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/05 16:54:12 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/07 13:24:02 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	parse_map(char *line, char ***map)
 
 int	check_elements(char **elements, t_start *start)
 {
-	// if (check_colours())
 	if (ft_split_count(elements) < 9)
 		return (1);
 	if (check_four_dir(start, elements) == 1)
@@ -48,8 +47,16 @@ int	check_elements(char **elements, t_start *start)
 	free_line(&start->s_fd);
 	free_line(&start->w_fd);
 	free_line(&start->e_fd);
-	//	if (check_textures(elements) == 1)
-	//	return (1);
+	if (check_for_color(start, elements) == 1)
+	{
+		printf("color failed\n");
+		free_line(&start->n_fd);
+		free_line(&start->s_fd);
+		free_line(&start->w_fd);
+		free_line(&start->e_fd);
+		return (1);
+	}
+		
 	return (0);
 }
 
@@ -93,10 +100,14 @@ int	parser_controler(int argc, char **argv, t_start *start)
 	}
 	if (parse_elements(line, &elements, start) == 1)
 	{
+		printf("no he entrado en el initiliazer\n");
 		free(line);
 		free_char_array(&map);
 		return (1);
 	}
+	printf("ceiling colours r: %c, b: %c, g: %c\n", start->ceiling.r, start->ceiling.b, start->ceiling.g);
+	printf("floor colours r: %c, b: %c, g: %c\n", start->ceiling.r, start->ceiling.b, start->ceiling.g);
+
 	if (start_initializer(start, map, elements) == 1)
 	{
 		free(line);

@@ -1,10 +1,11 @@
-NO ./maps/test.cub
-SO ./maps/test.cub
-WE ./maps/test.cub
-EA ./maps/test.cub
+NO ./maps/test.png
+SO ./maps/test.png
+WE ./maps/test.png
+EA ./maps/test.png
 
-F 220,100,0
-C 225,30,0
+F     89,      100,                1
+
+C     85,      70,   56
 
 111111111111
 1S0000000011

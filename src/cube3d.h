@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/06 16:23:54 by kate             ###   ########.fr       */
+/*   Updated: 2025/03/07 13:14:19 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,7 @@ char					*free_line(char **line);
 void					free_start(t_start *start);
 void					free_char_array(char ***split);
 int						check_four_dir(t_start *start, char **elements);
+int						check_for_color(t_start *start, char **elements);
 
 //---------------------------- path ---------------------------------------------------------
 int						is_path_valid(char *path);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
+#    By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/02/27 18:31:40 by capapes          ###   ########.fr        #
+#    Updated: 2025/03/07 13:14:41 by kkoval           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,7 @@ MAIN_SRC = _bonus_remove_later.c \
 			parser_utils.c \
 			parser.c \
 			path.c \
+			colour.c \
 			r_draw_utils.c \
 			r_mlx_handler.c \
 			r_mlx_image_handler.c \

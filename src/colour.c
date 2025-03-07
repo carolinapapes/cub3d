@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 18:35:14 by kkoval            #+#    #+#             */
-/*   Updated: 2025/02/27 17:27:55 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/07 13:38:04 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ int parse_color_component(char **line)
 
 int extract_color(t_color *color, char *line)
 {
-	int r, g, b;
+	int r;
+	int	g;
+	int	b;
 
 	while (*line == ' ')
 		line++;
@@ -67,7 +69,7 @@ int extract_color(t_color *color, char *line)
 	color->g = (unsigned char)g;
 	color->b = (unsigned char)b;
 	color->a = 255;
-
+	color->rgba = (color->r << 24) | (color->g << 16) | (color->b<< 8) | 255;
 	return (0);
 }
 
@@ -106,10 +108,12 @@ int	check_for_color(t_start *start, char **elements)
 		printf("no hay colorsitos para el suelo o para el cielo :(\n");
 		return (1);
 	}
+	printf("ceiling colours r: %d, b: %d, g: %d  color total es: %d\n", start->ceiling.r, start->ceiling.b, start->ceiling.g, start->ceiling.rgba);
+	printf("floor colours r: %d, b: %d, g: %d color total es: %d\n", start->floor.r, start->floor.b, start->floor.g, start->floor.rgba);
 	return (0);
 }
 
-int main(void)
+/*int main(void)
 {
 	t_color floor;
 	t_color ceiling;
@@ -130,12 +134,12 @@ int main(void)
 	char *elements3[] = {
 		"     F  128, 64, 32  ",
 		"     C 255, 255, 255  ",
-		"     C 200, 200, 200  ", // Duplicate C (should cause error)
+		"     C 200, 200, 200  ",
 		NULL
 	};
 
 	char *elements4[] = {
-		"     F  300, 50, 0  ", // Invalid RGB (300)
+		"     F  300, 50, 0  ",
 		"     C 0, 0, 255  ",
 		NULL
 	};
@@ -160,7 +164,7 @@ int main(void)
 
 
 	return (0);
-}
+}*/
 
 /*int	ft_atoi(const char *str)
 {

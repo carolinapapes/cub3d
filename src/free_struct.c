@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 15:39:47 by kkoval            #+#    #+#             */
-/*   Updated: 2025/02/25 14:48:57 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/07 13:13:24 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,14 @@ void	free_start(t_start *start)
 		return ;
 	if (start->map.map_int != NULL)
 		free_int_array(&start->map.map_int, start->map.size_int.y);
+	if (start->n_fd != NULL)
+		free_line(&start->n_fd);
+	if (start->s_fd != NULL)
+		free_line(&start->s_fd);
+	if (start->w_fd != NULL)
+		free_line(&start->w_fd);
+	if (start->e_fd != NULL)
+		free_line(&start->e_fd);
 	printf("he estado en el free start\n");
 	return ;
 }
