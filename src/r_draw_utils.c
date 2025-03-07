@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:31:42 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/06 12:56:50 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/07 13:11:51 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,24 +78,23 @@ t_color get_shadow_color(double distance)
 void	draw_line_render(t_vector origin, int len)
 {
 	mlx_image_t		*image;
-	// mlx_image_t		*shadow;
-	// t_color			shadow_color;	
+	mlx_image_t		*shadow;
+	t_color			shadow_color;	
 	t_texture		texture;
 
 	image = get_render_image();
-	// shadow = get_shadow_image();
-	// shadow_color = get_shadow_color(len);
+	shadow = get_shadow_image();
+	shadow_color = get_shadow_color(len);
 	texture = get_texture(0, 0);
 	texture.step.y = (double)texture.image->height / len;
-	origin.y += len;
 	while (len--)
 	{
-		origin.y--;
+		origin.y++;
 		texture.origin.y += texture.step.y;
 		if (origin.x < 0 || origin.x >= WIDTH
-			|| origin.y < 0 || origin.y >= HEIGHT)
+			|| origin.y < 0 || origin.y >= HEIGHT || texture.origin.y < 0 || texture.origin.y >= texture.image->height) 
 			continue ;
-		// draw_pixel(shadow, origin, shadow_color.rgba);
+		draw_pixel(shadow, origin, shadow_color.rgba);
 		draw_pixel(image, origin, get_texture_color(texture));
 	}
 }

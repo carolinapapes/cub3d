@@ -6,13 +6,13 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 16:29:31 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/06 15:52:23 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/07 13:10:17 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-uint32_t	get_pixel_info(mlx_image_t *texture, uint16_t pixel_index)
+uint32_t	get_pixel_info(mlx_image_t *texture, uint32_t pixel_index)
 {
 	uint8_t	r;
 	uint8_t	g;
@@ -42,7 +42,6 @@ t_texture	get_texture(int set, double origin_axis_pixel)
 {
 	static t_texture	texture;
 	mlx_texture_t		*mlx_texture;
-	// mlx_t				*mlx;
 
 	if (!texture.image)
 	{
@@ -51,9 +50,6 @@ t_texture	get_texture(int set, double origin_axis_pixel)
 			exit(1);
 		texture.image = mlx_texture_to_image(get_mlx(), mlx_texture);
 		printf("Texture loaded\n");
-		// mlx = get_mlx();
-		// mlx_image_to_window(mlx, texture.image, 0, 0);
-		// printf("middle of texture: %x\n", texture.image->pixels[texture.image->width * texture.image->height * 4 / 2]);
 	}
 	if (set)
 	{
