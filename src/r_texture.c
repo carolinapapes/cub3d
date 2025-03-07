@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 16:29:31 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 13:10:17 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/07 13:21:11 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_texture	get_texture(int set, double origin_axis_pixel)
 		if (!mlx_texture)
 			exit(1);
 		texture.image = mlx_texture_to_image(get_mlx(), mlx_texture);
-		printf("Texture loaded\n");
+		mlx_delete_texture(mlx_texture);
 	}
 	if (set)
 	{

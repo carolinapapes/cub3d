@@ -1,0 +1,17 @@
+el mapa empieza aki0
+hay dir en line
+Valid texture path for NO : ./textures/texture.jpg
+hay dir en line
+Valid texture path for SO : ./maps/test.cub
+hay dir en line
+Valid texture path for WE : ./maps/test.cub
+hay dir en line
+Valid texture path for EA : ./maps/test.cub
+./textures/texture.jpg
+./maps/test.cub
+./maps/test.cub
+./maps/test.cub
+he entrado en free char
+he entrado en free char
+he entrado al free int
+he estado en el free start
