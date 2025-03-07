@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 16:29:31 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 13:46:44 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/07 13:48:39 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,10 @@ t_texture	get_texture(void)
 	return (handle_texture(0, 0));
 }
 
-void	set_texture_x(double x_percentage)
+void	set_texture_x(double grid_intersection)
 {
-	x_percentage = fmod(x_percentage, GRID_SIZE) / GRID_SIZE;
+	double	x_percentage;
+
+	x_percentage = fmod(grid_intersection, GRID_SIZE) / GRID_SIZE;
 	handle_texture(SET_X, x_percentage);
 }
