@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 16:29:31 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 13:44:37 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/07 13:46:44 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ uint32_t	get_texture_color(t_texture texture)
 #define RESET_ORIGIN 1
 #define SET_X 2
 
-t_texture	get_texture(int flag, double x_percentage)
+t_texture	handle_texture(int flag, double x_percentage)
 {
 	static t_texture	texture;
 	mlx_texture_t		*mlx_texture;
@@ -62,8 +62,13 @@ t_texture	get_texture(int flag, double x_percentage)
 	return (texture);
 }
 
+t_texture	get_texture(void)
+{
+	return (handle_texture(0, 0));
+}
+
 void	set_texture_x(double x_percentage)
 {
 	x_percentage = fmod(x_percentage, GRID_SIZE) / GRID_SIZE;
-	get_texture(SET_X, x_percentage);
+	handle_texture(SET_X, x_percentage);
 }

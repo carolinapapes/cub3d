@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 13:42:31 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/07 13:46:45 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,7 +281,7 @@ double					get_hypot(t_vector a, t_vector b);
 double					get_side_len(t_vector a1, t_vector a2, t_vector tan,
 							t_axis axis);
 double					radian_overflow(double angle);
-t_texture				get_texture(int set, double x_percent);
+t_texture				get_texture(void);
 uint32_t				get_pixel_info(mlx_image_t *texture,
 							uint32_t pixel_index);
 uint32_t				get_texture_color(t_texture texture);
