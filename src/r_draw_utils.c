@@ -6,13 +6,13 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:31:42 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/27 18:09:03 by capapes          ###   ########.fr       */
+/*   Updated: 2025/02/28 17:02:17 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static void	draw_pixel(mlx_image_t *image, t_vector pixel, int32_t color)
+void	draw_pixel(mlx_image_t *image, t_vector pixel, int32_t color)
 {
 	mlx_put_pixel(image, pixel.x, pixel.y, color);
 }
@@ -25,7 +25,7 @@ void	draw_point(t_vector point, int color)
 	int			y;
 	mlx_image_t	*aux;
 
-	aux = get_aux_img();
+	aux = get_miniview_image();
 	if (point.x < 0 || point.x >= WIDTH || point.y < 0 || point.y >= HEIGHT)
 		return ;
 	width = 5;
@@ -48,7 +48,7 @@ void	draw_line(t_vector origin, t_vector direction, int len, int color)
 	t_vector	pixel;
 	mlx_image_t	*image;
 
-	image = get_aux_img();
+	image = get_miniview_image();
 	len = abs(len);
 	if (len < 0)
 		return ;
@@ -70,8 +70,6 @@ void	draw_line_render(t_vector origin, t_vector direction,
 
 	image = get_render_image();
 	len = abs(len);
-	if (len < 0)
-		return ;
 	while (len--)
 	{
 		pixel.x = origin.x + direction.x * len;
@@ -80,4 +78,20 @@ void	draw_line_render(t_vector origin, t_vector direction,
 			continue ;
 		draw_pixel(image, pixel, color);
 	}
+}
+
+void	draw_render(double distance, uint32_t color, int iter)
+{
+	int				strip_height;
+	int				end;
+	t_vector		wall_start;
+	t_constants		constants;
+
+	constants = game_constants();
+	wall_start.x = (iter - 1) * constants.strip_width;
+	end = wall_start.x + constants.strip_width;
+	strip_height = constants.strip_height / distance;
+	wall_start.y = (HEIGHT - strip_height) / 2;
+	while (wall_start.x++ < end && wall_start.x < WIDTH)
+		draw_line_render(wall_start, constants.dir_y, strip_height, color);
 }

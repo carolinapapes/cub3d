@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+         #
+#    By: kate <kate@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/03/07 13:14:41 by kkoval           ###   ########.fr        #
+#    Updated: 2025/03/07 14:25:05 by kate             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,9 +49,7 @@ endif
 TARGET = main
 
 # Source files and objects
-MAIN_SRC = _bonus_remove_later.c \
-			_aux_images.c \
-			_parser_hardcoded.c \
+MAIN_SRC = \
 			_minimap.c \
 			_r_draw_minimap_utils.c \
 			file_handler.c \
@@ -67,11 +65,16 @@ MAIN_SRC = _bonus_remove_later.c \
 			path.c \
 			colour.c \
 			r_draw_utils.c \
+			r_map_checkers.c \
+			r_minimap_images.c \
 			r_mlx_handler.c \
 			r_mlx_image_handler.c \
 			r_moves.c \
+			r_player.c \
+			r_ray.c \
 			r_ray_distance.c \
-			r_player.c
+			r_render_images.c \
+			r_trigonometry.c
 MAIN_OBJ = $(patsubst %.c, $(OBJDIR)/%.o, $(MAIN_SRC))
 DEP_FILES = $(MAIN_OBJ:.o=.d)
 

@@ -12,6 +12,7 @@
         "cmath": "c",
         "numbers": "c",
         "__locale": "c",
-        "ios": "c"
+        "ios": "c",
+        "vector": "c"
     }
 }
