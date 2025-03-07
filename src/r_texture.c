@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 16:29:31 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 16:43:17 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/07 17:41:39 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,51 +39,31 @@ uint32_t	get_texture_color(t_texture texture)
 	return (color);
 }
 
-#define RESET_ORIGIN 1
-#define SET_X 2
-#define SET_TEXTURE 4
-#define NORTH_TEXTURE 0
-#define SOUTH_TEXTURE 1
-#define WEST_TEXTURE 2
-#define EAST_TEXTURE 3
+mlx_texture_t	*load_texture(char *path)
+{
+	mlx_texture_t		*mlx_texture;
 
-t_texture	handle_texture(int flag, double x_percentage, int axis, int quadrant)
+	mlx_texture = mlx_load_png(path);
+	if (!mlx_texture)
+		clean_exit(TERMINATE_MLX | FREE_START);
+	return (mlx_texture);
+}
+
+t_texture	handle_texture(int flag, double x_percentage, int ongoing)
 {
 	static t_texture	texture;
-	mlx_texture_t		*mlx_texture[4];
 	t_start				*start;
 
 	if (!texture.image[0])
 	{
 		start = get_start();
-		mlx_texture[NORTH_TEXTURE] = mlx_load_png(start->n_fd);
-		if (!mlx_texture[NORTH_TEXTURE])
-			clean_exit(TERMINATE_MLX | FREE_START);
-		texture.image[NORTH_TEXTURE] = mlx_texture[NORTH_TEXTURE];
-		mlx_texture[SOUTH_TEXTURE] = mlx_load_png(start->s_fd);
-		if (!mlx_texture[SOUTH_TEXTURE])
-			clean_exit(TERMINATE_MLX | FREE_START);
-		texture.image[SOUTH_TEXTURE] = mlx_texture[SOUTH_TEXTURE];
-		mlx_texture[WEST_TEXTURE] = mlx_load_png(start->w_fd);
-		if (!mlx_texture[WEST_TEXTURE])
-			clean_exit(TERMINATE_MLX | FREE_START);
-		texture.image[WEST_TEXTURE] = mlx_texture[WEST_TEXTURE];
-		mlx_texture[EAST_TEXTURE] = mlx_load_png(start->e_fd);
-		if (!mlx_texture[EAST_TEXTURE])
-			clean_exit(TERMINATE_MLX | FREE_START);
-		texture.image[EAST_TEXTURE] = mlx_texture[EAST_TEXTURE];
+		texture.image[NORTH_TEXTURE] = load_texture(start->n_fd);
+		texture.image[SOUTH_TEXTURE] = load_texture(start->s_fd);
+		texture.image[WEST_TEXTURE] = load_texture(start->w_fd);
+		texture.image[EAST_TEXTURE] = load_texture(start->e_fd);
 	}
 	if (flag & SET_TEXTURE)
-	{
-		if (axis == X && quadrant < 0)
-			texture.ongoing = NORTH_TEXTURE;
-		else if (axis == X && quadrant > 0)
-			texture.ongoing = SOUTH_TEXTURE;
-		else if (quadrant > 0)
-			texture.ongoing = EAST_TEXTURE;
-		else
-			texture.ongoing = WEST_TEXTURE;
-	}
+		texture.ongoing = ongoing;
 	if (flag & SET_X)
 	{
 		texture.origin.y = 0;
@@ -95,7 +75,7 @@ t_texture	handle_texture(int flag, double x_percentage, int axis, int quadrant)
 
 t_texture	get_texture(void)
 {
-	return (handle_texture(0, 0, 0, 0));
+	return (handle_texture(0, 0, 0));
 }
 
 void	set_texture_x(double grid_intersection)
@@ -103,10 +83,24 @@ void	set_texture_x(double grid_intersection)
 	double	x_percentage;
 
 	x_percentage = fmod(grid_intersection, GRID_SIZE) / GRID_SIZE;
-	handle_texture(SET_X, x_percentage, 0, 0);
+	handle_texture(SET_X, x_percentage, 0);
 }
 
-void	set_ongoing_view_wall(int axis, int quadrant)
+int	get_ongoing_texture(int axis, int quadrant)
 {
-	handle_texture(SET_TEXTURE, 0, axis, quadrant);
+	if (axis == X && quadrant < 0)
+		return (NORTH_TEXTURE);
+	if (axis == X && quadrant > 0)
+		return (SOUTH_TEXTURE);
+	if (quadrant > 0)
+		return (EAST_TEXTURE);
+	return (WEST_TEXTURE);
+}
+
+void	set_ongoing_wall_texture(int axis, int quadrant)
+{
+	int	ongoing;
+
+	ongoing = get_ongoing_texture(axis, quadrant);
+	handle_texture(SET_TEXTURE, 0, ongoing);
 }

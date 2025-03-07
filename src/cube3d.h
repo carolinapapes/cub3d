@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 16:57:11 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/07 17:29:13 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,14 @@
 # define PIXEL 4
 # define CENTER 3 // CENTER_X & CENTER_Y
 # define CENTER_PX 7 // CENTER & PIXEL
+
+# define RESET_ORIGIN 	1
+# define SET_X 			2
+# define SET_TEXTURE 	4
+# define NORTH_TEXTURE 	0
+# define SOUTH_TEXTURE 	1
+# define WEST_TEXTURE 	2
+# define EAST_TEXTURE 	3
 
 typedef union u_color
 {
@@ -298,7 +306,7 @@ void					set_texture_x(double x_percentage);
 
 void					clean_exit(int flags);
 // r_texture.c
-void					set_ongoing_view_wall(int axis, int quadrant);
+void					set_ongoing_wall_texture(int axis, int quadrant);
 void					change_minimap_visibility(void);
 
 // ----------------------------[DELETE BEFORE SUBMIT]---------------
