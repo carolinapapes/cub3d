@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 15:55:22 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/07 16:57:11 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,6 +299,7 @@ void					set_texture_x(double x_percentage);
 void					clean_exit(int flags);
 // r_texture.c
 void					set_ongoing_view_wall(int axis, int quadrant);
+void					change_minimap_visibility(void);
 
 // ----------------------------[DELETE BEFORE SUBMIT]---------------
 void					ft_print_split(char **split);

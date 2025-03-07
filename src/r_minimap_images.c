@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 16:56:22 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/05 14:55:53 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/07 16:56:53 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,14 @@ void	init_minimap(void)
 	size.x = start->map.size_int.x;
 	size.y = start->map.size_int.y;
 	generic_matrix_iter(size, draw_minimap);
+}
+
+void	change_minimap_visibility(void)
+{
+	static int	visible = 1;
+
+	visible = !visible;
+	get_minimap_image()->enabled = visible;
+	get_miniplayer_image()->enabled = visible;
+	get_miniview_image()->enabled = visible;
 }

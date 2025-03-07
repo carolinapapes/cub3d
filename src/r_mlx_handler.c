@@ -31,6 +31,8 @@ static void	cub3d_hook(void *param)
 		player_rotate(NEGATIVE);
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 		player_rotate(POSITIVE);
+	if (mlx_is_key_down(mlx, MLX_KEY_L))
+		change_minimap_visibility();
 }
 
 mlx_t	*get_mlx(void)
@@ -50,8 +52,8 @@ void	cub3d_init(void)
 
 	mlx = get_mlx();
 	init_background();
-	init_minimap();
 	init_player();
+	init_minimap();
 	if (mlx_loop_hook(mlx, cub3d_hook, mlx) == 0)
 		clean_exit(TERMINATE_MLX | FREE_START);
 	mlx_loop(mlx);
