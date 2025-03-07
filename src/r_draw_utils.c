@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:31:42 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 15:37:29 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/07 17:06:33 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,12 @@ void	draw_line(t_vector origin, t_vector direction, int len, int color)
 	}
 }
 
-t_color get_shadow_color(double distance)
+t_color	get_shadow_color(double distance)
 {
 	t_color	shadow_color;
 	double	shadow_tint;
 
-	if (distance > HEIGHT)
+	if (distance >= HEIGHT)
 		distance = HEIGHT - 1;
 	shadow_tint = (double)distance / 4;
 	shadow_color.r = shadow_tint;
@@ -113,8 +113,6 @@ void	draw_render(double distance, int window_x)
 	constants = game_constants();
 	origin.x = window_x;
 	strip_height = fabs(constants.strip_height / distance);
-	if (strip_height > HEIGHT)
-		strip_height = HEIGHT;
 	origin.y = (HEIGHT - strip_height) / 2;
 	draw_line_render(origin, strip_height);
 }
