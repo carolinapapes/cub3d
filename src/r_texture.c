@@ -6,36 +6,45 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 16:29:31 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 17:41:39 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/07 18:19:39 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-uint32_t	get_pixel_info(mlx_texture_t *texture, uint32_t pixel_index)
+uint32_t	get_pixel_info(uint8_t *pixels, uint32_t index)
 {
 	uint8_t	r;
 	uint8_t	g;
 	uint8_t	b;
 	uint8_t	a;
 
-	r = texture->pixels[pixel_index];
-	g = texture->pixels[pixel_index + 1];
-	b = texture->pixels[pixel_index + 2];
-	a = texture->pixels[pixel_index + 3];
+	r = pixels[index];
+	g = pixels[index + 1];
+	b = pixels[index + 2];
+	a = pixels[index + 3];
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-uint32_t	get_texture_color(t_texture texture)
+t_texture	*_get_texture(void)
+{
+	static t_texture	texture;
+
+	return (&texture);
+}
+
+uint32_t	get_texture_color(void)
 {
 	uint32_t	color;
 	uint32_t	pixel_index;
+	t_texture	*texture;
 
-	pixel_index = texture.image[texture.ongoing]->width
-		* (int)(texture.origin.y)
-		+ (int)(texture.origin.x);
+	texture = _get_texture();
+	pixel_index = texture->image[texture->ongoing]->width
+		* (int)(texture->origin.y)
+		+ (int)(texture->origin.x);
 	pixel_index *= 4;
-	color = get_pixel_info(texture.image[texture.ongoing], pixel_index);
+	color = get_pixel_info(texture->image[texture->ongoing]->pixels, pixel_index);
 	return (color);
 }
 
@@ -49,41 +58,37 @@ mlx_texture_t	*load_texture(char *path)
 	return (mlx_texture);
 }
 
-t_texture	handle_texture(int flag, double x_percentage, int ongoing)
+void	load_texture_images(void)
 {
-	static t_texture	texture;
-	t_start				*start;
+	t_start		*start;
+	t_texture	*texture;
 
-	if (!texture.image[0])
-	{
-		start = get_start();
-		texture.image[NORTH_TEXTURE] = load_texture(start->n_fd);
-		texture.image[SOUTH_TEXTURE] = load_texture(start->s_fd);
-		texture.image[WEST_TEXTURE] = load_texture(start->w_fd);
-		texture.image[EAST_TEXTURE] = load_texture(start->e_fd);
-	}
-	if (flag & SET_TEXTURE)
-		texture.ongoing = ongoing;
-	if (flag & SET_X)
-	{
-		texture.origin.y = 0;
-		texture.origin.x = x_percentage
-			* (double)(texture.image[texture.ongoing]->width);
-	}
-	return (texture);
+	start = get_start();
+	texture = _get_texture();
+	texture->image[NORTH_TEXTURE] = load_texture(start->n_fd);
+	texture->image[SOUTH_TEXTURE] = load_texture(start->s_fd);
+	texture->image[WEST_TEXTURE] = load_texture(start->w_fd);
+	texture->image[EAST_TEXTURE] = load_texture(start->e_fd);
 }
 
 t_texture	get_texture(void)
 {
-	return (handle_texture(0, 0, 0));
+	t_texture	*texture;
+
+	texture = _get_texture();
+	return (*texture);
 }
 
 void	set_texture_x(double grid_intersection)
 {
-	double	x_percentage;
+	double		x_percentage;
+	t_texture	*texture;
 
 	x_percentage = fmod(grid_intersection, GRID_SIZE) / GRID_SIZE;
-	handle_texture(SET_X, x_percentage, 0);
+	texture = _get_texture();
+	texture->origin.y = 0;
+	texture->origin.x = x_percentage
+		* (double)(texture->image[texture->ongoing]->width);
 }
 
 int	get_ongoing_texture(int axis, int quadrant)
@@ -99,8 +104,28 @@ int	get_ongoing_texture(int axis, int quadrant)
 
 void	set_ongoing_wall_texture(int axis, int quadrant)
 {
-	int	ongoing;
+	int			ongoing;
+	t_texture	*texture;
 
+	texture = _get_texture();
 	ongoing = get_ongoing_texture(axis, quadrant);
-	handle_texture(SET_TEXTURE, 0, ongoing);
+	texture->ongoing = ongoing;
+}
+
+void	set_texture_step_y(double distance)
+{
+	t_texture	*texture;
+
+	texture = _get_texture();
+	texture->step.y = (double)texture->image[texture->ongoing]->height / distance;
+}
+
+int	add_to_texture_origin_y(void)
+{
+	t_texture	*texture;
+
+	texture = _get_texture();
+	texture->origin.y += texture->step.y;
+	return (texture->origin.y < 0
+		|| texture->origin.y >= texture->image[texture->ongoing]->height);
 }

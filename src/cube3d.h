@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 17:29:13 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/07 18:18:35 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,6 +254,7 @@ void					draw_pixel(mlx_image_t *image, t_vector pixel, uint32_t color);
 void					update_mlx_miniplayer_pos(t_vector pos_delta, int axis);
 void					update_minimap_pos(t_vector position, t_vector position_delta);
 void					init_minimap(void);
+void					load_texture_images(void);
 
 // _parser_hardcoded.c
 void					init_player(void);
@@ -299,15 +300,15 @@ double					get_side_len(t_vector a1, t_vector a2, t_vector tan,
 							t_axis axis);
 double					radian_overflow(double angle);
 t_texture				get_texture(void);
-uint32_t				get_pixel_info(mlx_texture_t *texture,
-							uint32_t pixel_index);
-uint32_t				get_texture_color(t_texture texture);
+uint32_t				get_texture_color(void);
 void					set_texture_x(double x_percentage);
 
 void					clean_exit(int flags);
 // r_texture.c
 void					set_ongoing_wall_texture(int axis, int quadrant);
 void					change_minimap_visibility(void);
+int						add_to_texture_origin_y(void);
+void					set_texture_step_y(double distance);
 
 // ----------------------------[DELETE BEFORE SUBMIT]---------------
 void					ft_print_split(char **split);

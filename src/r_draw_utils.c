@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:31:42 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 17:06:33 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/07 18:17:14 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,25 +81,22 @@ void	draw_line_render(t_vector origin, int len)
 {
 	mlx_image_t		*image;
 	mlx_image_t		*shadow;
-	t_color			shadow_color;	
-	t_texture		texture;
+	t_color			shadow_color;
 
 	image = get_render_image();
 	shadow = get_shadow_image();
 	shadow_color = get_shadow_color(len);
-	texture = get_texture();
-	texture.step.y = (double)texture.image[texture.ongoing]->height / len;
+	set_texture_step_y(len);
 	while (len--)
 	{
 		origin.y++;
-		texture.origin.y += texture.step.y;
 		if (origin.x < 0 || origin.x >= WIDTH
-			|| origin.y < 0 || origin.y >= HEIGHT
-			|| texture.origin.y < 0
-			|| texture.origin.y >= texture.image[texture.ongoing]->height)
+			|| origin.y < 0 || origin.y >= HEIGHT)
+			continue ;
+		if (add_to_texture_origin_y())
 			continue ;
 		draw_pixel(shadow, origin, shadow_color.rgba);
-		draw_pixel(image, origin, get_texture_color(texture));
+		draw_pixel(image, origin, get_texture_color());
 	}
 }
 

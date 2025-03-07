@@ -52,6 +52,7 @@ void	cub3d_init(void)
 
 	mlx = get_mlx();
 	init_background();
+	load_texture_images();
 	init_player();
 	init_minimap();
 	if (mlx_loop_hook(mlx, cub3d_hook, mlx) == 0)
