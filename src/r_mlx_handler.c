@@ -38,7 +38,7 @@ mlx_t	*get_mlx(void)
 	static mlx_t	*mlx;
 
 	if (!mlx)
-		mlx = mlx_init(WIDTH, HEIGHT, WINDOW_TITLE, true);
+		mlx = mlx_init(WIDTH, HEIGHT, WINDOW_TITLE, false);
 	if (!mlx)
 		clean_exit(FREE_START);
 	return (mlx);
