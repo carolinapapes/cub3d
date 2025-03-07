@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 16:01:59 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/07 16:43:30 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ t_constants	game_constants(void)
 		constants.zero.x = 0;
 		constants.zero.y = 0;
 		constants.double_pi = 2 * M_PI;
-		// constants.angle_sec = get_angle_sec();
 	}
 	return (constants);
 }
@@ -112,7 +111,6 @@ int	main(int argc, char **argv)
 		free_start(start);
 		return (print_error(), EXIT_FAILURE);
 	}
-	printf("START FD %s", start->n_fd);
 	cub3d_init();
 	free_start(start);
 	return (EXIT_SUCCESS);

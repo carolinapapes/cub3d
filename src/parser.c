@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:46:15 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 13:24:02 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/07 16:32:02 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ int	check_elements(char **elements, t_start *start)
 	printf("%s\n", start->s_fd);
 	printf("%s\n", start->w_fd);
 	printf("%s\n", start->e_fd);
-	free_line(&start->n_fd);
-	free_line(&start->s_fd);
-	free_line(&start->w_fd);
-	free_line(&start->e_fd);
+	// free_line(&start->n_fd);
+	// free_line(&start->s_fd);
+	// free_line(&start->w_fd);
+	// free_line(&start->e_fd);
 	if (check_for_color(start, elements) == 1)
 	{
 		printf("color failed\n");

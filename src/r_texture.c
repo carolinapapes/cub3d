@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 16:29:31 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 16:00:59 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/07 16:43:17 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,43 +50,39 @@ uint32_t	get_texture_color(t_texture texture)
 t_texture	handle_texture(int flag, double x_percentage, int axis, int quadrant)
 {
 	static t_texture	texture;
-	mlx_texture_t		*mlx_texture;
+	mlx_texture_t		*mlx_texture[4];
 	t_start				*start;
 
 	if (!texture.image[0])
 	{
 		start = get_start();
-		printf("start");
-		printf("%s", start->n_fd);
-		mlx_texture = mlx_load_png(start->n_fd);
-		if (!mlx_texture)
+		mlx_texture[NORTH_TEXTURE] = mlx_load_png(start->n_fd);
+		if (!mlx_texture[NORTH_TEXTURE])
 			clean_exit(TERMINATE_MLX | FREE_START);
-		// texture.image[NORTH_TEXTURE] = mlx_texture[NORTH_TEXTURE];
-		// mlx_texture[SOUTH_TEXTURE] = mlx_load_png(start->s_fd);
-		// if (!mlx_texture[SOUTH_TEXTURE])
-		// 	clean_exit(TERMINATE_MLX | FREE_START);
-		// texture.image[SOUTH_TEXTURE] = mlx_texture[SOUTH_TEXTURE];
-		// mlx_texture[WEST_TEXTURE] = mlx_load_png(start->w_fd);
-		// if (!mlx_texture[WEST_TEXTURE])
-		// 	clean_exit(TERMINATE_MLX | FREE_START);
-		// texture.image[WEST_TEXTURE] = mlx_texture[WEST_TEXTURE];
-		// mlx_texture[EAST_TEXTURE] = mlx_load_png(start->e_fd);
-		// if (!mlx_texture[EAST_TEXTURE])
-		// 	clean_exit(TERMINATE_MLX | FREE_START);
-		// texture.image[EAST_TEXTURE] = mlx_texture[EAST_TEXTURE];
-		printf("end");
+		texture.image[NORTH_TEXTURE] = mlx_texture[NORTH_TEXTURE];
+		mlx_texture[SOUTH_TEXTURE] = mlx_load_png(start->s_fd);
+		if (!mlx_texture[SOUTH_TEXTURE])
+			clean_exit(TERMINATE_MLX | FREE_START);
+		texture.image[SOUTH_TEXTURE] = mlx_texture[SOUTH_TEXTURE];
+		mlx_texture[WEST_TEXTURE] = mlx_load_png(start->w_fd);
+		if (!mlx_texture[WEST_TEXTURE])
+			clean_exit(TERMINATE_MLX | FREE_START);
+		texture.image[WEST_TEXTURE] = mlx_texture[WEST_TEXTURE];
+		mlx_texture[EAST_TEXTURE] = mlx_load_png(start->e_fd);
+		if (!mlx_texture[EAST_TEXTURE])
+			clean_exit(TERMINATE_MLX | FREE_START);
+		texture.image[EAST_TEXTURE] = mlx_texture[EAST_TEXTURE];
 	}
 	if (flag & SET_TEXTURE)
 	{
-		if (axis == X && quadrant > 0)
+		if (axis == X && quadrant < 0)
 			texture.ongoing = NORTH_TEXTURE;
-		else if (axis == X && quadrant < 0)
+		else if (axis == X && quadrant > 0)
 			texture.ongoing = SOUTH_TEXTURE;
 		else if (quadrant > 0)
 			texture.ongoing = EAST_TEXTURE;
 		else
 			texture.ongoing = WEST_TEXTURE;
-		printf("Current wall intersection: %d", texture.ongoing);
 	}
 	if (flag & SET_X)
 	{

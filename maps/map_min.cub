@@ -1,7 +1,7 @@
-NO ./maps/mario.png
-SO ./maps/mario.png
-WE ./maps/mario.png
-EA ./maps/mario.png
+NO ./textures/mario.png
+SO ./textures/texture_10.png
+WE ./textures/rojo.png
+EA ./textures/Fram.png
 F 132,182,97
 C 90,218,238
 
