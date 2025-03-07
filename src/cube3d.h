@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 13:38:38 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/07 13:42:31 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,7 +285,7 @@ t_texture				get_texture(int set, double x_percent);
 uint32_t				get_pixel_info(mlx_image_t *texture,
 							uint32_t pixel_index);
 uint32_t				get_texture_color(t_texture texture);
-
+void					set_texture_x(double x_percentage);
 
 // r_texture.c
 
