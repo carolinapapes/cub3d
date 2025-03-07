@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:57:39 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 14:05:40 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/07 15:07:57 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ mlx_image_t	*new_image(t_vector size, t_vector origin)
 	mlx = get_mlx();
 	image = mlx_new_image(mlx, size.x, size.y);
 	if (!image)
-		exit (1);
+		clean_exit(TERMINATE_MLX | FREE_START);
 	if (mlx_image_to_window(mlx, image, origin.x, origin.y) == -1)
-		exit(1);
+		clean_exit(TERMINATE_MLX | FREE_START);
 	return (image);
 }
 

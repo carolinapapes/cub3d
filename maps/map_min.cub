@@ -1,17 +1,15 @@
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
-F 220,100,0
-C 225,30,0
+NO ./maps/mario.png
+SO ./maps/mario.png
+WE ./maps/mario.png
+EA ./maps/mario.png
+F 132,182,97
+C 90,218,238
 
-111
-1N1
-1111
-1000001
-                    
-1111111
-
+111111111111
+1S0000000011
+111100001111
+111100001001
+111111111111
 
 
 

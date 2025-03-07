@@ -40,7 +40,7 @@ mlx_t	*get_mlx(void)
 	if (!mlx)
 		mlx = mlx_init(WIDTH, HEIGHT, WINDOW_TITLE, true);
 	if (!mlx)
-		exit(1);
+		clean_exit(FREE_START);
 	return (mlx);
 }
 
@@ -53,7 +53,7 @@ void	cub3d_init(void)
 	init_minimap();
 	init_player();
 	if (mlx_loop_hook(mlx, cub3d_hook, mlx) == 0)
-		exit(1);
+		clean_exit(TERMINATE_MLX | FREE_START);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 }

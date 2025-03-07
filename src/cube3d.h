@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 14:29:39 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/07 15:55:22 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 # define GRID_SIZE 			32
 # define PLAYER_SIZE 		16
 # define PLAYER_MIDDLE 		8
+
+# define TERMINATE_MLX 		1
+# define FREE_START 		2
 
 # define WINDOW_TITLE "Cube3D"
 
@@ -92,7 +95,8 @@ typedef struct s_texture
 	t_vector			step;
 	t_vector			origin;
 	uint32_t			color;
-	mlx_image_t			*image;
+	mlx_texture_t		*image[4];
+	int					ongoing;
 }						t_texture;
 
 typedef struct s_vector_full
@@ -287,13 +291,14 @@ double					get_side_len(t_vector a1, t_vector a2, t_vector tan,
 							t_axis axis);
 double					radian_overflow(double angle);
 t_texture				get_texture(void);
-uint32_t				get_pixel_info(mlx_image_t *texture,
+uint32_t				get_pixel_info(mlx_texture_t *texture,
 							uint32_t pixel_index);
 uint32_t				get_texture_color(t_texture texture);
 void					set_texture_x(double x_percentage);
 
+void					clean_exit(int flags);
 // r_texture.c
-
+void					set_ongoing_view_wall(int axis, int quadrant);
 
 // ----------------------------[DELETE BEFORE SUBMIT]---------------
 void					ft_print_split(char **split);

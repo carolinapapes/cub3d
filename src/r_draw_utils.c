@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:31:42 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 13:47:05 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/07 15:37:29 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,13 @@ t_color get_shadow_color(double distance)
 	t_color	shadow_color;
 	double	shadow_tint;
 
+	if (distance > HEIGHT)
+		distance = HEIGHT - 1;
 	shadow_tint = (double)distance / 4;
 	shadow_color.r = shadow_tint;
 	shadow_color.g = shadow_tint;
 	shadow_color.b = shadow_tint;
-	shadow_color.a = 100;
+	shadow_color.a = 50;
 	return (shadow_color);
 }
 
@@ -86,13 +88,15 @@ void	draw_line_render(t_vector origin, int len)
 	shadow = get_shadow_image();
 	shadow_color = get_shadow_color(len);
 	texture = get_texture();
-	texture.step.y = (double)texture.image->height / len;
+	texture.step.y = (double)texture.image[texture.ongoing]->height / len;
 	while (len--)
 	{
 		origin.y++;
 		texture.origin.y += texture.step.y;
 		if (origin.x < 0 || origin.x >= WIDTH
-			|| origin.y < 0 || origin.y >= HEIGHT || texture.origin.y < 0 || texture.origin.y >= texture.image->height)
+			|| origin.y < 0 || origin.y >= HEIGHT
+			|| texture.origin.y < 0
+			|| texture.origin.y >= texture.image[texture.ongoing]->height)
 			continue ;
 		draw_pixel(shadow, origin, shadow_color.rgba);
 		draw_pixel(image, origin, get_texture_color(texture));

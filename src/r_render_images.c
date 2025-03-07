@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:03:16 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/04 21:13:07 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/07 14:33:39 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,19 @@ mlx_image_t	*get_shadow_image(void)
 void	set_background(mlx_image_t	*mlx_background)
 {
 	t_vector			origin;
+	t_start				*start;
 
 	origin = game_constants().zero;
+	start = get_start();
 	while (origin.y < HEIGHT)
 	{
 		origin.x = 0;
 		while (origin.x < WIDTH)
 		{
 			if (origin.y < HEIGHT_MIDDLE)
-				draw_pixel(mlx_background, origin, HEX_CEILING);
+				draw_pixel(mlx_background, origin, start->ceiling.rgba);
 			else
-				draw_pixel(mlx_background, origin, HEX_FLOOR);
+				draw_pixel(mlx_background, origin, start->floor.rgba);
 			origin.x++;
 		}
 		origin.y++;

@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 14:29:47 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/07 16:01:59 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,24 @@ t_start	*get_start(void)
 	return (&start);
 }
 
+void	clean_exit(int flags)
+{
+	mlx_t	*mlx;
+	t_start	*start;
+
+	if (flags & TERMINATE_MLX)
+	{
+		mlx = get_mlx();
+		mlx_terminate(mlx);
+	}
+	if (flags & FREE_START)
+	{
+		start = get_start();
+		free_start(start);
+	}
+	exit(EXIT_FAILURE);
+}
+
 int	main(int argc, char **argv)
 {
 	t_start	*start;
@@ -94,6 +112,7 @@ int	main(int argc, char **argv)
 		free_start(start);
 		return (print_error(), EXIT_FAILURE);
 	}
+	printf("START FD %s", start->n_fd);
 	cub3d_init();
 	free_start(start);
 	return (EXIT_SUCCESS);
