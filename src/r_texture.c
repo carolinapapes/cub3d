@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 16:29:31 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 13:21:11 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/07 13:28:44 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ uint32_t	get_texture_color(t_texture texture)
 	return (color);
 }
 
-t_texture	get_texture(int set, double origin_axis_pixel)
+#define RESET_ORIGIN 1
+#define SET_X 2
+
+t_texture	handle_texture(int flag, double x_percentage)
 {
 	static t_texture	texture;
 	mlx_texture_t		*mlx_texture;
@@ -51,12 +54,27 @@ t_texture	get_texture(int set, double origin_axis_pixel)
 		texture.image = mlx_texture_to_image(get_mlx(), mlx_texture);
 		mlx_delete_texture(mlx_texture);
 	}
-	if (set)
+	if (flag == RESET_ORIGIN)
 	{
-		origin_axis_pixel = fmod(origin_axis_pixel,
-				GRID_SIZE) / GRID_SIZE;
+		texture.origin.x = 0;
 		texture.origin.y = 0;
-		texture.origin.x = origin_axis_pixel * (double)(texture.image->width);
 	}
+	if (flag == SET_X)
+		texture.origin.x = x_percentage * (double)(texture.image->width);
 	return (texture);
+}
+
+t_texture	get_texture(void)
+{
+	return (handle_texture(0, 0));
+}
+
+void	set_texture_x(double grid_intersection)
+{
+	double	x_percentage;
+
+	x_percentage = fmod(grid_intersection, GRID_SIZE) / GRID_SIZE;
+	if (x_percentage < 0)
+		x_percentage = 1 + x_percentage;
+	handle_texture(SET_X, x_percentage);
 }
