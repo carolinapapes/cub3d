@@ -19,17 +19,17 @@ static void	cub3d_hook(void *param)
 	mlx = param;
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
-	if (mlx_is_key_down(mlx, MLX_KEY_UP))
-		player_move(Y, NEGATIVE);
-	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
-		player_move(Y, POSITIVE);
-	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-		player_move(X, NEGATIVE);
-	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-		player_move(X, POSITIVE);
 	if (mlx_is_key_down(mlx, MLX_KEY_W))
-		player_rotate(NEGATIVE);
+		player_move(Y, NEGATIVE);
 	if (mlx_is_key_down(mlx, MLX_KEY_S))
+		player_move(Y, POSITIVE);
+	if (mlx_is_key_down(mlx, MLX_KEY_A))
+		player_move(X, NEGATIVE);
+	if (mlx_is_key_down(mlx, MLX_KEY_D))
+		player_move(X, POSITIVE);
+	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
+		player_rotate(NEGATIVE);
+	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 		player_rotate(POSITIVE);
 }
 
