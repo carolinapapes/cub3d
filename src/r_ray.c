@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 14:21:30 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 21:56:45 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/07 13:44:15 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,11 @@ void	draw_ray(t_vector_full ray, double angle, double iter)
 {
 	if (!ray.distance)
 		return ;
-	draw_intersect(ray, HEX_GREY);
+	draw_intersect(ray, HEX_GREY - 0x20202020);
 	if (angle != 0)
 		ray.distance *= cos(angle);
-	if (ray.axis == X)
-		draw_render(ray.distance, HEX_RED, iter);
-	else
-		draw_render(ray.distance, HEX_GREEN, iter);
+	set_texture_x(ray.end.arr[!ray.axis]);
+	draw_render(ray.distance, iter);
 }
 
 /*
@@ -76,7 +74,8 @@ void	pov_iter(t_vector origin, double pov)
 	angle = pov + constants.fov_delta_start;
 	mlx_clear_image(get_miniview_image());
 	mlx_clear_image(get_render_image());
-	while (iter++ < 60)
+	mlx_clear_image(get_shadow_image());
+	while (iter++ < WIDTH)
 	{
 		angle += constants.angle_step;
 		ray = init_ray(origin, angle);

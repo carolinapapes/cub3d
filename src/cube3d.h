@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 14:26:04 by kate             ###   ########.fr       */
+/*   Updated: 2025/03/07 14:29:39 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@
 # define HEX_GRID 		0xB0B0B0FF
 # define HEX_WALL 		0xB0B0B0CC
 # define HEX_GREY 		0xD5DBDBFF
-# define HEX_RED 		0xE72D2DFF
+# define HEX_RED 		0xFF0000FF
 # define HEX_GREEN 		0x1ABC9CFF
 # define HEX_BLUE 		0x0000FFFF
 # define HEX_PURPLE 	0xFF00FFFF
@@ -85,6 +85,15 @@ typedef union u_coord
 	};
 	double				arr[2];
 }						t_vector;
+
+typedef struct s_texture
+{
+	t_vector			pixel;
+	t_vector			step;
+	t_vector			origin;
+	uint32_t			color;
+	mlx_image_t			*image;
+}						t_texture;
 
 typedef struct s_vector_full
 {
@@ -166,6 +175,9 @@ typedef struct s_constants
 	t_vector	dir_y;
 	t_vector	limit_movement;
 	t_vector	zero;
+	double		texture_width;
+	double		texture_height;
+	double		angle_sec[1024];
 }				t_constants;
 
 typedef enum e_image_type
@@ -215,6 +227,7 @@ mlx_image_t				*get_miniview_image(void);
 mlx_image_t				*get_render_image(void);
 mlx_image_t				*get_minimap_image(void);
 void					init_background(void);
+mlx_image_t				*get_shadow_image(void);
 
 // _bonus_remove_later.c
 void					pov_iter(t_vector origin, double angle_fov);
@@ -225,7 +238,7 @@ int						get_cell_content(t_vector coord);
 int						is_axis_wall(t_vector coord, t_axis axis,
 							t_vector_full ray);
 void					draw_minimap(t_vector coord);
-void					draw_pixel(mlx_image_t *image, t_vector pixel, int32_t color);
+void					draw_pixel(mlx_image_t *image, t_vector pixel, uint32_t color);
 void					update_mlx_miniplayer_pos(t_vector pos_delta, int axis);
 void					update_minimap_pos(t_vector position, t_vector position_delta);
 void					init_minimap(void);
@@ -244,9 +257,7 @@ t_start					*get_start(void);
 void					draw_point(t_vector point, int color);
 void					draw_line(t_vector origin, t_vector direction,
 							int len, int color);
-void					draw_line_render(t_vector origin, t_vector direction,
-							int len, int color);
-void					draw_render(double distance, uint32_t color, int iter);
+void					draw_render(double distance, int iter);
 
 // r_mlx_handler.c
 mlx_t					*get_mlx(void);
@@ -275,6 +286,14 @@ double					get_hypot(t_vector a, t_vector b);
 double					get_side_len(t_vector a1, t_vector a2, t_vector tan,
 							t_axis axis);
 double					radian_overflow(double angle);
+t_texture				get_texture(void);
+uint32_t				get_pixel_info(mlx_image_t *texture,
+							uint32_t pixel_index);
+uint32_t				get_texture_color(t_texture texture);
+void					set_texture_x(double x_percentage);
+
+// r_texture.c
+
 
 // ----------------------------[DELETE BEFORE SUBMIT]---------------
 void					ft_print_split(char **split);

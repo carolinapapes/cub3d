@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kate <kate@student.42.fr>                  +#+  +:+       +#+         #
+#    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/03/07 14:25:05 by kate             ###   ########.fr        #
+#    Updated: 2025/03/07 14:28:58 by capapes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,6 +74,7 @@ MAIN_SRC = \
 			r_ray.c \
 			r_ray_distance.c \
 			r_render_images.c \
+			r_texture.c \
 			r_trigonometry.c
 MAIN_OBJ = $(patsubst %.c, $(OBJDIR)/%.o, $(MAIN_SRC))
 DEP_FILES = $(MAIN_OBJ:.o=.d)

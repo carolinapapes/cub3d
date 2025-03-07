@@ -6,13 +6,13 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:31:42 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 17:02:17 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/07 13:47:05 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-void	draw_pixel(mlx_image_t *image, t_vector pixel, int32_t color)
+void	draw_pixel(mlx_image_t *image, t_vector pixel, uint32_t color)
 {
 	mlx_put_pixel(image, pixel.x, pixel.y, color);
 }
@@ -62,36 +62,55 @@ void	draw_line(t_vector origin, t_vector direction, int len, int color)
 	}
 }
 
-void	draw_line_render(t_vector origin, t_vector direction,
-	int len, int color)
+t_color get_shadow_color(double distance)
 {
-	t_vector	pixel;
-	mlx_image_t	*image;
+	t_color	shadow_color;
+	double	shadow_tint;
+
+	shadow_tint = (double)distance / 4;
+	shadow_color.r = shadow_tint;
+	shadow_color.g = shadow_tint;
+	shadow_color.b = shadow_tint;
+	shadow_color.a = 100;
+	return (shadow_color);
+}
+
+void	draw_line_render(t_vector origin, int len)
+{
+	mlx_image_t		*image;
+	mlx_image_t		*shadow;
+	t_color			shadow_color;	
+	t_texture		texture;
 
 	image = get_render_image();
-	len = abs(len);
+	shadow = get_shadow_image();
+	shadow_color = get_shadow_color(len);
+	texture = get_texture();
+	texture.step.y = (double)texture.image->height / len;
 	while (len--)
 	{
-		pixel.x = origin.x + direction.x * len;
-		pixel.y = origin.y + direction.y * len;
-		if (pixel.x < 0 || pixel.x >= WIDTH || pixel.y < 0 || pixel.y >= HEIGHT)
+		origin.y++;
+		texture.origin.y += texture.step.y;
+		if (origin.x < 0 || origin.x >= WIDTH
+			|| origin.y < 0 || origin.y >= HEIGHT || texture.origin.y < 0 || texture.origin.y >= texture.image->height)
 			continue ;
-		draw_pixel(image, pixel, color);
+		draw_pixel(shadow, origin, shadow_color.rgba);
+		draw_pixel(image, origin, get_texture_color(texture));
 	}
 }
 
-void	draw_render(double distance, uint32_t color, int iter)
+// wall_start_x : x position in the render where the wall starts
+void	draw_render(double distance, int window_x)
 {
 	int				strip_height;
-	int				end;
-	t_vector		wall_start;
+	t_vector		origin;
 	t_constants		constants;
 
 	constants = game_constants();
-	wall_start.x = (iter - 1) * constants.strip_width;
-	end = wall_start.x + constants.strip_width;
-	strip_height = constants.strip_height / distance;
-	wall_start.y = (HEIGHT - strip_height) / 2;
-	while (wall_start.x++ < end && wall_start.x < WIDTH)
-		draw_line_render(wall_start, constants.dir_y, strip_height, color);
+	origin.x = window_x;
+	strip_height = fabs(constants.strip_height / distance);
+	if (strip_height > HEIGHT)
+		strip_height = HEIGHT;
+	origin.y = (HEIGHT - strip_height) / 2;
+	draw_line_render(origin, strip_height);
 }
