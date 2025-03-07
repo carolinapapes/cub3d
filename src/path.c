@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:01:54 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/06 16:24:43 by kate             ###   ########.fr       */
+/*   Updated: 2025/03/07 16:07:02 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ int	check_four_dir(t_start *start, char **elements)
 	start->s_fd = NULL;
 	start->w_fd = NULL;
 	start->e_fd = NULL;
-	if (check_dir(elements, "NO ", &start->n_fd) == 1 || check_dir(elements, "SO ", &start->s_fd) == 1 || \
-		check_dir(elements, "WE ", &start->w_fd) == 1 || check_dir(elements, "EA ", &start->e_fd) == 1)
+	if (check_dir(elements, "NO ", &(start->n_fd)) == 1 || check_dir(elements, "SO ", &(start->s_fd)) == 1 || \
+		check_dir(elements, "WE ", &(start->w_fd)) == 1 || check_dir(elements, "EA ", &(start->e_fd)) == 1)
 	{
 		//write a function for it
 		free_line(&start->n_fd);
@@ -123,5 +123,9 @@ int	check_four_dir(t_start *start, char **elements)
 		free_line(&start->e_fd);
 		return (1);
 	}
+	printf("Valid texture path for %s: \n", start->n_fd);
+	printf("Valid texture path for %s: \n", start->w_fd);
+	printf("Valid texture path for %s: \n", start->e_fd);
+	printf("Valid texture path for %s: \n", start->s_fd);
 	return (0);
 }

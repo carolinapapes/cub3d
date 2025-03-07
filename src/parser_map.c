@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 16:04:26 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/02 21:53:19 by kate             ###   ########.fr       */
+/*   Updated: 2025/03/07 15:57:52 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ char	*find_first_map_line(char *input)
 			|| input[i] == '\n'))
 			i++;
 		if (input[i] == '\0' && i != 0)
+		{
+			printf("%s\n", input);
 			return (input);
+		}
 		input = &input[i];
 	}
 	return (NULL);
