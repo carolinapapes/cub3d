@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 16:29:31 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 18:19:39 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/09 20:03:00 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ uint32_t	get_texture_color(void)
 	pixel_index = texture->image[texture->ongoing]->width
 		* (int)(texture->origin.y)
 		+ (int)(texture->origin.x);
-	pixel_index *= 4;
+	pixel_index *= texture->image[texture->ongoing]->bytes_per_pixel;
 	color = get_pixel_info(texture->image[texture->ongoing]->pixels, pixel_index);
 	return (color);
 }
@@ -79,7 +79,7 @@ t_texture	get_texture(void)
 	return (*texture);
 }
 
-void	set_texture_x(double grid_intersection)
+void	set_texture_x(double grid_intersection, double direction)
 {
 	double		x_percentage;
 	t_texture	*texture;
@@ -87,6 +87,9 @@ void	set_texture_x(double grid_intersection)
 	x_percentage = fmod(grid_intersection, GRID_SIZE) / GRID_SIZE;
 	texture = _get_texture();
 	texture->origin.y = 0;
+	printf("direction: %f\n", direction);
+	if (direction == POSITIVE)
+		x_percentage = 1 - x_percentage;
 	texture->origin.x = x_percentage
 		* (double)(texture->image[texture->ongoing]->width);
 }

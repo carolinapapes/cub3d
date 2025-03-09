@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 14:21:30 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 17:29:13 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/09 20:02:31 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	draw_ray(t_vector_full ray, double angle, double iter)
 	if (angle != 0)
 		ray.distance *= cos(angle);
 	set_ongoing_wall_texture(!ray.axis, ray.quadrant.arr[ray.axis]);
-	set_texture_x(ray.end.arr[!ray.axis]);
+	set_texture_x(ray.end.arr[!ray.axis], ray.quadrant.arr[ray.axis]);
 	draw_render(ray.distance, iter);
 }
 

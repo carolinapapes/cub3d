@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 18:18:35 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/09 19:59:28 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -301,7 +301,7 @@ double					get_side_len(t_vector a1, t_vector a2, t_vector tan,
 double					radian_overflow(double angle);
 t_texture				get_texture(void);
 uint32_t				get_texture_color(void);
-void					set_texture_x(double x_percentage);
+void					set_texture_x(double x_percentage, double direction);
 
 void					clean_exit(int flags);
 // r_texture.c

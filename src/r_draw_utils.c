@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:31:42 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 18:17:14 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/09 19:54:50 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,10 @@ void	draw_line_render(t_vector origin, int len)
 	while (len--)
 	{
 		origin.y++;
+		if (add_to_texture_origin_y())
+			continue ;
 		if (origin.x < 0 || origin.x >= WIDTH
 			|| origin.y < 0 || origin.y >= HEIGHT)
-			continue ;
-		if (add_to_texture_origin_y())
 			continue ;
 		draw_pixel(shadow, origin, shadow_color.rgba);
 		draw_pixel(image, origin, get_texture_color());
