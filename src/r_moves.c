@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:50:40 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/10 00:37:27 by kate             ###   ########.fr       */
+/*   Updated: 2025/03/10 11:39:48 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,30 +53,28 @@ t_vector compute_delta(int key)
 
 	delta.x = 0;
 	delta.y = 0;
-	printf("POV is %f\n", pov);
 
 	if (key < 0 || key == MLX_KEY_LEFT || key == MLX_KEY_RIGHT)
 		return (delta);
-	printf("COMPUTING DELTA\n");
 	if (key == MLX_KEY_W)
 	{
-		delta.x = cos(pov)*3;
-		delta.y = sin(pov)*3; 
+		delta.x = cos(pov);
+		delta.y = sin(pov); 
 	}
 	if (key == MLX_KEY_S)
 	{
-		delta.x = -cos(pov)*3;
-		delta.y = -sin(pov)*3; 
+		delta.x = -cos(pov);
+		delta.y = -sin(pov); 
 	}
 	if (key == MLX_KEY_A)
 	{
-		delta.x = sin(pov)*3;
-		delta.y = -cos(pov)*3; 
+		delta.x = sin(pov);
+		delta.y = -cos(pov); 
 	}
 	if (key == MLX_KEY_D)
 	{
-		delta.x = -sin(pov)*3;
-		delta.y = cos(pov)*3; 
+		delta.x = -sin(pov);
+		delta.y = cos(pov); 
 	}
 	return (delta);
 }

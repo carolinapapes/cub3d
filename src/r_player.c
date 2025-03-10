@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/10 00:31:37 by kate             ###   ########.fr       */
+/*   Updated: 2025/03/10 11:39:46 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ t_player	set_player(t_vector position_delta, double angle_delta)
 {
 	static t_player	player;
 
-	if ((int)position_delta.x || (int)position_delta.y)
+	if (position_delta.x != 0 || position_delta.y != 0)
 		update_pos(&player, position_delta);
-	if ((int)position_delta.x || (int)position_delta.y || angle_delta)
+	if (position_delta.x != 0 || position_delta.y != 0 || angle_delta)
 		update_pov(&player, angle_delta);
 	return (player);
 }
