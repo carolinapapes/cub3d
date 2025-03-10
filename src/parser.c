@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:46:15 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 16:32:02 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/10 19:58:28 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,6 @@ int	check_elements(char **elements, t_start *start)
 	printf("%s\n", start->s_fd);
 	printf("%s\n", start->w_fd);
 	printf("%s\n", start->e_fd);
-	// free_line(&start->n_fd);
-	// free_line(&start->s_fd);
-	// free_line(&start->w_fd);
-	// free_line(&start->e_fd);
 	if (check_for_color(start, elements) == 1)
 	{
 		printf("color failed\n");
@@ -76,23 +72,19 @@ int	parse_elements(char *line, char ***elements, t_start *start)
 	return (0);
 }
 
-int	parser_controler(int argc, char **argv, t_start *start)
+int	parser_controler(char *file, t_start *start)
 {
 	char	*line;
 	char	**map;
 	char	**elements;
 
-	line = NULL;
 	map = NULL;
+	line = NULL;
 	elements = NULL;
-	if (argc != 2)
+	line = extract_content(file);
+	if (line == NULL)
 		return (1);
-	if (check_file_extension(argv[1], ".cub") == EXIT_FAILURE)
-		return (1);
-	if	(is_path_valid(argv[1]) == EXIT_FAILURE)
-		return (1);
-	if (read_file(argv[1], &line) == 1)
-		return (1);
+	printf("line es %s\n", line);
 	if (parse_map(line, &map) == 1)
 	{
 		free(line);
@@ -105,9 +97,6 @@ int	parser_controler(int argc, char **argv, t_start *start)
 		free_char_array(&map);
 		return (1);
 	}
-	printf("ceiling colours r: %c, b: %c, g: %c\n", start->ceiling.r, start->ceiling.b, start->ceiling.g);
-	printf("floor colours r: %c, b: %c, g: %c\n", start->ceiling.r, start->ceiling.b, start->ceiling.g);
-
 	if (start_initializer(start, map, elements) == 1)
 	{
 		free(line);

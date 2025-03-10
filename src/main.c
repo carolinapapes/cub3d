@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 16:43:30 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/10 19:43:58 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,9 @@ int	main(int argc, char **argv)
 	t_start	*start;
 
 	start = get_start();
-	if (!start)
+	if (!start || argc != 2)
 		return (1);
-	if (parser_controler(argc, argv, start) == 1)
+	if (parser_controler(argv[1], start) == 1)
 	{
 		free_start(start);
 		return (print_error(), EXIT_FAILURE);

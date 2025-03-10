@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 18:18:35 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/10 19:58:10 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ typedef enum e_image_type
 }	t_image_type;
 
 // ----------------------------[PARSER]----------------------------
-int						parser_controler(int argc, char **argv, t_start *start);
+int						parser_controler(char *file, t_start *start);
 int						ft_split_count(char **split);
 void					ft_split_free(char **split);
 int						check_map(char *file_contents);
@@ -223,6 +223,7 @@ int						is_path_valid(char *path);
 int						check_file_extension(char *file, char *extension_name);
 int						get_line_length(int fd);
 int						read_file(char *file, char **line);
+char					*extract_content(char *file);
 
 //                               INITILIAZER
 int						start_initializer(t_start *start, char **map, char **elements);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 01:04:48 by kate              #+#    #+#             */
-/*   Updated: 2025/03/05 16:44:58 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/10 19:56:49 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,20 @@ int	read_file(char *file, char **line)
 	}
 	(*line)[read_bytes] = '\0';
 	return (0);
+}
+
+
+
+
+char	*extract_content(char *file)
+{
+	char *line;
+
+	line = NULL;
+	if (check_file_extension(file, ".cub") == EXIT_FAILURE)
+		return (NULL);
+	if	(is_path_valid(file) == EXIT_FAILURE)
+		return (NULL);
+	read_file(file, &line);
+	return (line);
 }
