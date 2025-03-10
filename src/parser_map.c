@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 16:04:26 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/07 15:57:52 by kate             ###   ########.fr       */
+/*   Updated: 2025/03/10 02:52:47 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ char	*find_first_map_line(char *input)
 			i++;
 		if (input[i] == '\0' && i != 0)
 		{
+			//check if it only contains spaces
 			printf("%s\n", input);
 			return (input);
 		}

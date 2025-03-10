@@ -1,7 +1,12 @@
-NO ./maps/test.png
-SO ./maps/test.png
-WE ./maps/test.png
-EA ./maps/test.png
+NO ./textures/mario.png
+ofjñsjflshflhsl bdkjhadjkhkjdh dhhgjhsf
+SO ./textures/rojo.png
+fojhijaskkjfsjlfjklfsjklfs
+
+
+fkfkfkfkfkfkf   
+WE ./textures/texture_10.png
+EA ./textures/Fra.png
 
 F     89,      100,                1
 
@@ -12,3 +17,4 @@ C     85,      70,   56
 111100001111
 111100001001
 111111111111
+    
