@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:50:40 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/10 12:30:34 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/10 12:31:52 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	player_move(int axis, int dir)
 	t_vector	quadrant;
 
 	pov = get_player().pov;
+	printf("pov: %f\n", pov);
 	delta.arr[axis] = sin(pov) * dir;
 	delta.arr[!axis] = cos(pov) * dir;
 	if (axis == X)
