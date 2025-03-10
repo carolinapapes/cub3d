@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 18:18:35 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/10 00:32:59 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,10 +284,11 @@ mlx_image_t				*new_image(t_vector size, t_vector origin);
 
 // r_moves.c
 void					player_rotate(int dir);
-void					player_move(t_axis axis, int dir);
+void					player_move(int key);
 mlx_image_t				*new_image_full(void);
 
 // r_player.c
+t_player				get_player(void);
 t_player				set_player(t_vector position_delta, double angle_delta);
 t_vector				get_player_center_px(void);
 
