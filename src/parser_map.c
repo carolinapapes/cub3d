@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 16:04:26 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/10 20:10:21 by kate             ###   ########.fr       */
+/*   Updated: 2025/03/10 22:08:07 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,33 +38,37 @@ int	is_one_view(char *map)
 	return (0);
 }
 
+
+int	line_in_map(char *line, int len)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] != '\0' && i < len)
+	{
+		if (is_map_character(line[i]) == 1)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 char	*find_first_map_line(char *input)
 {
 	int		i;
 
 	while (*input)
 	{
-		while (*input && *input != '\n')
-			input++;
-		if (*input == '\0')
-			return (NULL);
-		while (*input == '\n')
-			input++;
 		i = 0;
-		while (*input == ' ')
-			input++;
-		while (input[i] != '\0' && (is_map_character(input[i]) == 0 \
-			|| input[i] == '\n'))
+		while(input[i] && input[i] != '\n')
 			i++;
-		if (input[i] == '\0' && i != 0)
-		{
-			//check if it only contains spaces
-			printf("%s\n", input);
+		if (!input[i])
+			return (NULL);
+		if (line_in_map(input, i) == 0 && i>0)
 			return (input);
-		}
-		input = &input[i];
+		input = &input[i+1];
 	}
-	return (NULL);
+	return(NULL);
 }
 
 int	check_for_newlines_in_map(char *map)

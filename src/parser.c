@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:46:15 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/10 19:58:28 by kate             ###   ########.fr       */
+/*   Updated: 2025/03/10 22:29:26 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	parse_map(char *line, char ***map)
 {
 	char	*map_start;
-
+	
 	map_start = find_first_map_line(line);
-	if (map_start == NULL || *map_start == '\0' || check_map(map_start) == 1)
+	if (map_start == NULL || check_map(map_start) == 1)
 		return (1);
 	*map = ft_split(map_start, '\n');
 	if (!*map)
@@ -26,6 +26,17 @@ int	parse_map(char *line, char ***map)
 	{
 		free_char_array(map);
 		return (1);
+	}
+	return (0);
+}
+
+int	empty_string(char *line)
+{
+	while (*line)
+	{
+		if (*line != ' ')
+			return (1);
+		line++;
 	}
 	return (0);
 }
@@ -72,6 +83,7 @@ int	parse_elements(char *line, char ***elements, t_start *start)
 	return (0);
 }
 
+//limpiar ese desproposito de frees
 int	parser_controler(char *file, t_start *start)
 {
 	char	*line;
@@ -84,7 +96,7 @@ int	parser_controler(char *file, t_start *start)
 	line = extract_content(file);
 	if (line == NULL)
 		return (1);
-	printf("line es %s\n", line);
+	
 	if (parse_map(line, &map) == 1)
 	{
 		free(line);
