@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 16:29:31 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/11 18:12:12 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/11 18:53:53 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,7 @@ void	set_texture_x(double grid_intersection, double direction)
 	texture->origin.y = 0;
 	if (direction == POSITIVE)
 		x_percentage = 1 - x_percentage;
-	texture->origin.x = x_percentage
-		* (double)(texture->image[texture->ongoing]->width);
+	texture->origin.x = x_percentage * texture->image[texture->ongoing]->width;
 }
 
 int	get_ongoing_texture(int axis, int quadrant)

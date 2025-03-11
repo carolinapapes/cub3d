@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:50:40 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/11 18:42:26 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/11 19:01:47 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,6 @@ int	collition_check(int axis, int dir)
 	if (wont_intersect_grid(player_side, axis))
 		return (moves);
 	return (vertex_check(axis, dir, moves, player_side));
-}
-
-double	tends_to_zero(double x)
-{
-	double	eps;
-
-	eps = 0.001;
-	if (fabs(x) < eps)
-		return (0.0);
-	return (x);
 }
 
 double	check_collition_in_axis(double delta, int axis)

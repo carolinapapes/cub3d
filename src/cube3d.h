@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/11 17:26:12 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/11 19:05:39 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,6 +310,7 @@ void					set_ongoing_wall_texture(int axis, int quadrant);
 void					change_minimap_visibility(void);
 int						add_to_texture_origin_y(void);
 void					set_texture_step_y(double distance);
+double					tends_to_zero(double x);
 
 // ----------------------------[DELETE BEFORE SUBMIT]---------------
 void					ft_print_split(char **split);

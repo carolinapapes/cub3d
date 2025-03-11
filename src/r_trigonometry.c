@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:54:32 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 21:46:06 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/11 19:01:52 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,14 @@ double	radian_overflow(double angle)
 	if (angle < 0)
 		angle += limit;
 	return (angle);
+}
+
+double	tends_to_zero(double x)
+{
+	double	eps;
+
+	eps = 0.001;
+	if (fabs(x) < eps)
+		return (0.0);
+	return (x);
 }
