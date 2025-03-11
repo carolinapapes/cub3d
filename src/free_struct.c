@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 15:39:47 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/07 14:26:19 by kate             ###   ########.fr       */
+/*   Updated: 2025/03/11 18:46:10 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	free_int_array(int ***array, int size_y)
 	}
 	free(*array);
 	*array = NULL;
-	printf("he entrado al free int\n");
 	return ;
 }
 
@@ -54,7 +53,6 @@ void	free_char_array(char ***split)
 	}
 	free(*split);
 	*split = NULL;
-	printf("he entrado en free char\n");
 	return ;
 }
 
@@ -73,6 +71,5 @@ void	free_start(t_start *start)
 		free_line(&start->w_fd);
 	if (start->e_fd != NULL)
 		free_line(&start->e_fd);
-	printf("he estado en el free start\n");
 	return ;
 }

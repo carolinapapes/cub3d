@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:46:15 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/11 17:02:36 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/11 18:52:01 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	check_elements(char **elements, t_start *start)
 	y = 0;
 	if (ft_split_count(elements) < 9)
 		return (1);
-	while (y < 7) // en realidad solo hasta start de map
+	while (y < 6) // en realidad solo hasta start de map
 	{
 		if (empty_string(elements[y]) == 0) //creo que ya es inecesario porque el parseo del mapa se lo carga
 		{
@@ -94,7 +94,11 @@ int	check_elements(char **elements, t_start *start)
 		y++;
 	}
 	if (check_variables(start) == 1) // algun elemento ha fallado
+	{	
+		printf("ha habido fallo en check var\n");
 		return (1);
+	}
+	
 	return (0);
 }
 
@@ -116,6 +120,14 @@ int	parse_elements(char *line, char ***elements, t_start *start)
 	return (0);
 }
 
+int	free_parser(char *line, char **map, char **elements)
+{
+	free_line(&line);
+	free_char_array(&map);
+	free_char_array(&elements);
+	return (1);
+}
+
 //limpiar ese desproposito de frees
 int	parser_controler(char *file, t_start *start)
 {
@@ -129,33 +141,22 @@ int	parser_controler(char *file, t_start *start)
 	line = extract_content(file);
 	if (line == NULL)
 		return (1);
-	
 	if (parse_map(line, &map) == 1)
 	{
-		free(line);
 		printf("ha habido un problema en mapa\n");
-		return (1);
+		return (free_parser(line, map, elements));
 	}
 	if (parse_elements(line, &elements, start) == 1)
 	{
 		printf("no he entrado en el initiliazer\n");
-		free(line);
-		free_char_array(&map);
-		return (1);
+		return (free_parser(line, map, elements));
 	}
-	//printf("%s\n", start->n_fd);
-	//printf("%s\n", start->s_fd);
-	//printf("%s\n", start->w_fd);
-	//printf("%s\n", start->e_fd);
+	printf("antes del init\n");
 	if (start_initializer(start, map, elements) == 1)
 	{
-		free(line);
-		free_char_array(&map);
-		free_char_array(&elements);
-		return (1);
+		printf("ha fallado initiliazer\n");
+		return (free_parser(line, map, elements));
 	}
-	free(line);
-	free_char_array(&map);
-	free_char_array(&elements);
+	free_parser(line, map, elements);
 	return (0);
 }

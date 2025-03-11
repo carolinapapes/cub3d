@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 18:35:14 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/11 16:56:41 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/11 18:48:26 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,9 @@ int	check_line_for_color(char **palet, t_color *color)
 
 	i = 0;
 	while (palet[i] != NULL)
-	{
-		printf("contenido: |%s|num: %d\n", palet[i], i);
 		i++;
-	}
 	if (i != 4 )
 		return (1);
-	printf("he sobrevivido\n");
 	r = extract_color(palet[1]);
 	g = extract_color(palet[2]);
 	b = extract_color(palet[3]);
@@ -164,56 +160,17 @@ int	is_color(char *line, t_start *start)
 		printf("|%s|\n", palet[i]);
 		i++;
 	}
-	if (ft_strncmp(palet[0], "F", 1) == 0)
+	if (ft_strncmp(palet[0], "F", ft_strlen("F")) == 0)
 	{
-		printf("he entrado en floor color check\n");
+		printf("he entrado en floor color check %s\n", palet[0]);
 		res = check_line_for_color(palet, &(*start).floor);
 	}
-	else if (ft_strncmp(palet[0], "C", 1) == 0)
+	else if (ft_strncmp(palet[0], "C", ft_strlen("C")) == 0)
+	{
+		printf("he entrado en ceiling color check %s\n", palet[0]);
 		res = check_line_for_color(palet, &(*start).ceiling);
+	}
+	printf("res es %d\n", res);
 	free_char_array(&palet);
-	printf("ceiling colours r: %d, b: %d, g: %d  color total es: %d\n", start->ceiling.r, start->ceiling.b, start->ceiling.g, start->ceiling.rgba);
-	printf("floor colours r: %d, b: %d, g: %d color total es: %d\n", start->floor.r, start->floor.b, start->floor.g, start->floor.rgba);
 	return (res);
 }
-/*
-int	check_for_color(t_start *start, char **elements)
-{
-	if (check_line_for_color(&(*start).floor, &(*start).ceiling, elements) == 1)
-	{
-		printf("no hay colorsitos para el suelo o para el cielo :(\n");
-		return (1);
-	}
-	printf("ceiling colours r: %d, b: %d, g: %d  color total es: %d\n", start->ceiling.r, start->ceiling.b, start->ceiling.g, start->ceiling.rgba);
-	printf("floor colours r: %d, b: %d, g: %d color total es: %d\n", start->floor.r, start->floor.b, start->floor.g, start->floor.rgba);
-	return (0);
-}
-
-{
-
-	int f_count;
-	int c_count;
-
-	line = 0;
-	f_count = 0;
-	c_count = 0;
-	while (line != NULL)
-	{
-		if (strstr(elements[line], "F") != NULL)
-		{
-			if (extract_color(floor, elements[line]) == 0)
-				f_count++;
-		}
-		else if (strstr(elements[line], "C") != NULL)
-		{
-			if (extract_color(ceiling, elements[line]) == 0)
-				c_count++;
-		}
-		line++;
-	}
-	if (c_count != 1|| f_count != 1)
-		return (1);
-	return (0);
-}
-
-*/
