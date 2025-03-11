@@ -1,5 +1,6 @@
 ./lib/MLX42
 ./lib/libft
+./lib/*
 ./obj
 
 .DS_Store
