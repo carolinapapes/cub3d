@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/10 19:58:10 by kate             ###   ########.fr       */
+/*   Updated: 2025/03/11 02:37:18 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,11 +213,12 @@ int						check_empty_lines_in_map(char **file);
 char					*free_line(char **line);
 void					free_start(t_start *start);
 void					free_char_array(char ***split);
-int						check_four_dir(t_start *start, char **elements);
-int						check_for_color(t_start *start, char **elements);
+//int						check_four_dir(t_start *start, char **elements);
+//int						check_for_color(t_start *start, char **elements);
 
 //---------------------------- path ---------------------------------------------------------
 int						is_path_valid(char *path);
+int						is_texture(char *line, t_start *start);
 
 //---------------------------- file_handler -------------------------------------------------
 int						check_file_extension(char *file, char *extension_name);

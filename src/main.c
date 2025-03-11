@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/10 19:43:58 by kate             ###   ########.fr       */
+/*   Updated: 2025/03/11 02:37:42 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,18 @@ void	clean_exit(int flags)
 	exit(EXIT_FAILURE);
 }
 
+void	initialize_start(t_start **start)
+{
+	(*start)->n_fd = NULL;
+	(*start)->s_fd = NULL;
+	(*start)->w_fd = NULL;
+	(*start)->e_fd = NULL;
+	(*start)->map.map = NULL;
+	(*start)->map.map_int = NULL;
+	(*start)->ceiling.rgba = 0;
+	(*start)->floor.rgba = 0;
+}
+
 int	main(int argc, char **argv)
 {
 	t_start	*start;
@@ -106,12 +118,13 @@ int	main(int argc, char **argv)
 	start = get_start();
 	if (!start || argc != 2)
 		return (1);
+	initialize_start(&start);
 	if (parser_controler(argv[1], start) == 1)
 	{
 		free_start(start);
 		return (print_error(), EXIT_FAILURE);
 	}
-	cub3d_init();
+	//cub3d_init();
 	free_start(start);
 	return (EXIT_SUCCESS);
 }

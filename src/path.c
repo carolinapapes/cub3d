@@ -6,19 +6,11 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:01:54 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/07 16:07:02 by kate             ###   ########.fr       */
+/*   Updated: 2025/03/11 02:39:31 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-    1.detectar los 4 paths
-    2. mirar que tengan una extension correcta
-    3. mirar que se puedan abrir
-    4. guardar la direccion en la esctrucura
-	5. checkear si es un directio chekear si es.png
-*/
 #include "cube3d.h"
-
 
 char	*save_path(char *path)
 {
@@ -89,7 +81,7 @@ int	is_dir(char **future_path, char *line, char *dir_name)
 	return (0);
 }
 
-int	check_dir(char **elements, char *dir_name, char **future_path)
+/*int	check_dir(char **elements, char *dir_name, char **future_path)
 {
 	int	line;
 	int	found_count;
@@ -105,14 +97,44 @@ int	check_dir(char **elements, char *dir_name, char **future_path)
 	if (found_count != 1)
 		return (1);
 	return (0);
+}*/
+
+int	check_dir(char *path, char **future_path)
+{
+	if (*future_path != NULL) // quiere decir que dir se ha repetido
+		return (1);
+	if (is_path_valid(path) == 1)
+		return (1);
+	*future_path = save_path(path);
+	
+	return (0);
 }
 
-int	check_four_dir(t_start *start, char **elements)
+int	is_texture(char *line, t_start *start)
 {
-	start->n_fd = NULL; // TODO initiate in the start
-	start->s_fd = NULL;
-	start->w_fd = NULL;
-	start->e_fd = NULL;
+	char	**texture;
+	int		res;
+
+	res = 0;
+	texture = ft_split(line, ' ');
+	if (!texture)
+		return (1);
+	if (texture[0] == NULL || texture[1] == NULL || texture[2] != NULL)
+		return (0);
+	else if (ft_strncmp(texture[0], "NO", ft_strlen("NO") ) == 0)
+		res = check_dir(texture[1], &(start->n_fd));
+	else if (ft_strncmp(texture[0], "SO", ft_strlen("SO")) == 0)
+		res = check_dir(texture[1], &(start->s_fd));
+	else if (ft_strncmp(texture[0], "WE", ft_strlen("WE") ) == 0)
+		res = check_dir(texture[1], &(start->w_fd));
+	else if (ft_strncmp(texture[0], "EA", ft_strlen("EA") ) == 0)
+		res = check_dir(texture[1], &(start->e_fd));
+	free_char_array(&texture);
+	return (res);
+}
+
+/*int	check_four_dir(t_start *start, char **elements)
+{
 	if (check_dir(elements, "NO ", &(start->n_fd)) == 1 || check_dir(elements, "SO ", &(start->s_fd)) == 1 || \
 		check_dir(elements, "WE ", &(start->w_fd)) == 1 || check_dir(elements, "EA ", &(start->e_fd)) == 1)
 	{
@@ -128,4 +150,4 @@ int	check_four_dir(t_start *start, char **elements)
 	printf("Valid texture path for %s: \n", start->e_fd);
 	printf("Valid texture path for %s: \n", start->s_fd);
 	return (0);
-}
+}*/

@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:46:15 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/10 22:29:26 by kate             ###   ########.fr       */
+/*   Updated: 2025/03/11 02:48:03 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,29 +41,36 @@ int	empty_string(char *line)
 	return (0);
 }
 
+int	check_variables(t_start *start)
+{
+	if (start->n_fd == NULL || start->s_fd == NULL || start->e_fd == NULL || start->w_fd == NULL ) // ha faltado una textura
+		return (1);
+	//if (start->ceiling.rgba == 0 || start->floor.rgba == 0) 
+		//return (1);
+	return (0);
+}
+
 int	check_elements(char **elements, t_start *start)
 {
+	int	y;
+
+	y = 0;
 	if (ft_split_count(elements) < 9)
 		return (1);
-	if (check_four_dir(start, elements) == 1)
+	while (elements[y] != NULL) // en realidad solo hasta start de map
 	{
-		printf("falta path o hay alguno repetido\n");
-		return (1);
+		if (empty_string(elements[y]) == 0)
+			return (1);
+		if (is_texture(elements[y], start) == 1)
+			printf("no era una textura .D\n");
+		//{
+			//if (is_color(elements[y], start) == 1)
+				//return (1);
+		//}
+		y++;
 	}
-	printf("%s\n", start->n_fd);
-	printf("%s\n", start->s_fd);
-	printf("%s\n", start->w_fd);
-	printf("%s\n", start->e_fd);
-	if (check_for_color(start, elements) == 1)
-	{
-		printf("color failed\n");
-		free_line(&start->n_fd);
-		free_line(&start->s_fd);
-		free_line(&start->w_fd);
-		free_line(&start->e_fd);
+	if (check_variables(start) == 1) // algun elemento ha fallado
 		return (1);
-	}
-		
 	return (0);
 }
 
@@ -72,14 +79,17 @@ int	parse_elements(char *line, char ***elements, t_start *start)
 	*elements = ft_split(line, '\n');
 	if (!*elements)
 		return (1);
+	
 	if (check_elements(*elements, start) == 1)
 	{
 		free_char_array(elements);
+		free_line(&start->n_fd);
+		free_line(&start->s_fd);
+		free_line(&start->w_fd);
+		free_line(&start->e_fd);
+		
 		return (1);
 	}
-	// find map start and check for empty lines
-	// return (ft_split_free(file_lines), NULL);
-	// write(1, map_start, ft_strlen(map_start));
 	return (0);
 }
 
@@ -109,6 +119,10 @@ int	parser_controler(char *file, t_start *start)
 		free_char_array(&map);
 		return (1);
 	}
+	printf("%s\n", start->n_fd);
+	printf("%s\n", start->s_fd);
+	printf("%s\n", start->w_fd);
+	printf("%s\n", start->e_fd);
 	if (start_initializer(start, map, elements) == 1)
 	{
 		free(line);
