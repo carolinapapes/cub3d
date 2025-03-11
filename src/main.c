@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/11 02:37:42 by kate             ###   ########.fr       */
+/*   Updated: 2025/03/11 16:53:54 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int	main(int argc, char **argv)
 		free_start(start);
 		return (print_error(), EXIT_FAILURE);
 	}
-	//cub3d_init();
+	cub3d_init();
 	free_start(start);
 	return (EXIT_SUCCESS);
 }
