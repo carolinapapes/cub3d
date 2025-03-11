@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   r_player.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/10 11:39:46 by kate             ###   ########.fr       */
+/*   Updated: 2025/03/11 10:15:38 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ static void	update_pov(t_player *player, double angle_delta)
 	t_constants	constants;
 
 	constants = game_constants();
-	player->pov += angle_delta * constants.angle_step * 20;
+	if (angle_delta == 1 || angle_delta == -1)
+		player->pov += angle_delta * constants.angle_step * 20;
+	else
+		player->pov += angle_delta;
 	player->pov = radian_overflow(player->pov);
 	origin = get_player_center_px();
 	pov_iter(origin, player->pov);
@@ -68,9 +71,9 @@ void	init_player(void)
 	if (start->player_dir == 'E')
 		set_player(initial_pos, 0);
 	else if (start->player_dir == 'S')
-		set_player(initial_pos, 90);
+		set_player(initial_pos, 0.5 * M_PI);
 	else if (start->player_dir == 'W')
-		set_player(initial_pos, 180);
+		set_player(initial_pos, 1 * M_PI);
 	else if (start->player_dir == 'N')
-		set_player(initial_pos, 270);
+		set_player(initial_pos, 1.5 * M_PI);
 }
