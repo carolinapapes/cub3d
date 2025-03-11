@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:46:15 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/11 02:48:03 by kate             ###   ########.fr       */
+/*   Updated: 2025/03/11 03:03:15 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,10 @@ int	check_elements(char **elements, t_start *start)
 		if (empty_string(elements[y]) == 0)
 			return (1);
 		if (is_texture(elements[y], start) == 1)
-			printf("no era una textura .D\n");
-		//{
-			//if (is_color(elements[y], start) == 1)
-				//return (1);
-		//}
+		{
+			if (is_color(elements[y], start) == 1)
+				return (1);
+		}
 		y++;
 	}
 	if (check_variables(start) == 1) // algun elemento ha fallado
@@ -87,7 +86,6 @@ int	parse_elements(char *line, char ***elements, t_start *start)
 		free_line(&start->s_fd);
 		free_line(&start->w_fd);
 		free_line(&start->e_fd);
-		
 		return (1);
 	}
 	return (0);
