@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 16:29:31 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/09 20:03:00 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/11 18:12:12 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void	set_texture_x(double grid_intersection, double direction)
 	x_percentage = fmod(grid_intersection, GRID_SIZE) / GRID_SIZE;
 	texture = _get_texture();
 	texture->origin.y = 0;
-	printf("direction: %f\n", direction);
 	if (direction == POSITIVE)
 		x_percentage = 1 - x_percentage;
 	texture->origin.x = x_percentage

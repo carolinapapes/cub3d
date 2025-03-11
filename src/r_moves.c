@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:50:40 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/11 17:19:31 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/11 18:42:26 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,17 +71,17 @@ int	collition_check(int axis, int dir)
 	return (vertex_check(axis, dir, moves, player_side));
 }
 
-static inline double	tends_to_zero(double x)
+double	tends_to_zero(double x)
 {
 	double	eps;
 
-	eps = 1e-9;
+	eps = 0.001;
 	if (fabs(x) < eps)
 		return (0.0);
 	return (x);
 }
 
-static double	check_collition_in_axis(double delta, int axis)
+double	check_collition_in_axis(double delta, int axis)
 {
 	double	quadrant;
 
@@ -110,11 +110,10 @@ void	player_move(int axis, int dir)
 	t_vector	quadrant;
 
 	delta = get_movement_v_components(axis, dir);
-	quadrant = delta;
-	if (quadrant.x != 0)
-		delta.x = check_collition_in_axis(delta.x, X);
-	if (quadrant.y != 0)
-		delta.y = check_collition_in_axis(delta.y, Y);
+	quadrant.x = (delta.x > 0) - (delta.x < 0);
+	quadrant.y = (delta.y > 0) - (delta.y < 0);
+	delta.x *= fabs(check_collition_in_axis(delta.x, X));
+	delta.y *= fabs(check_collition_in_axis(delta.y, Y));
 	if (delta.x != 0 && delta.y != 0)
 		set_player(delta, 0);
 	else if (delta.x != 0 && quadrant.y == 0)
