@@ -1,7 +1,7 @@
-NO ./maps/test.png
-SO ./maps/test.png
-WE ./maps/test.png
-EA ./maps/test.png
+NO ./textures/Fra.png
+SO ./textures/mario.png
+WE ./textures/rojo.png
+EA ./textures/texture_10.png
 
 F     89,      100,                1
 
