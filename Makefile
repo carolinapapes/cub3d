@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
+#    By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/03/12 20:10:15 by capapes          ###   ########.fr        #
+#    Updated: 2025/03/12 20:35:09 by kkoval           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,9 +46,18 @@ ifeq ($(UNAME_S), Linux)
 endif
 
 # NAME executable
-NAME = main
+NAME = cub3d
 
-PARSER = colour.c
+PARSER = colour.c \
+		 file_handler.c \
+		 free_struct.c \
+		 initializer.c \
+		 parser_map.c \
+		 parser_map2.c \
+		 parser_map3.c \
+		 parser_utils.c \
+		 parser.c \
+		 path.c \
 
 DIRS = parser
 
@@ -67,16 +76,7 @@ GREEN = \033[0;92m
 MAIN_SRC = \
 			_minimap.c \
 			_r_draw_minimap_utils.c \
-			file_handler.c \
-			free_struct.c \
-			initializer.c \
 			main.c \
-			parser_map.c \
-			parser_map2.c \
-			parser_map3.c \
-			parser_utils.c \
-			parser.c \
-			path.c \
 			r_draw_utils.c \
 			r_image.c \
 			r_map_checkers.c \

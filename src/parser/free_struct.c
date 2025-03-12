@@ -6,11 +6,11 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 15:39:47 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/12 15:43:06 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/12 20:30:05 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 char	*free_line(char **line)
 {

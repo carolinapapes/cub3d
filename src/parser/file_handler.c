@@ -6,11 +6,11 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 01:04:48 by kate              #+#    #+#             */
-/*   Updated: 2025/03/12 15:50:59 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/12 20:29:58 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 int	check_file_extension(char *file, char *extension_name)
 {

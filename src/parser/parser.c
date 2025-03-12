@@ -6,11 +6,11 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:46:15 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/12 16:59:58 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/12 20:30:52 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 int	parse_map(char *line, char ***map)
 {

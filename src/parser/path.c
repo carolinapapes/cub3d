@@ -6,11 +6,11 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:01:54 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/12 16:34:17 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/12 20:30:59 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 char	*save_path(char *path)
 {

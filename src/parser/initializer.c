@@ -6,11 +6,11 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 21:31:53 by kate              #+#    #+#             */
-/*   Updated: 2025/03/12 16:00:11 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/12 20:30:11 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 int	map_x_size(char **map)
 {

@@ -6,11 +6,11 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 17:13:18 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/12 16:22:20 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/12 20:30:20 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 int	check_for_newlines_in_map(char *map)
 {
