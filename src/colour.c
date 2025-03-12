@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colour.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 18:35:14 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/11 18:48:26 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/12 01:39:06 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 	1. control big numbers
-	2. 
+	2. coma
 */
 
 int ft_atoi(const char *str)
@@ -94,12 +94,14 @@ int	check_line_for_color(char **palet, t_color *color)
 	b = extract_color(palet[3]);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 		return (1);
-	(*color).r = r;
-	(*color).g = g;
-	(*color).b = b;
-	(*color).rgba = (color->r << 24) | (color->g << 16) | (color->b<< 8) | 255;
+	color->r = r;
+	color->g = g;
+	color->b = b;
+	color->repeated = 0;
+	color->rgba = (r << 24) | (g << 16) | (b<< 8) | 255;
 	return (0);
 }
+
 void remove_commas(char **palet)
 {
     int i;
@@ -145,7 +147,7 @@ int	is_color(char *line, t_start *start)
 	int		res;
 	int		i;
 
-	res = 0;
+	res = 1;
 	i = 0;
 	palet  = ft_split(line, ' ');
 	while(palet[i] != NULL)
@@ -160,12 +162,12 @@ int	is_color(char *line, t_start *start)
 		printf("|%s|\n", palet[i]);
 		i++;
 	}
-	if (ft_strncmp(palet[0], "F", ft_strlen("F")) == 0)
+	if (ft_strncmp(palet[0], "F", 1) == 0 && start->floor.repeated == -1)
 	{
 		printf("he entrado en floor color check %s\n", palet[0]);
-		res = check_line_for_color(palet, &(*start).floor);
+		res = check_line_for_color(palet, &(start->floor));
 	}
-	else if (ft_strncmp(palet[0], "C", ft_strlen("C")) == 0)
+	else if (ft_strncmp(palet[0], "C", 1) == 0 && start->ceiling.repeated == -1)
 	{
 		printf("he entrado en ceiling color check %s\n", palet[0]);
 		res = check_line_for_color(palet, &(*start).ceiling);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/11 15:33:21 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/12 01:33:23 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,10 @@ typedef union u_color
 		unsigned char	b;
 		unsigned char	g;
 		unsigned char	r;
+		int				repeated;
 	};
 	unsigned int		rgba;
+	
 }						t_color;
 
 typedef union u_coord
@@ -214,6 +216,7 @@ char					*free_line(char **line);
 void					free_start(t_start *start);
 void					free_char_array(char ***split);
 int						is_color(char *line, t_start *start);
+int						line_in_map(char *line, int len);
 
 //---------------------------- path ---------------------------------------------------------
 int						is_path_valid(char *path);
@@ -224,6 +227,7 @@ int						check_file_extension(char *file, char *extension_name);
 int						get_line_length(int fd);
 int						read_file(char *file, char **line);
 char					*extract_content(char *file);
+
 
 //                               INITILIAZER
 int						start_initializer(t_start *start, char **map, char **elements);

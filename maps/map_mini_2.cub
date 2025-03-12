@@ -1,6 +1,5 @@
 NO    ./textures/mario.png      
 
-
 SO ./textures/rojo.png 
 EA      ./textures/Fra.png
 
@@ -19,3 +18,5 @@ C     255      70   50
 111100001111
 111100001001      
 111111111111
+
+

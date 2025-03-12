@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/11 18:50:42 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/12 01:19:37 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,8 @@ void	initialize_start(t_start **start)
 	(*start)->e_fd = NULL;
 	(*start)->map.map = NULL;
 	(*start)->map.map_int = NULL;
-	(*start)->ceiling.rgba = 0;
-	(*start)->floor.rgba = 0;
+	(*start)->ceiling.repeated = -1;
+	(*start)->floor.repeated = -1;
 }
 
 int	main(int argc, char **argv)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:46:15 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/11 18:52:01 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/12 01:27:14 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,9 @@ int	check_variables(t_start *start)
 		printf("ha fallado textura\n"); //TODO delete check
 		return (1);
 	}
-	if (start->ceiling.rgba == 0 || start->floor.rgba == 0)
-	{
-		if (start->ceiling.rgba == 0) //TODO delete check
-			printf("ceiling no tiene color\n");
-		if (start->floor.rgba == 0)
-			printf("floor no tiene color\n");
+	printf("CEIL: %u      FLOOR: %u\n", start->ceiling.rgba, start->floor.rgba);
+	if (start->ceiling.repeated == 1 || start->floor.repeated == -1)
 		return (1);
-	}
 	return (0);
 }
 
@@ -66,14 +61,11 @@ int	check_elements(char **elements, t_start *start)
 	y = 0;
 	if (ft_split_count(elements) < 9)
 		return (1);
-	while (y < 6) // en realidad solo hasta start de map
+	while (	elements[y] != NULL) // en realidad solo hasta start de map
 	{
-		if (empty_string(elements[y]) == 0) //creo que ya es inecesario porque el parseo del mapa se lo carga
-		{
-			printf("spaces en enter en linea num: %d\n", y);
-			return (1);
-		}
-		
+		printf("element num: %d\n", y);
+		if (line_in_map(elements[y], ft_strlen(elements[y])) == 0) 
+			break;
 		if (is_texture(elements[y], start) == 0)
 			printf("esto ha entrado en textura %s\n", elements[y]);
 		else
@@ -89,7 +81,6 @@ int	check_elements(char **elements, t_start *start)
 				printf("esto no ha pasado el check de color\n");
 				return (1);
 			}
-				
 		}
 		y++;
 	}
