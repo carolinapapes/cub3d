@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:01:54 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/07 16:07:02 by kate             ###   ########.fr       */
+/*   Updated: 2025/03/12 16:34:17 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-    1.detectar los 4 paths
-    2. mirar que tengan una extension correcta
-    3. mirar que se puedan abrir
-    4. guardar la direccion en la esctrucura
-	5. checkear si es un directio chekear si es.png
-*/
 #include "cube3d.h"
-
 
 char	*save_path(char *path)
 {
@@ -42,7 +34,7 @@ char	*save_path(char *path)
 
 int	is_path_valid(char *path)
 {
-    int	dir;
+	int	dir;
 	int	fd;
 
 	dir = open(path, O_DIRECTORY);
@@ -60,72 +52,38 @@ int	is_path_valid(char *path)
 	return (1);
 }
 
-int	is_dir(char **future_path, char *line, char *dir_name)
+int	check_dir(char *path, char **future_path)
 {
-	if (!line || !dir_name)
+	if (*future_path != NULL)
+		return (-1);
+	if (is_path_valid(path) == 1)
 		return (1);
-	while (*line && *line == ' ')
-		line++;
-	if (*line == '\0')
-		return (1);
-	if (ft_strncmp(line, dir_name, ft_strlen(dir_name)) != 0)
-		return (1);
-	printf("hay dir en line\n");
-	line += strlen(dir_name);
-	while (*line && *line == ' ')
-		line++;
-	if (*line == '\0')
-	{
-		return (1);
-	}
-	if (is_path_valid(line) == 1)
-		return (1);
-	if (check_file_extension(line, ".png") == 1)
-		return (1);
-	*future_path = save_path(line);
-	if (*future_path == NULL)
-		return (1);
-	printf("Valid texture path for %s: %s\n", dir_name, line);
+	*future_path = save_path(path);
 	return (0);
 }
 
-int	check_dir(char **elements, char *dir_name, char **future_path)
+int	is_texture(char *line, t_start *start)
 {
-	int	line;
-	int	found_count;
+	char	**texture;
+	int		res;
 
-	line = 0;
-	found_count = 0;
-	while (elements[line] != NULL)
-	{
-		if (is_dir(future_path, elements[line], dir_name) == 0)
-			found_count++;
-		line++;
-	}
-	if (found_count != 1)
+	res = 0;
+	texture = ft_split(line, ' ');
+	if (!texture)
 		return (1);
-	return (0);
-}
-
-int	check_four_dir(t_start *start, char **elements)
-{
-	start->n_fd = NULL; // TODO initiate in the start
-	start->s_fd = NULL;
-	start->w_fd = NULL;
-	start->e_fd = NULL;
-	if (check_dir(elements, "NO ", &(start->n_fd)) == 1 || check_dir(elements, "SO ", &(start->s_fd)) == 1 || \
-		check_dir(elements, "WE ", &(start->w_fd)) == 1 || check_dir(elements, "EA ", &(start->e_fd)) == 1)
+	if (texture[0] == NULL || texture[1] == NULL || texture[2] != NULL)
 	{
-		//write a function for it
-		free_line(&start->n_fd);
-		free_line(&start->s_fd);
-		free_line(&start->w_fd);
-		free_line(&start->e_fd);
+		free_char_array(&texture);
 		return (1);
 	}
-	printf("Valid texture path for %s: \n", start->n_fd);
-	printf("Valid texture path for %s: \n", start->w_fd);
-	printf("Valid texture path for %s: \n", start->e_fd);
-	printf("Valid texture path for %s: \n", start->s_fd);
-	return (0);
+	else if (ft_strncmp(texture[0], "NO", ft_strlen("NO")) == 0)
+		res = check_dir(texture[1], &(start->n_fd));
+	else if (ft_strncmp(texture[0], "SO", ft_strlen("SO")) == 0)
+		res = check_dir(texture[1], &(start->s_fd));
+	else if (ft_strncmp(texture[0], "WE", ft_strlen("WE")) == 0)
+		res = check_dir(texture[1], &(start->w_fd));
+	else if (ft_strncmp(texture[0], "EA", ft_strlen("EA")) == 0)
+		res = check_dir(texture[1], &(start->e_fd));
+	free_char_array(&texture);
+	return (res);
 }

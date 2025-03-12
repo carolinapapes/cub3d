@@ -6,13 +6,11 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:36:01 by kkoval            #+#    #+#             */
-/*   Updated: 2025/02/23 16:51:31 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/12 16:25:02 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
-
-//these function check the integrity of walls of our map
 
 void	fill_flood(int	**arr, int x, int y, t_int_pair size)
 {
@@ -88,14 +86,8 @@ int	check_padding(t_start *start)
 int	check_fill_flood(t_start *start)
 {
 	if (check_borders(start) == 1)
-	{
-		printf("map borders returned error\n");// TODO delete later
 		return (1);
-	}
 	if (check_padding(start) == 1)
-	{
-		printf("map padding returned error\n");// TODO delete later
 		return (1);
-	}
 	return (0);
 }

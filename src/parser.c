@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:46:15 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 16:32:02 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/12 16:59:58 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	parse_map(char *line, char ***map)
 	char	*map_start;
 
 	map_start = find_first_map_line(line);
-	if (map_start == NULL || *map_start == '\0' || check_map(map_start) == 1)
+	if (map_start == NULL || check_map(map_start) == 1)
 		return (1);
 	*map = ft_split(map_start, '\n');
 	if (!*map)
@@ -30,33 +30,41 @@ int	parse_map(char *line, char ***map)
 	return (0);
 }
 
+int	check_variables(t_start *start)
+{
+	if (start->n_fd == NULL || start->s_fd == NULL || start->e_fd == NULL \
+		|| start->w_fd == NULL )
+		return (1);
+	if (start->ceiling.repeated == 1 || start->floor.repeated == -1)
+		return (1);
+	printf("no ha habido problemas en var check\n"); //delete later
+	return (0);
+}
+
 int	check_elements(char **elements, t_start *start)
 {
+	int	y;
+	int	res;
+
+	y = 0;
 	if (ft_split_count(elements) < 9)
 		return (1);
-	if (check_four_dir(start, elements) == 1)
+	while (elements[y] != NULL)
 	{
-		printf("falta path o hay alguno repetido\n");
-		return (1);
+		if (line_in_map(elements[y], ft_strlen(elements[y])) == 0)
+			break ;
+		res = is_texture(elements[y], start);
+		if (res == -1)
+			return (1);
+		else if (res == 1)
+		{
+			if (is_color(elements[y], start) == 1)
+				return (1);
+		}
+		y++;
 	}
-	printf("%s\n", start->n_fd);
-	printf("%s\n", start->s_fd);
-	printf("%s\n", start->w_fd);
-	printf("%s\n", start->e_fd);
-	// free_line(&start->n_fd);
-	// free_line(&start->s_fd);
-	// free_line(&start->w_fd);
-	// free_line(&start->e_fd);
-	if (check_for_color(start, elements) == 1)
-	{
-		printf("color failed\n");
-		free_line(&start->n_fd);
-		free_line(&start->s_fd);
-		free_line(&start->w_fd);
-		free_line(&start->e_fd);
+	if (check_variables(start) == 1)
 		return (1);
-	}
-		
 	return (0);
 }
 
@@ -67,56 +75,35 @@ int	parse_elements(char *line, char ***elements, t_start *start)
 		return (1);
 	if (check_elements(*elements, start) == 1)
 	{
-		free_char_array(elements);
+		free_line(&start->n_fd);
+		free_line(&start->s_fd);
+		free_line(&start->w_fd);
+		free_line(&start->e_fd);
 		return (1);
 	}
-	// find map start and check for empty lines
-	// return (ft_split_free(file_lines), NULL);
-	// write(1, map_start, ft_strlen(map_start));
 	return (0);
 }
 
-int	parser_controler(int argc, char **argv, t_start *start)
+int	parser_controler(char *file, t_start *start)
 {
 	char	*line;
 	char	**map;
 	char	**elements;
 
-	line = NULL;
 	map = NULL;
+	line = NULL;
 	elements = NULL;
-	if (argc != 2)
-		return (1);
-	if (check_file_extension(argv[1], ".cub") == EXIT_FAILURE)
-		return (1);
-	if	(is_path_valid(argv[1]) == EXIT_FAILURE)
-		return (1);
-	if (read_file(argv[1], &line) == 1)
+	line = extract_content(file);
+	if (line == NULL)
 		return (1);
 	if (parse_map(line, &map) == 1)
-	{
-		free(line);
-		return (1);
-	}
+		return (free_parser(line, map, elements));
 	if (parse_elements(line, &elements, start) == 1)
-	{
-		printf("no he entrado en el initiliazer\n");
-		free(line);
-		free_char_array(&map);
-		return (1);
-	}
-	printf("ceiling colours r: %c, b: %c, g: %c\n", start->ceiling.r, start->ceiling.b, start->ceiling.g);
-	printf("floor colours r: %c, b: %c, g: %c\n", start->ceiling.r, start->ceiling.b, start->ceiling.g);
-
-	if (start_initializer(start, map, elements) == 1)
-	{
-		free(line);
-		free_char_array(&map);
-		free_char_array(&elements);
-		return (1);
-	}
-	free(line);
-	free_char_array(&map);
-	free_char_array(&elements);
+		return (free_parser(line, map, elements));
+	printf("he pasado check_elements\n"); //delete later
+	if (start_map(start, map) == 1)
+		return (free_parser(line, map, elements));
+	printf("he pasado start_map\n"); //delete later
+	free_parser(line, map, elements);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/12 18:52:29 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/12 19:15:19 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef union u_color
 		unsigned char	b;
 		unsigned char	g;
 		unsigned char	r;
+		int				repeated;
 	};
 	unsigned int		rgba;
 }						t_color;
@@ -209,7 +210,7 @@ typedef enum e_image_type
 }						t_image_type;
 
 // ----------------------------[PARSER]----------------------------
-int						parser_controler(int argc, char **argv, t_start *start);
+int						parser_controler(char *file, t_start *start);
 int						ft_split_count(char **split);
 void					ft_split_free(char **split);
 int						check_map(char *file_contents);
@@ -221,24 +222,33 @@ int						check_empty_lines_in_map(char **file);
 char					*free_line(char **line);
 void					free_start(t_start *start);
 void					free_char_array(char ***split);
-int						check_four_dir(t_start *start, char **elements);
-int						check_for_color(t_start *start, char **elements);
+int						is_color(char *line, t_start *start);
+int						line_in_map(char *line, int len);
 
 //---------------------------- path ---------------------------------------------------------
 int						is_path_valid(char *path);
+int						is_texture(char *line, t_start *start);
 
 //---------------------------- file_handler -------------------------------------------------
 int						check_file_extension(char *file, char *extension_name);
 int						get_line_length(int fd);
 int						read_file(char *file, char **line);
+char					*extract_content(char *file);
+
 
 //                               INITILIAZER
-int						start_initializer(t_start *start, char **map,
-							char **elements);
 int						is_map_character(char c);
+int						start_map(t_start *start, char **map);
+
+int						check_for_newlines_in_map(char *map);
+int						empty_string(char *line);
 
 int						check_fill_flood(t_start *start);
 void					fill_flood(int **arr, int x, int y, t_int_pair size);
+
+//                               FREE
+
+int						free_parser(char *line, char **map, char **elements);
 
 // ----------------------------[RENDER]----------------------------
 

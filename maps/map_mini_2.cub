@@ -1,14 +1,21 @@
-NO ./textures/Fra.png
-SO ./textures/mario.png
-WE ./textures/rojo.png
-EA ./textures/texture_10.png
+NO    ./textures/mario.png      
 
-F     89,      100,                1
+SO ./textures/rojo.png 
+EA      ./textures/Fra.png
 
-C     85,      70,   56
+       WE        ./textures/texture_10.png      
+
+
+
+
+
+F     89      250                30     
+
+C     255      70   50
 
 111111111111
-1S0000000011
-111100001111
-111100001001
+1S0001 100011
+111101111111
+111100001001      
 111111111111
+
