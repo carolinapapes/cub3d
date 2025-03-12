@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colour.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 18:35:14 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/12 19:45:51 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/12 20:58:46 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,39 @@ void fix_palet(char **palet)
         palet[i] = temp;
         i++;
     }
+}
+
+int	color_extract(char *line, t_color *color)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] && line[i] != ',' && line[i] != ' ')
+		i++;
+	
+	if (line[i] == ',' || line[i] != ' ')
+	
+}
+
+int	parse_color_line (char *line, t_color *color)
+{
+	int	i;
+
+	i = 0;
+
+	while (*line && *line == ' ')
+		line++;
+	if (*line == '\0')
+		return (1);
+	if (*line != 'F' && *line != 'C')
+		return (1);
+	line++;
+	while (*line && line == ' ')
+	*line++;
+	if (*line == '\0')
+		return (1);
+	if (color_extract == 1)
+		return (1);
 }
 
 int	is_color(char *line, t_start *start)
