@@ -6,7 +6,7 @@
 #    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/03/12 17:16:38 by capapes          ###   ########.fr        #
+#    Updated: 2025/03/12 19:17:00 by capapes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,6 @@ MAIN_SRC = \
 			_r_draw_minimap_utils.c \
 			file_handler.c \
 			free_struct.c \
-			ft_split_utils.c \
 			initializer.c \
 			main.c \
 			parser_map.c \
