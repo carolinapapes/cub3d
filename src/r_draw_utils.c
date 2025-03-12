@@ -6,16 +6,11 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:31:42 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/09 19:54:50 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/12 20:17:12 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
-
-void	draw_pixel(mlx_image_t *image, t_vector pixel, uint32_t color)
-{
-	mlx_put_pixel(image, pixel.x, pixel.y, color);
-}
 
 void	draw_point(t_vector point, int color)
 {
@@ -58,7 +53,7 @@ void	draw_line(t_vector origin, t_vector direction, int len, int color)
 		pixel.y = origin.y + direction.y * len;
 		if (pixel.x < 0 || pixel.x >= WIDTH || pixel.y < 0 || pixel.y >= HEIGHT)
 			continue ;
-		draw_pixel(image, pixel, color);
+		set_pixel(image, pixel, color);
 	}
 }
 
@@ -95,8 +90,8 @@ void	draw_line_render(t_vector origin, int len)
 		if (origin.x < 0 || origin.x >= WIDTH
 			|| origin.y < 0 || origin.y >= HEIGHT)
 			continue ;
-		draw_pixel(shadow, origin, shadow_color.rgba);
-		draw_pixel(image, origin, get_texture_color());
+		set_pixel(shadow, origin, shadow_color.rgba);
+		set_pixel(image, origin, get_texture_color());
 	}
 }
 

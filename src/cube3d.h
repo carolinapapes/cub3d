@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/12 19:15:19 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/12 20:52:55 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@
 
 # define RESET_ORIGIN 1
 # define SET_X 2
-# define SET_TEXTURE 4
+# define texture_setter 4
 # define NORTH_TEXTURE 0
 # define SOUTH_TEXTURE 1
 # define WEST_TEXTURE 2
@@ -269,7 +269,7 @@ int						get_cell_content(t_vector coord);
 int						is_axis_wall(t_vector coord, t_axis axis,
 							t_vector_full ray);
 // void					draw_minimap(t_vector coord);
-void					draw_pixel(mlx_image_t *image, t_vector pixel,
+void					set_pixel(mlx_image_t *image, t_vector pixel,
 							uint32_t color);
 void					update_mlx_miniplayer_pos(t_vector pos_delta, int axis);
 void					update_minimap_pos(t_vector position,
@@ -346,10 +346,12 @@ void					loop_window(void (*f)(void *));
 // r_image.c
 mlx_image_t				*get_image(t_vector size, t_vector origin);
 mlx_image_t				*get_full_image(void);
+mlx_texture_t			*load_texture(char *path);
 
 // r_pixels.c
 void					set_pixels_color(mlx_image_t *image, int32_t color);
 void					clear_pixels(mlx_image_t *image);
+uint32_t				get_pixel(uint8_t *pixels, uint32_t index);
 
 /******************************************************************
  * 					CUB3D IMAGES
@@ -368,7 +370,6 @@ mlx_image_t				*get_miniplayer_image(void);
 mlx_image_t				*get_miniview_image(void);
 
 // ----------------------------[DELETE BEFORE SUBMIT]---------------
-void					ft_print_split(char **split);
 void					set_timeout(void (*fn)(void), int delay);
 
 #endif

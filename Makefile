@@ -6,7 +6,7 @@
 #    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/03/12 20:10:15 by capapes          ###   ########.fr        #
+#    Updated: 2025/03/12 20:55:44 by capapes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,8 +49,12 @@ endif
 NAME = main
 
 PARSER = colour.c
+CUB3D_TO_MLX = 	image.c \
+				pixels.c \
+				window.c
 
-DIRS = parser
+DIRS =	parser \
+		cub3d_to_mlx
 
 # AUTOMATICALLY GENERATE OBJECT FILES FOR DIRS
 DIRS_OBJ_FILES = $(foreach directory,$(DIRS), \
@@ -78,20 +82,17 @@ MAIN_SRC = \
 			parser.c \
 			path.c \
 			r_draw_utils.c \
-			r_image.c \
 			r_map_checkers.c \
 			r_minimap_images.c \
 			r_miniplayer.c \
 			r_mlx_handler.c \
 			r_moves.c \
-			r_pixels.c \
 			r_player.c \
 			r_ray_distance.c \
 			r_ray.c \
 			r_render_images.c \
 			r_texture.c \
-			r_trigonometry.c \
-			r_window.c
+			r_trigonometry.c
 MAIN_OBJ = $(patsubst %.c, $(OBJDIR)/%.o, $(MAIN_SRC))
 DEP_FILES = $(MAIN_OBJ:.o=.d)
 
@@ -114,7 +115,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 define compile_rule
 $(OBJDIR)/$1/%.o: $(SRCDIR)/$1/%.c
 	@mkdir -p $$(dir $$@)
-	@$(CC) $(FLAGS) -c $$< -o $$@
+	@$(CC) $(FLAGS) $(INC) -c $$< -o $$@
 	@echo "$(GRAY)⏳compiling $1	$$<$(DEF_COLOR)"
 endef
 

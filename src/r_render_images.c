@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:03:16 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/12 18:38:55 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/12 20:17:12 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ static void	set_background_color(t_vector coord)
 	start = get_start();
 	mlx_background = get_background_image();
 	if (coord.y < HEIGHT_MIDDLE)
-		draw_pixel(mlx_background, coord, start->ceiling.rgba);
+		set_pixel(mlx_background, coord, start->ceiling.rgba);
 	else
-		draw_pixel(mlx_background, coord, start->floor.rgba);
+		set_pixel(mlx_background, coord, start->floor.rgba);
 }
 
 void	set_background_image(void)

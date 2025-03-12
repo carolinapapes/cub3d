@@ -6,11 +6,11 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:13:55 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/12 19:05:49 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/12 20:43:42 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 static mlx_t	*init_window(void)
 {

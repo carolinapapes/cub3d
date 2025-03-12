@@ -6,11 +6,11 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:09:57 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/12 16:36:23 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/12 20:43:51 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 static mlx_image_t	*init_image(t_vector size)
 {
@@ -52,4 +52,14 @@ mlx_image_t	*get_full_image(void)
 	constants = game_constants();
 	image = get_image(constants.window_size, constants.zero);
 	return (image);
+}
+
+mlx_texture_t	*load_texture(char *path)
+{
+	mlx_texture_t		*mlx_texture;
+
+	mlx_texture = mlx_load_png(path);
+	if (!mlx_texture)
+		clean_exit(TERMINATE_MLX | FREE_START);
+	return (mlx_texture);
 }
