@@ -6,7 +6,7 @@
 #    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/03/07 14:28:58 by capapes          ###   ########.fr        #
+#    Updated: 2025/03/12 17:16:38 by capapes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,17 +65,20 @@ MAIN_SRC = \
 			path.c \
 			colour.c \
 			r_draw_utils.c \
+			r_image.c \
 			r_map_checkers.c \
 			r_minimap_images.c \
+			r_miniplayer.c \
 			r_mlx_handler.c \
-			r_mlx_image_handler.c \
 			r_moves.c \
+			r_pixels.c \
 			r_player.c \
-			r_ray.c \
 			r_ray_distance.c \
+			r_ray.c \
 			r_render_images.c \
 			r_texture.c \
-			r_trigonometry.c
+			r_trigonometry.c \
+			r_window.c
 MAIN_OBJ = $(patsubst %.c, $(OBJDIR)/%.o, $(MAIN_SRC))
 DEP_FILES = $(MAIN_OBJ:.o=.d)
 

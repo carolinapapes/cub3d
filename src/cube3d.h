@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/11 19:05:39 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/12 18:52:29 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,18 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-#include <sys/stat.h>
+# include <sys/stat.h>
+# include <sys/time.h>
 
-# define WIDTH 				1024
-# define HEIGHT 			1024
-# define HEIGHT_MIDDLE 		512
-# define GRID_SIZE 			32
-# define PLAYER_SIZE 		16
-# define PLAYER_MIDDLE 		8
+# define WIDTH 1024
+# define HEIGHT 1024
+# define HEIGHT_MIDDLE 512
+# define GRID_SIZE 32
+# define PLAYER_SIZE 16
+# define PLAYER_MIDDLE 8
 
-# define TERMINATE_MLX 		1
-# define FREE_START 		2
+# define TERMINATE_MLX 1
+# define FREE_START 2
 
 # define WINDOW_TITLE "Cube3D"
 
@@ -46,16 +47,16 @@
 # define OUTSIDE 128
 
 // ----------------------------[COLORS]----------------------------
-# define HEX_PLAYER 	0x00FF00FF
-# define HEX_GRID 		0xB0B0B0FF
-# define HEX_WALL 		0xB0B0B0CC
-# define HEX_GREY 		0xD5DBDBFF
-# define HEX_RED 		0xFF0000FF
-# define HEX_GREEN 		0x1ABC9CFF
-# define HEX_BLUE 		0x0000FFFF
-# define HEX_PURPLE 	0xFF00FFFF
-# define HEX_CEILING 	0x555555FF
-# define HEX_FLOOR 		0xBBBBBBFF
+# define HEX_PLAYER 0x00FF00FF
+# define HEX_GRID 0xB0B0B0FF
+# define HEX_WALL 0xB0B0B0CC
+# define HEX_GREY 0xD5DBDBFF
+# define HEX_RED 0xFF0000FF
+# define HEX_GREEN 0x1ABC9CFF
+# define HEX_BLUE 0x0000FFFF
+# define HEX_PURPLE 0xFF00FFFF
+# define HEX_CEILING 0x555555FF
+# define HEX_FLOOR 0xBBBBBBFF
 
 # ifndef M_PI
 #  define M_PI 3.14159265358979323846
@@ -64,17 +65,18 @@
 # define CENTER_X 1
 # define CENTER_Y 2
 # define PIXEL 4
-# define CENTER 3 // CENTER_X & CENTER_Y
+# define CENTER 3    // CENTER_X & CENTER_Y
 # define CENTER_PX 7 // CENTER & PIXEL
 
-# define RESET_ORIGIN 	1
-# define SET_X 			2
-# define SET_TEXTURE 	4
-# define NORTH_TEXTURE 	0
-# define SOUTH_TEXTURE 	1
-# define WEST_TEXTURE 	2
-# define EAST_TEXTURE 	3
+# define RESET_ORIGIN 1
+# define SET_X 2
+# define SET_TEXTURE 4
+# define NORTH_TEXTURE 0
+# define SOUTH_TEXTURE 1
+# define WEST_TEXTURE 2
+# define EAST_TEXTURE 3
 
+typedef struct timeval	t_timeval;
 typedef union u_color
 {
 	struct
@@ -116,12 +118,12 @@ typedef struct s_vector_full
 	t_vector			tan;
 	double				distance;
 	int					axis;
-}					t_vector_full;
+}						t_vector_full;
 
-typedef	struct s_int_pair
+typedef struct s_int_pair
 {
-	int	x;
-	int	y;
+	int					x;
+	int					y;
 }						t_int_pair;
 
 typedef struct s_map
@@ -177,20 +179,25 @@ typedef enum e_dir
 
 typedef struct s_constants
 {
-	double		angle_step;
-	double		fov;
-	int			strip_width;
-	double		fov_delta_start;
-	int			strip_height;
-	double		double_pi;
-	t_vector	dir_x;
-	t_vector	dir_y;
-	t_vector	limit_movement;
-	t_vector	zero;
-	double		texture_width;
-	double		texture_height;
-	double		angle_sec[1024];
-}				t_constants;
+	double				angle_step;
+	double				fov;
+	int					strip_width;
+	double				fov_delta_start;
+	int					strip_height;
+	double				double_pi;
+	t_vector			dir_x;
+	t_vector			dir_y;
+	t_vector			limit_movement;
+	t_vector			zero;
+	t_vector			window_size;
+	t_vector			player_size;
+	t_vector			map_size_px;
+	t_vector			map_size;
+	double				texture_width;
+	double				texture_height;
+	double				angle_sec[1024];
+
+}						t_constants;
 
 typedef enum e_image_type
 {
@@ -199,7 +206,7 @@ typedef enum e_image_type
 	MINIVIEW,
 	BACKGROUND,
 	RENDER
-}	t_image_type;
+}						t_image_type;
 
 // ----------------------------[PARSER]----------------------------
 int						parser_controler(int argc, char **argv, t_start *start);
@@ -208,7 +215,8 @@ void					ft_split_free(char **split);
 int						check_map(char *file_contents);
 char					*find_first_map_line(char *input);
 int						parse_map(char *line, char ***map);
-int						parse_elements(char *line, char ***elements, t_start *start);
+int						parse_elements(char *line, char ***elements,
+							t_start *start);
 int						check_empty_lines_in_map(char **file);
 char					*free_line(char **line);
 void					free_start(t_start *start);
@@ -225,21 +233,22 @@ int						get_line_length(int fd);
 int						read_file(char *file, char **line);
 
 //                               INITILIAZER
-int						start_initializer(t_start *start, char **map, char **elements);
+int						start_initializer(t_start *start, char **map,
+							char **elements);
 int						is_map_character(char c);
 
 int						check_fill_flood(t_start *start);
-void					fill_flood(int	**arr, int x, int y, t_int_pair size);
+void					fill_flood(int **arr, int x, int y, t_int_pair size);
 
 // ----------------------------[RENDER]----------------------------
 
 // _aux_images.c
 mlx_image_t				*get_miniplayer_image(void);
 mlx_image_t				*get_miniview_image(void);
-mlx_image_t				*get_render_image(void);
-mlx_image_t				*get_minimap_image(void);
-void					init_background(void);
-mlx_image_t				*get_shadow_image(void);
+// mlx_image_t				*get_render_image(void);
+// mlx_image_t				*get_minimap_image(void);
+// void					init_background(void);
+// mlx_image_t				*get_shadow_image(void);
 
 // _bonus_remove_later.c
 void					pov_iter(t_vector origin, double angle_fov);
@@ -249,11 +258,13 @@ void					update_mlx_miniplayer_pos(t_vector pos_delta, int axis);
 int						get_cell_content(t_vector coord);
 int						is_axis_wall(t_vector coord, t_axis axis,
 							t_vector_full ray);
-void					draw_minimap(t_vector coord);
-void					draw_pixel(mlx_image_t *image, t_vector pixel, uint32_t color);
+// void					draw_minimap(t_vector coord);
+void					draw_pixel(mlx_image_t *image, t_vector pixel,
+							uint32_t color);
 void					update_mlx_miniplayer_pos(t_vector pos_delta, int axis);
-void					update_minimap_pos(t_vector position, t_vector position_delta);
-void					init_minimap(void);
+void					update_minimap_pos(t_vector position,
+							t_vector position_delta);
+// void					init_minimap(void);
 void					load_texture_images(void);
 
 // _parser_hardcoded.c
@@ -268,24 +279,25 @@ t_start					*get_start(void);
 
 // r_draw_utils.c
 void					draw_point(t_vector point, int color);
-void					draw_line(t_vector origin, t_vector direction,
-							int len, int color);
+void					draw_line(t_vector origin, t_vector direction, int len,
+							int color);
 void					draw_render(double distance, int iter);
 
 // r_mlx_handler.c
-mlx_t					*get_mlx(void);
+// mlx_t					*get_window(void);
 void					cub3d_init(void);
 
 // r_mlx_image_handler.c
-void					generic_matrix_iter(t_vector constrains, void fn(t_vector));
-void					image_full_color(mlx_image_t *image, int32_t color);
-void					mlx_clear_image(mlx_image_t *image);
-mlx_image_t				*new_image(t_vector size, t_vector origin);
+void					generic_matrix_iter(t_vector constrains,
+							void fn(t_vector));
+// void					set_pixels_color(mlx_image_t *image, int32_t color);
+// void					clear_pixels(mlx_image_t *image);
+// mlx_image_t				*get_image(t_vector size, t_vector origin);
 
 // r_moves.c
 void					player_rotate(int dir);
 void					player_move(int axis, int dir);
-mlx_image_t				*new_image_full(void);
+// mlx_image_t				*get_full_image(void);
 
 // r_player.c
 t_player				get_player(void);
@@ -307,12 +319,46 @@ void					set_texture_x(double x_percentage, double direction);
 void					clean_exit(int flags);
 // r_texture.c
 void					set_ongoing_wall_texture(int axis, int quadrant);
-void					change_minimap_visibility(void);
+// void					toggle_minimap_visibility(void);
 int						add_to_texture_origin_y(void);
 void					set_texture_step_y(double distance);
 double					tends_to_zero(double x);
+void					loop_window(void (*f)(void *));
+
+/******************************************************************
+ * 					BASIC MLX42 HANDLER FUNCTIONS
+ *******************************************************************/
+
+// r_window.c
+mlx_t					*get_window(void);
+void					loop_window(void (*f)(void *));
+
+// r_image.c
+mlx_image_t				*get_image(t_vector size, t_vector origin);
+mlx_image_t				*get_full_image(void);
+
+// r_pixels.c
+void					set_pixels_color(mlx_image_t *image, int32_t color);
+void					clear_pixels(mlx_image_t *image);
+
+/******************************************************************
+ * 					CUB3D IMAGES
+ *******************************************************************/
+// r_render_images.c
+void					set_background_image(void);
+mlx_image_t				*get_shadow_image(void);
+mlx_image_t				*get_render_image(void);
+
+// r_minimap_images.c
+void					toggle_minimap_visibility(void);
+mlx_image_t				*get_minimap_image(void);
+
+// r_miniplayer.c
+mlx_image_t				*get_miniplayer_image(void);
+mlx_image_t				*get_miniview_image(void);
 
 // ----------------------------[DELETE BEFORE SUBMIT]---------------
 void					ft_print_split(char **split);
+void					set_timeout(void (*fn)(void), int delay);
 
 #endif

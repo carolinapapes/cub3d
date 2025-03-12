@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_mlx.c                                      :+:      :+:    :+:   */
+/*   get_window.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,7 +14,7 @@
 
 static void	cub3d_hook(void *param)
 {
-	mlx_t		*mlx;
+	mlx_t	*mlx;
 
 	mlx = param;
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
@@ -32,31 +32,14 @@ static void	cub3d_hook(void *param)
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 		player_rotate(POSITIVE);
 	if (mlx_is_key_down(mlx, MLX_KEY_L))
-		change_minimap_visibility();
-}
-
-mlx_t	*get_mlx(void)
-{
-	static mlx_t	*mlx;
-
-	if (!mlx)
-		mlx = mlx_init(WIDTH, HEIGHT, WINDOW_TITLE, false);
-	if (!mlx)
-		clean_exit(FREE_START);
-	return (mlx);
+		set_timeout(toggle_minimap_visibility, 300);
 }
 
 void	cub3d_init(void)
 {
-	mlx_t		*mlx;
-
-	mlx = get_mlx();
-	init_background();
+	set_background_image();
 	load_texture_images();
+	get_minimap_image();
 	init_player();
-	init_minimap();
-	if (mlx_loop_hook(mlx, cub3d_hook, mlx) == 0)
-		clean_exit(TERMINATE_MLX | FREE_START);
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
+	loop_window(cub3d_hook);
 }

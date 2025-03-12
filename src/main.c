@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 16:43:30 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/12 16:54:25 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@
 t_constants	game_constants(void)
 {
 	static t_constants	constants;
+	t_start				*start;
 
+	start = get_start();
 	if (!constants.angle_step)
 	{
 		constants.fov = 60;
@@ -64,6 +66,14 @@ t_constants	game_constants(void)
 		constants.zero.x = 0;
 		constants.zero.y = 0;
 		constants.double_pi = 2 * M_PI;
+		constants.window_size.x = WIDTH;
+		constants.window_size.y = HEIGHT;
+		constants.player_size.x = PLAYER_SIZE;
+		constants.player_size.y = PLAYER_SIZE;
+		constants.map_size_px.x = start->map.size_int.x * GRID_SIZE;
+		constants.map_size_px.y = start->map.size_int.y * GRID_SIZE;
+		constants.map_size.x = start->map.size_int.x;
+		constants.map_size.y = start->map.size_int.y;
 	}
 	return (constants);
 }
@@ -88,7 +98,7 @@ void	clean_exit(int flags)
 
 	if (flags & TERMINATE_MLX)
 	{
-		mlx = get_mlx();
+		mlx = get_window();
 		mlx_terminate(mlx);
 	}
 	if (flags & FREE_START)
@@ -104,8 +114,6 @@ int	main(int argc, char **argv)
 	t_start	*start;
 
 	start = get_start();
-	if (!start)
-		return (1);
 	if (parser_controler(argc, argv, start) == 1)
 	{
 		free_start(start);

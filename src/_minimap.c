@@ -6,27 +6,11 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:00:50 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/11 18:41:15 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/12 16:53:12 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
-
-void	draw_minimap(t_vector coord)
-{
-	int			content;
-	mlx_image_t	*image;
-
-	image = get_minimap_image();
-	content = get_cell_content(coord);
-	if (content == OUTSIDE)
-		return ;
-	if (coord.x && coord.y)
-		mlx_put_pixel(image, (uint32_t)coord.x * GRID_SIZE,
-			(uint32_t)coord.y * GRID_SIZE, HEX_GRID);
-	if (content == WALL)
-		coordinate_paint((int)coord.x, (int)coord.y);
-}
 
 void	update_mlx_miniplayer_pos(t_vector position, int axis)
 {

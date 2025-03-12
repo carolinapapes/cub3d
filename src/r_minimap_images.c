@@ -6,81 +6,55 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 16:56:22 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 16:56:53 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/12 18:50:16 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-mlx_image_t	*init_miniplayer_image(void)
+static mlx_image_t	*init_minimap_image(void)
 {
-	t_vector			size;
-	t_vector			origin;
+	t_constants	constants;
+	mlx_image_t	*image;
 
-	origin.x = 0;
-	origin.y = 0;
-	size.x = PLAYER_SIZE;
-	size.y = PLAYER_SIZE;
-	return (new_image(size, origin));
-}
-
-mlx_image_t	*get_miniplayer_image(void)
-{
-	static mlx_image_t	*image;
-
-	if (!image)
-	{
-		image = init_miniplayer_image();
-		image_full_color(image, HEX_PLAYER);
-	}
+	constants = game_constants();
+	image = get_image(constants.map_size_px, constants.zero);
 	return (image);
 }
 
-mlx_image_t	*init_minimap_image(void)
+static void	draw_minimap(t_vector coord)
 {
-	t_start				*start;
-	t_vector			size;
-	t_vector			zero;
+	int			content;
+	mlx_image_t	*image;
 
-	start = get_start();
-	size.x = start->map.size_int.x * GRID_SIZE;
-	size.y = start->map.size_int.y * GRID_SIZE;
-	zero = game_constants().zero;
-	return (new_image(size, zero));
+	image = get_minimap_image();
+	content = get_cell_content(coord);
+	if (content == OUTSIDE)
+		return ;
+	if (coord.x && coord.y)
+		mlx_put_pixel(image, (uint32_t)coord.x * GRID_SIZE, (uint32_t)coord.y
+			* GRID_SIZE, HEX_GRID);
+	if (content == WALL)
+		coordinate_paint((int)coord.x, (int)coord.y);
 }
 
 mlx_image_t	*get_minimap_image(void)
 {
-	static mlx_image_t	*mlx_minimap;
+	static mlx_image_t	*minimap;
+	t_constants			constants;
 
-	if (!mlx_minimap)
-		mlx_minimap = init_minimap_image();
-	return (mlx_minimap);
+	if (!minimap)
+	{
+		minimap = init_minimap_image();
+		constants = game_constants();
+		generic_matrix_iter(constants.map_size, draw_minimap);
+	}
+	return (minimap);
 }
 
-mlx_image_t	*get_miniview_image(void)
+void	toggle_minimap_visibility(void)
 {
-	static mlx_image_t	*mlx_aux;
-
-	if (!mlx_aux)
-		mlx_aux = new_image_full();
-	return (mlx_aux);
-}
-
-void	init_minimap(void)
-{
-	t_start				*start;
-	t_vector			size;
-
-	start = get_start();
-	size.x = start->map.size_int.x;
-	size.y = start->map.size_int.y;
-	generic_matrix_iter(size, draw_minimap);
-}
-
-void	change_minimap_visibility(void)
-{
-	static int	visible = 1;
+	static int			visible = 1;
 
 	visible = !visible;
 	get_minimap_image()->enabled = visible;

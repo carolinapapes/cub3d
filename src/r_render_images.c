@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:03:16 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/07 14:33:39 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/12 18:38:55 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ mlx_image_t	*get_render_image(void)
 	static mlx_image_t	*mlx_render;
 
 	if (!mlx_render)
-		mlx_render = new_image_full();
+		mlx_render = get_full_image();
 	return (mlx_render);
 }
 
@@ -26,36 +26,36 @@ mlx_image_t	*get_shadow_image(void)
 	static mlx_image_t	*mlx_shadow;
 
 	if (!mlx_shadow)
-		mlx_shadow = new_image_full();
+		mlx_shadow = get_full_image();
 	return (mlx_shadow);
 }
 
-void	set_background(mlx_image_t	*mlx_background)
+mlx_image_t	*get_background_image(void)
 {
-	t_vector			origin;
-	t_start				*start;
+	static mlx_image_t	*mlx_background;
 
-	origin = game_constants().zero;
-	start = get_start();
-	while (origin.y < HEIGHT)
-	{
-		origin.x = 0;
-		while (origin.x < WIDTH)
-		{
-			if (origin.y < HEIGHT_MIDDLE)
-				draw_pixel(mlx_background, origin, start->ceiling.rgba);
-			else
-				draw_pixel(mlx_background, origin, start->floor.rgba);
-			origin.x++;
-		}
-		origin.y++;
-	}
+	if (!mlx_background)
+		mlx_background = get_full_image();
+	return (mlx_background);
 }
 
-void	init_background(void)
+static void	set_background_color(t_vector coord)
 {
 	mlx_image_t	*mlx_background;
+	t_start		*start;
 
-	mlx_background = new_image_full();
-	set_background(mlx_background);
+	start = get_start();
+	mlx_background = get_background_image();
+	if (coord.y < HEIGHT_MIDDLE)
+		draw_pixel(mlx_background, coord, start->ceiling.rgba);
+	else
+		draw_pixel(mlx_background, coord, start->floor.rgba);
+}
+
+void	set_background_image(void)
+{
+	t_vector	constraints;
+
+	constraints = game_constants().window_size;
+	generic_matrix_iter(constraints, set_background_color);
 }
