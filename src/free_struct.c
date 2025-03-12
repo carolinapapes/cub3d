@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 15:39:47 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/11 18:46:10 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/12 15:43:06 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,14 @@ void	free_char_array(char ***split)
 	return ;
 }
 
-// free the whole struct start in case of error or exit
+int	free_parser(char *line, char **map, char **elements)
+{
+	free_line(&line);
+	free_char_array(&map);
+	free_char_array(&elements);
+	return (1);
+}
+
 void	free_start(t_start *start)
 {
 	if (!start)

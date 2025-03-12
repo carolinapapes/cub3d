@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 16:04:26 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/10 22:08:07 by kate             ###   ########.fr       */
+/*   Updated: 2025/03/12 16:24:09 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	is_one_view(char *map)
 	return (0);
 }
 
-
 int	line_in_map(char *line, int len)
 {
 	int	i;
@@ -55,60 +54,27 @@ int	line_in_map(char *line, int len)
 
 char	*find_first_map_line(char *input)
 {
-	int		i;
+	int	i;
 
 	while (*input)
 	{
 		i = 0;
-		while(input[i] && input[i] != '\n')
+		while (input[i] && input[i] != '\n')
 			i++;
 		if (!input[i])
 			return (NULL);
-		if (line_in_map(input, i) == 0 && i>0)
+		if (line_in_map(input, i) == 0 && i > 0)
 			return (input);
-		input = &input[i+1];
+		input = &input[i + 1];
 	}
-	return(NULL);
-}
-
-int	check_for_newlines_in_map(char *map)
-{
-	int	i;
-
-	i = 0;
-	while (map[i] != '\0')
-	{
-		if (map[i] == '\n')
-		{
-			i++;
-			if (map[i] == '\0')
-				return (0);
-			if (map[i] == '\n')
-			{
-				while (map[i] == '\n')
-					i++;
-				if (map[i] == '\0')
-					return (0);
-				else
-					return (1);
-			}
-		}
-		i++;
-	}
-	return (0);
+	return (NULL);
 }
 
 int	check_map(char *line_map)
 {
 	if (is_one_view(line_map) == 1)
-	{
-		printf("There are more that one direction\n"); // TODO delete later
 		return (1);
-	}
 	if (check_for_newlines_in_map(line_map) == 1)
-	{
-		printf("%d  consecutive enter", check_for_newlines_in_map(line_map)); // TODO delete
 		return (1);
-	}
 	return (0);
 }

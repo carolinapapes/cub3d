@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
+#    By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/03/07 14:28:58 by capapes          ###   ########.fr        #
+#    Updated: 2025/03/12 16:28:39 by kkoval           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,6 @@ MAIN_SRC = \
 			_r_draw_minimap_utils.c \
 			file_handler.c \
 			free_struct.c \
-			ft_split_utils.c \
 			initializer.c \
 			main.c \
 			parser_map.c \
