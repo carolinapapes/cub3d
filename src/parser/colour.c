@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 18:35:14 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/13 16:26:46 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/13 19:02:50 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ int extract_pigment(char *pigment, unsigned char *chosen_pigment)
 	int num;
 
 	num = ft_atoi(pigment);
+	printf("dento de char:  |%s|\n", pigment);
 	if (num >= 0 && num <= 255)
 	{
+		printf("numero antes de guardar: %d\n", num);
 		*chosen_pigment = (unsigned char)num;
 		return (0);
 	}
@@ -35,11 +37,11 @@ int check_pigment(char *line, int line_len, unsigned char *pigment)
 	num_len = 0;
 	while (line[i] != '\0' && line[i] == ' ')
 		i++;
-	printf("entrado en check |%c|\n", line[i]);
 	if (line[i] == '-' || line[i] == '\0')
 		return (1);
 	if (line[i] == '+')
 		i++;
+	//printf("en check pigment: %c\n", line[i]);
 	while (i < line_len)
 	{
 		if (line[i] == ' ')
@@ -73,7 +75,7 @@ int color_extract(char *line, t_color *color)
 		i++;
 	if (line[i] == '\0')
 		return (1);
-	printf("antes del primer pigmento|%c|\n", line[i]);
+	//printf("antes del primer pigmento|%c|\n", line[i]);
 	if (check_pigment(line, i, &color->r) == 1)
 		return (1);
 	start = ++i;
@@ -84,14 +86,22 @@ int color_extract(char *line, t_color *color)
 	if (check_pigment(line + start, i - start, &color->g) == 1)
 		return (1);
 	start = ++i;
-	while (line[i] && line[i] != ' ' && line[i] != '\0')
+	while (line[i] == ' ' && line[i] != '\0')
 		i++;
-	if (check_pigment(line + start, i - start, &color->b) == 1)
+	start = i;
+	printf("antes de entrar al blue\n");
+	printf("|%s|\n", line+start);
+	printf("i es: %d, start: %d\n", i, start);
+	while (line[i] != '\0')
+	{
+		if (ft_isdigit(line[i]) == 0)
+			break;
+		i++;
+	}
+	if (check_pigment(line+start, i - start, &color->b) == 1)
 		return (1);
-
 	color->a = 255;
-	color->rgba = (color->r << 24) | (color->g << 16) | (color->b << 8) | color->a;
-	color->repeated++;
+	color->rgba = (color->r << 24) | (color->g << 16) | (color->b << 8) | 255;
 	return (0);
 }
 
@@ -116,10 +126,20 @@ int is_color(char *line, t_start *start)
 	int res = 1;
 	while (*line && *line == ' ')
 		line++;
-	if (ft_strncmp(line, "F", 1) == 0 && start->floor.repeated == -1)
+	if (ft_strncmp(line, "F", 1) == 0 && start->f_repeated == -1)
+	{
 		res = parse_color_line(line, &(start->floor));
-	else if (ft_strncmp(line, "C", 1) == 0 && start->ceiling.repeated == -1)
+		start->f_repeated++;
+		printf("r: %d, g: %d  b: %d\n", start->floor.r, start->floor.g, start->floor.b);
+	}
+	else if (ft_strncmp(line, "C", 1) == 0 && start->c_repeated == -1)
+	{
 		res = parse_color_line(line, &(start->ceiling));
+		start->c_repeated++;
+		printf("r: %d, g: %d  b: %d\n", start->ceiling.r, start->ceiling.g, start->ceiling.b);
+	}
+	
+	printf("%d\n", res);
 	return (res);
 }
 

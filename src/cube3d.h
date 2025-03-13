@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/12 19:15:19 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/13 17:42:06 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ typedef union u_color
 		unsigned char	b;
 		unsigned char	g;
 		unsigned char	r;
-		int				repeated;
 	};
 	unsigned int		rgba;
 }						t_color;
@@ -151,6 +150,8 @@ typedef struct s_start
 	char				*e_fd;
 	t_color				floor;
 	t_color				ceiling;
+	int					f_repeated;
+	int					c_repeated;
 	t_map				map;
 	t_vector			player;
 	int					player_dir;
@@ -212,7 +213,6 @@ typedef enum e_image_type
 // ----------------------------[PARSER]----------------------------
 int						parser_controler(char *file, t_start *start);
 int						ft_split_count(char **split);
-void					ft_split_free(char **split);
 int						check_map(char *file_contents);
 char					*find_first_map_line(char *input);
 int						parse_map(char *line, char ***map);

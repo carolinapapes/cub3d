@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:46:15 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/12 20:30:52 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/13 17:22:19 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_variables(t_start *start)
 	if (start->n_fd == NULL || start->s_fd == NULL || start->e_fd == NULL \
 		|| start->w_fd == NULL )
 		return (1);
-	if (start->ceiling.repeated == 1 || start->floor.repeated == -1)
+	if (start->c_repeated != 0 || start->f_repeated != 0)
 		return (1);
 	printf("no ha habido problemas en var check\n"); //delete later
 	return (0);
@@ -90,9 +90,8 @@ int	parser_controler(char *file, t_start *start)
 	char	**map;
 	char	**elements;
 
-	map = NULL;
-	line = NULL;
-	elements = NULL;
+	start->c_repeated = -1;
+	start->f_repeated = -1;
 	line = extract_content(file);
 	if (line == NULL)
 		return (1);
