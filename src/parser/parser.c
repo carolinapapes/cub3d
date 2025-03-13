@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:46:15 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/13 17:22:19 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/13 20:32:26 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,22 +84,42 @@ int	parse_elements(char *line, char ***elements, t_start *start)
 	return (0);
 }
 
+/*
+int	parse_map()
+{
+	multiple enters
+	one view
+	foreign characters
+	closed walls
+	
+	
+}*/
+
 int	parser_controler(char *file, t_start *start)
 {
 	char	*line;
 	char	**map;
 	char	**elements;
 
+	line = NULL;
+	map = NULL;
+	elements = NULL;
 	start->c_repeated = -1;
 	start->f_repeated = -1;
 	line = extract_content(file);
 	if (line == NULL)
 		return (1);
 	if (parse_map(line, &map) == 1)
+	{
+		printf("mapa no ha pasado\n");
 		return (free_parser(line, map, elements));
+	}
+	
 	if (parse_elements(line, &elements, start) == 1)
+	{
+		printf("no he pasado los elements\n");
 		return (free_parser(line, map, elements));
-	printf("he pasado check_elements\n"); //delete later
+	}
 	if (start_map(start, map) == 1)
 		return (free_parser(line, map, elements));
 	printf("he pasado start_map\n"); //delete later

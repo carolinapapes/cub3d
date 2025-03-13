@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 18:35:14 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/13 19:11:48 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/13 19:35:53 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ int extract_pigment(char *pigment, unsigned char *chosen_pigment)
 	int num;
 
 	num = ft_atoi(pigment);
-	printf("dento de char:  |%s|\n", pigment);
 	if (num >= 0 && num <= 255)
 	{
-		printf("numero antes de guardar: %d\n", num);
 		*chosen_pigment = (unsigned char)num;
 		return (0);
 	}
@@ -41,7 +39,6 @@ int check_pigment(char *line, int line_len, unsigned char *pigment)
 		return (1);
 	if (line[i] == '+')
 		i++;
-	//printf("en check pigment: %c\n", line[i]);
 	while (i < line_len)
 	{
 		if (line[i] == ' ')
@@ -75,7 +72,6 @@ int color_extract(char *line, t_color *color)
 		i++;
 	if (line[i] == '\0')
 		return (1);
-	//printf("antes del primer pigmento|%c|\n", line[i]);
 	if (check_pigment(line, i, &color->r) == 1)
 		return (1);
 	start = ++i;
@@ -89,9 +85,6 @@ int color_extract(char *line, t_color *color)
 	while (line[i] == ' ' && line[i] != '\0')
 		i++;
 	start = i;
-	printf("antes de entrar al blue\n");
-	printf("|%s|\n", line+start);
-	printf("i es: %d, start: %d\n", i, start);
 	while (line[i] != '\0')
 	{
 		if (ft_isdigit(line[i]) == 0)
