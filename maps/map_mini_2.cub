@@ -6,12 +6,10 @@ EA      ./textures/Fra.png
        WE        ./textures/texture_10.png      
 
 
+F 89 ,      54 ,      30     
 
+C    25 ,     200 ,     6
 
-
-F     89      250                30     
-
-C     255      70   50
 
 111111111111
 1S0001 100011
