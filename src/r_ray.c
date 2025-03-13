@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 14:21:30 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/12 16:26:54 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/13 14:12:38 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ void	pov_iter(t_vector origin, double pov)
 	iter = -1;
 	constants = game_constants();
 	angle = pov + constants.fov_delta_start;
-	clear_pixels(get_miniview_image());
-	clear_pixels(get_render_image());
-	clear_pixels(get_shadow_image());
+	clear_pixels(get_miniview());
+	clear_pixels(get_render());
+	clear_pixels(get_shadow());
 	while (iter++ < WIDTH)
 	{
 		angle += constants.angle_step;

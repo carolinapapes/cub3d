@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:18:39 by capapes           #+#    #+#             */
-/*   Updated: 2025/02/28 21:10:07 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/13 14:09:02 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	coordinate_paint(int x, int y)
 	int			width;
 	int			height;
 
-	view = get_minimap_image();
+	view = get_minimap();
 	x = x * GRID_SIZE;
 	y = y * GRID_SIZE;
 	if ((uint32_t)(x + GRID_SIZE) > view->width

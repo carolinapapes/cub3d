@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/12 20:52:55 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/13 19:48:25 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ typedef struct s_texture
 	t_vector			step;
 	t_vector			origin;
 	uint32_t			color;
-	mlx_texture_t		*image[4];
 	int					ongoing;
+	mlx_texture_t		*image;
 }						t_texture;
 
 typedef struct s_vector_full
@@ -160,6 +160,7 @@ typedef struct s_start
 typedef struct s_player
 {
 	t_vector			pos;
+	t_vector			pos_center;
 	double				pov;
 }						t_player;
 
@@ -181,6 +182,7 @@ typedef enum e_dir
 typedef struct s_constants
 {
 	double				angle_step;
+	double				rotation_delta;
 	double				fov;
 	int					strip_width;
 	double				fov_delta_start;
@@ -192,8 +194,11 @@ typedef struct s_constants
 	t_vector			zero;
 	t_vector			window_size;
 	t_vector			player_size;
+	t_vector			initial_pos;
+	double				initial_pov;
 	t_vector			map_size_px;
 	t_vector			map_size;
+	mlx_texture_t		*textures[4];
 	double				texture_width;
 	double				texture_height;
 	double				angle_sec[1024];
@@ -253,12 +258,12 @@ int						free_parser(char *line, char **map, char **elements);
 // ----------------------------[RENDER]----------------------------
 
 // _aux_images.c
-mlx_image_t				*get_miniplayer_image(void);
-mlx_image_t				*get_miniview_image(void);
-// mlx_image_t				*get_render_image(void);
-// mlx_image_t				*get_minimap_image(void);
+mlx_image_t				*get_miniplayer(void);
+mlx_image_t				*get_miniview(void);
+// mlx_image_t				*get_render(void);
+// mlx_image_t				*get_minimap(void);
 // void					init_background(void);
-// mlx_image_t				*get_shadow_image(void);
+// mlx_image_t				*get_shadow(void);
 
 // _bonus_remove_later.c
 void					pov_iter(t_vector origin, double angle_fov);
@@ -268,17 +273,16 @@ void					update_mlx_miniplayer_pos(t_vector pos_delta, int axis);
 int						get_cell_content(t_vector coord);
 int						is_axis_wall(t_vector coord, t_axis axis,
 							t_vector_full ray);
-// void					draw_minimap(t_vector coord);
+// void					set_minimap_pixel(t_vector coord);
 void					set_pixel(mlx_image_t *image, t_vector pixel,
 							uint32_t color);
 void					update_mlx_miniplayer_pos(t_vector pos_delta, int axis);
-void					update_minimap_pos(t_vector position,
-							t_vector position_delta);
+void					update_minimap_pos(t_vector delta);
 // void					init_minimap(void);
-void					load_texture_images(void);
+// void					set_textures(void);
 
 // _parser_hardcoded.c
-void					init_player(void);
+// void					init_player(void);
 
 // _r_draw_minimap_utils.c
 void					draw_intersect(t_vector_full vector, int color);
@@ -300,19 +304,18 @@ void					cub3d_init(void);
 // r_mlx_image_handler.c
 void					generic_matrix_iter(t_vector constrains,
 							void fn(t_vector));
-// void					set_pixels_color(mlx_image_t *image, int32_t color);
+// void					set_pixels(mlx_image_t *image, int32_t color);
 // void					clear_pixels(mlx_image_t *image);
 // mlx_image_t				*get_image(t_vector size, t_vector origin);
 
 // r_moves.c
-void					player_rotate(int dir);
-void					player_move(int axis, int dir);
-// mlx_image_t				*get_full_image(void);
+void					rotate(int dir);
+void					move(int axis, int dir);
+// mlx_image_t				*get_image_full(void);
 
 // r_player.c
-t_player				get_player(void);
-t_player				set_player(t_vector position_delta, double angle_delta);
-t_vector				get_player_center_px(void);
+t_player				*get_player(void);
+// t_vector				get_player_center_px(void);
 
 // r_ray_distance.c
 t_vector_full			get_ray_intersection(t_vector_full ray, int axis);
@@ -322,14 +325,14 @@ double					get_hypot(t_vector a, t_vector b);
 double					get_side_len(t_vector a1, t_vector a2, t_vector tan,
 							t_axis axis);
 double					radian_overflow(double angle);
-t_texture				get_texture(void);
+// t_texture				get_texture(void);
 uint32_t				get_texture_color(void);
 void					set_texture_x(double x_percentage, double direction);
 
 void					clean_exit(int flags);
 // r_texture.c
 void					set_ongoing_wall_texture(int axis, int quadrant);
-// void					toggle_minimap_visibility(void);
+// void					toggle_minimap(void);
 int						add_to_texture_origin_y(void);
 void					set_texture_step_y(double distance);
 double					tends_to_zero(double x);
@@ -345,11 +348,11 @@ void					loop_window(void (*f)(void *));
 
 // r_image.c
 mlx_image_t				*get_image(t_vector size, t_vector origin);
-mlx_image_t				*get_full_image(void);
-mlx_texture_t			*load_texture(char *path);
+mlx_image_t				*get_image_full(void);
+mlx_texture_t			*load_png(char *path);
 
 // r_pixels.c
-void					set_pixels_color(mlx_image_t *image, int32_t color);
+void					set_pixels(mlx_image_t *image, int32_t color);
 void					clear_pixels(mlx_image_t *image);
 uint32_t				get_pixel(uint8_t *pixels, uint32_t index);
 
@@ -357,19 +360,23 @@ uint32_t				get_pixel(uint8_t *pixels, uint32_t index);
  * 					CUB3D IMAGES
  *******************************************************************/
 // r_render_images.c
-void					set_background_image(void);
-mlx_image_t				*get_shadow_image(void);
-mlx_image_t				*get_render_image(void);
+void					set_background(void);
+mlx_image_t				*get_shadow(void);
+mlx_image_t				*get_render(void);
 
 // r_minimap_images.c
-void					toggle_minimap_visibility(void);
-mlx_image_t				*get_minimap_image(void);
+void					toggle_minimap(void);
+mlx_image_t				*get_minimap(void);
+void					set_minimap(void);
 
 // r_miniplayer.c
-mlx_image_t				*get_miniplayer_image(void);
-mlx_image_t				*get_miniview_image(void);
+mlx_image_t				*get_miniplayer(void);
+mlx_image_t				*get_miniview(void);
 
 // ----------------------------[DELETE BEFORE SUBMIT]---------------
 void					set_timeout(void (*fn)(void), int delay);
+void					update_render(void);
+void					set_player_pos(t_vector delta);
+void					set_player_pov(double delta);
 
 #endif

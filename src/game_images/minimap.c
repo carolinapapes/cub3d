@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   r_minimap_images.c                                 :+:      :+:    :+:   */
+/*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 16:56:22 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/12 18:50:16 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/13 14:47:23 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static mlx_image_t	*init_minimap_image(void)
+static mlx_image_t	*init_minimap(void)
 {
 	t_constants	constants;
 	mlx_image_t	*image;
@@ -22,12 +22,21 @@ static mlx_image_t	*init_minimap_image(void)
 	return (image);
 }
 
-static void	draw_minimap(t_vector coord)
+mlx_image_t	*get_minimap(void)
+{
+	static mlx_image_t	*minimap;
+
+	if (!minimap)
+		minimap = init_minimap();
+	return (minimap);
+}
+
+static void	set_minimap_px(t_vector coord)
 {
 	int			content;
 	mlx_image_t	*image;
 
-	image = get_minimap_image();
+	image = get_minimap();
 	content = get_cell_content(coord);
 	if (content == OUTSIDE)
 		return ;
@@ -38,26 +47,20 @@ static void	draw_minimap(t_vector coord)
 		coordinate_paint((int)coord.x, (int)coord.y);
 }
 
-mlx_image_t	*get_minimap_image(void)
+void	set_minimap(void)
 {
-	static mlx_image_t	*minimap;
-	t_constants			constants;
+	t_constants	constants;
 
-	if (!minimap)
-	{
-		minimap = init_minimap_image();
-		constants = game_constants();
-		generic_matrix_iter(constants.map_size, draw_minimap);
-	}
-	return (minimap);
+	constants = game_constants();
+	generic_matrix_iter(constants.map_size, set_minimap_px);
 }
 
-void	toggle_minimap_visibility(void)
+void	toggle_minimap(void)
 {
 	static int			visible = 1;
 
 	visible = !visible;
-	get_minimap_image()->enabled = visible;
-	get_miniplayer_image()->enabled = visible;
-	get_miniview_image()->enabled = visible;
+	get_minimap()->enabled = visible;
+	get_miniplayer()->enabled = visible;
+	get_miniview()->enabled = visible;
 }

@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:31:42 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/12 20:17:12 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/13 14:12:38 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	draw_point(t_vector point, int color)
 	int			y;
 	mlx_image_t	*aux;
 
-	aux = get_miniview_image();
+	aux = get_miniview();
 	if (point.x < 0 || point.x >= WIDTH || point.y < 0 || point.y >= HEIGHT)
 		return ;
 	width = 5;
@@ -43,7 +43,7 @@ void	draw_line(t_vector origin, t_vector direction, int len, int color)
 	t_vector	pixel;
 	mlx_image_t	*image;
 
-	image = get_miniview_image();
+	image = get_miniview();
 	len = abs(len);
 	if (len < 0)
 		return ;
@@ -78,8 +78,8 @@ void	draw_line_render(t_vector origin, int len)
 	mlx_image_t		*shadow;
 	t_color			shadow_color;
 
-	image = get_render_image();
-	shadow = get_shadow_image();
+	image = get_render();
+	shadow = get_shadow();
 	shadow_color = get_shadow_color(len);
 	set_texture_step_y(len);
 	while (len--)

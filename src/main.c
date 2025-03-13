@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/12 19:15:41 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/13 19:43:55 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,30 @@
 // 	return (angle_sec);
 // }
 
+t_vector	get_initial_pos(t_int_pair initial)
+{
+	t_vector	pos;
+
+	pos.x = (initial.x + 0.25) * GRID_SIZE;
+	pos.y = (initial.y + 0.25) * GRID_SIZE;
+	return (pos);
+}
+
+double	get_initial_pov(int initial)
+{
+	double	pov;
+
+	if (initial == 'E')
+		pov = 0;
+	else if (initial == 'S')
+		pov = 0.5 * M_PI;
+	else if (initial == 'W')
+		pov = M_PI;
+	else
+		pov = 1.5 * M_PI;
+	return (pov);
+}
+
 t_constants	game_constants(void)
 {
 	static t_constants	constants;
@@ -54,6 +78,7 @@ t_constants	game_constants(void)
 	{
 		constants.fov = 60;
 		constants.angle_step = ((double)constants.fov / WIDTH) * M_PI / 180;
+		constants.rotation_delta = constants.angle_step * 20;
 		constants.strip_width = 1;
 		constants.strip_height = HEIGHT * 10;
 		constants.fov_delta_start = -31.0 * M_PI / 180;
@@ -74,6 +99,12 @@ t_constants	game_constants(void)
 		constants.map_size_px.y = start->map.size_int.y * GRID_SIZE;
 		constants.map_size.x = start->map.size_int.x;
 		constants.map_size.y = start->map.size_int.y;
+		constants.textures[NORTH_TEXTURE] = load_png(start->n_fd);
+		constants.textures[SOUTH_TEXTURE] = load_png(start->s_fd);
+		constants.textures[WEST_TEXTURE] = load_png(start->w_fd);
+		constants.textures[EAST_TEXTURE] = load_png(start->e_fd);
+		constants.initial_pos = get_initial_pos(start->player_pos);
+		constants.initial_pov = get_initial_pov(start->player_dir);
 	}
 	return (constants);
 }
@@ -135,6 +166,7 @@ int	main(int argc, char **argv)
 		free_start(start);
 		return (print_error(), EXIT_FAILURE);
 	}
+	game_constants();
 	cub3d_init();
 	free_start(start);
 	return (EXIT_SUCCESS);

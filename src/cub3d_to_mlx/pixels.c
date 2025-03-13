@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   r_pixels.c                                         :+:      :+:    :+:   */
+/*   pixels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:57:39 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/12 20:43:47 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/13 13:15:43 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube3d.h"
 
-void	set_pixels_color(mlx_image_t *image, int32_t color)
+void	set_pixels(mlx_image_t *image, int32_t color)
 {
 	memset(image->pixels, color, image->width * image->height
 		* sizeof(int32_t));
@@ -20,7 +20,7 @@ void	set_pixels_color(mlx_image_t *image, int32_t color)
 
 void	clear_pixels(mlx_image_t *image)
 {
-	set_pixels_color(image, 0x00000000);
+	set_pixels(image, 0x00000000);
 }
 
 void	set_pixel(mlx_image_t *image, t_vector pixel, uint32_t color)

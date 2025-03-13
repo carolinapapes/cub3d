@@ -6,59 +6,44 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 16:29:31 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/12 20:54:32 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/13 15:01:25 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-t_texture	*set_texture(void)
+t_texture	*get_texture(void)
 {
 	static t_texture	texture;
 
 	return (&texture);
 }
 
-void	load_texture_images(void)
+mlx_texture_t	*get_ongoing_texture(int axis, int quadrant)
 {
-	t_start		*start;
-	t_texture	*texture;
+	t_constants	constants;
+	int			res;
 
-	start = get_start();
-	texture = set_texture();
-	texture->image[NORTH_TEXTURE] = load_texture(start->n_fd);
-	texture->image[SOUTH_TEXTURE] = load_texture(start->s_fd);
-	texture->image[WEST_TEXTURE] = load_texture(start->w_fd);
-	texture->image[EAST_TEXTURE] = load_texture(start->e_fd);
-}
-
-int	get_ongoing_texture(int axis, int quadrant)
-{
+	constants = game_constants();
 	if (axis == X && quadrant < 0)
-		return (NORTH_TEXTURE);
-	if (axis == X && quadrant > 0)
-		return (SOUTH_TEXTURE);
-	if (quadrant > 0)
-		return (EAST_TEXTURE);
-	return (WEST_TEXTURE);
+		res = NORTH_TEXTURE;
+	else if (axis == X && quadrant > 0)
+		res = SOUTH_TEXTURE;
+	else if (quadrant > 0)
+		res = EAST_TEXTURE;
+	else
+		res = WEST_TEXTURE;
+	return (constants.textures[res]);
 }
 
 void	set_ongoing_wall_texture(int axis, int quadrant)
 {
-	int			ongoing;
-	t_texture	*texture;
+	mlx_texture_t	*ongoing;
+	t_texture		*texture;
 
-	texture = set_texture();
+	texture = get_texture();
 	ongoing = get_ongoing_texture(axis, quadrant);
-	texture->ongoing = ongoing;
-}
-
-t_texture	get_texture(void)
-{
-	t_texture	*texture;
-
-	texture = set_texture();
-	return (*texture);
+	texture->image = ongoing;
 }
 
 void	set_texture_x(double grid_intersection, double direction)
@@ -67,44 +52,41 @@ void	set_texture_x(double grid_intersection, double direction)
 	t_texture	*texture;
 
 	x_percentage = fmod(grid_intersection, GRID_SIZE) / GRID_SIZE;
-	texture = set_texture();
+	texture = get_texture();
 	texture->origin.y = 0;
 	if (direction == POSITIVE)
 		x_percentage = 1 - x_percentage;
-	texture->origin.x = x_percentage * texture->image[texture->ongoing]->width;
+	texture->origin.x = x_percentage * texture->image->width;
 }
 
 void	set_texture_step_y(double distance)
 {
 	t_texture	*texture;
 
-	texture = set_texture();
-	texture->step.y = (double)texture->image[texture->ongoing]->height
-		/ distance;
+	texture = get_texture();
+	texture->step.y = (double)texture->image->height / distance;
 }
 
 int	add_to_texture_origin_y(void)
 {
 	t_texture	*texture;
 
-	texture = set_texture();
+	texture = get_texture();
 	texture->origin.y += texture->step.y;
 	return (texture->origin.y < 0
-		|| texture->origin.y >= texture->image[texture->ongoing]->height);
+		|| texture->origin.y >= texture->image->height);
 }
 
 uint32_t	get_texture_color(void)
 {
 	uint32_t		color;
-	uint32_t		pixel_index;
-	t_texture		texture;
-	mlx_texture_t	*mlx_texture;
+	uint32_t		px_index;
+	t_texture		*texture;
 
 	texture = get_texture();
-	mlx_texture = texture.image[texture.ongoing];
-	pixel_index = mlx_texture->width * (int)(texture.origin.y)
-		+ (int)(texture.origin.x);
-	pixel_index *= mlx_texture->bytes_per_pixel;
-	color = get_pixel(mlx_texture->pixels, pixel_index);
+	px_index = texture->image->width * (int)(texture->origin.y)
+		+ (int)(texture->origin.x);
+	px_index *= texture->image->bytes_per_pixel;
+	color = get_pixel(texture->image->pixels, px_index);
 	return (color);
 }

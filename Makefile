@@ -6,7 +6,7 @@
 #    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/03/12 20:55:44 by capapes          ###   ########.fr        #
+#    Updated: 2025/03/13 14:14:38 by capapes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,8 +53,13 @@ CUB3D_TO_MLX = 	image.c \
 				pixels.c \
 				window.c
 
+GAME_IMAGES = 	render.c  \
+				minimap.c \
+				miniplayer.c \
+
 DIRS =	parser \
-		cub3d_to_mlx
+		cub3d_to_mlx \
+		game_images
 
 # AUTOMATICALLY GENERATE OBJECT FILES FOR DIRS
 DIRS_OBJ_FILES = $(foreach directory,$(DIRS), \
@@ -83,14 +88,11 @@ MAIN_SRC = \
 			path.c \
 			r_draw_utils.c \
 			r_map_checkers.c \
-			r_minimap_images.c \
-			r_miniplayer.c \
 			r_mlx_handler.c \
 			r_moves.c \
 			r_player.c \
 			r_ray_distance.c \
 			r_ray.c \
-			r_render_images.c \
 			r_texture.c \
 			r_trigonometry.c
 MAIN_OBJ = $(patsubst %.c, $(OBJDIR)/%.o, $(MAIN_SRC))

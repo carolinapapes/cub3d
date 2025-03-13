@@ -1,42 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   r_miniplayer.c                                     :+:      :+:    :+:   */
+/*   miniplayer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:57:55 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/12 16:58:00 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/13 14:13:54 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-mlx_image_t	*init_miniplayer_image(void)
+static mlx_image_t	*init_miniplayer(void)
 {
 	t_constants		constants;
 	mlx_image_t		*image;
 
 	constants = game_constants();
 	image = get_image(constants.player_size, constants.zero);
-	set_pixels_color(image, HEX_PLAYER);
+	set_pixels(image, HEX_PLAYER);
 	return (image);
 }
 
-mlx_image_t	*get_miniplayer_image(void)
+mlx_image_t	*get_miniplayer(void)
 {
 	static mlx_image_t	*image;
 
 	if (!image)
-		image = init_miniplayer_image();
+		image = init_miniplayer();
 	return (image);
 }
 
-mlx_image_t	*get_miniview_image(void)
+mlx_image_t	*get_miniview(void)
 {
 	static mlx_image_t	*mlx_aux;
 
 	if (!mlx_aux)
-		mlx_aux = get_full_image();
+		mlx_aux = get_image_full();
 	return (mlx_aux);
 }

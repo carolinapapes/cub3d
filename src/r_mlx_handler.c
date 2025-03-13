@@ -20,26 +20,26 @@ static void	cub3d_hook(void *param)
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
 	if (mlx_is_key_down(mlx, MLX_KEY_W))
-		player_move(Y, POSITIVE);
+		move(Y, POSITIVE);
 	if (mlx_is_key_down(mlx, MLX_KEY_S))
-		player_move(Y, NEGATIVE);
+		move(Y, NEGATIVE);
 	if (mlx_is_key_down(mlx, MLX_KEY_A))
-		player_move(X, NEGATIVE);
+		move(X, NEGATIVE);
 	if (mlx_is_key_down(mlx, MLX_KEY_D))
-		player_move(X, POSITIVE);
+		move(X, POSITIVE);
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-		player_rotate(NEGATIVE);
+		rotate(NEGATIVE);
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-		player_rotate(POSITIVE);
+		rotate(POSITIVE);
 	if (mlx_is_key_down(mlx, MLX_KEY_L))
-		set_timeout(toggle_minimap_visibility, 300);
+		set_timeout(toggle_minimap, 300);
 }
 
 void	cub3d_init(void)
 {
-	set_background_image();
-	load_texture_images();
-	get_minimap_image();
-	init_player();
+	set_background();
+	set_minimap();
+	update_minimap_pos(game_constants().zero);
+	update_render();
 	loop_window(cub3d_hook);
 }
