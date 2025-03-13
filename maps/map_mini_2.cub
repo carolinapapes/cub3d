@@ -1,14 +1,14 @@
 NO    ./textures/mario.png      
 
-SO ./textures/rojo.png 
+SO ./textures/mario_wall.png 
 EA      ./textures/Fra.png
 
        WE        ./textures/texture_10.png      
 
 
-F 89 ,      54 ,      30     
+F  58,      164 ,      91     
 
-C    +120 ,     +6,     245  
+C    120 ,     185,     245  
 
 
 111111111111

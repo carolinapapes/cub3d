@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 18:35:14 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/13 19:02:50 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/13 19:11:48 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,12 @@ int color_extract(char *line, t_color *color)
 	}
 	if (check_pigment(line+start, i - start, &color->b) == 1)
 		return (1);
+	while(line[i] != '\0')
+	{
+		if (line[i] != ' ')
+			return (1);
+		i++;
+	}
 	color->a = 255;
 	color->rgba = (color->r << 24) | (color->g << 16) | (color->b << 8) | 255;
 	return (0);
