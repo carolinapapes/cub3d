@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/13 19:48:25 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/13 20:48:32 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include <sys/stat.h>
 # include <sys/time.h>
 
-# define WIDTH 1024
-# define HEIGHT 1024
+# define WINDOW_SIZE 1024
+# define WINDOW_SIZE 1024
 # define HEIGHT_MIDDLE 512
 # define GRID_SIZE 32
 # define PLAYER_SIZE 16
@@ -184,21 +184,18 @@ typedef struct s_constants
 	double				angle_step;
 	double				rotation_delta;
 	double				fov;
-	int					strip_width;
 	double				fov_delta_start;
 	int					strip_height;
 	double				double_pi;
-	t_vector			dir_x;
-	t_vector			dir_y;
-	t_vector			limit_movement;
 	t_vector			zero;
+	t_vector			limit_movement;
 	t_vector			window_size;
 	t_vector			player_size;
-	t_vector			initial_pos;
-	double				initial_pov;
+	t_vector			player_size_half;
 	t_vector			map_size_px;
 	t_vector			map_size;
 	mlx_texture_t		*textures[4];
+	t_player			player_initial;
 	double				texture_width;
 	double				texture_height;
 	double				angle_sec[1024];
@@ -378,5 +375,5 @@ void					set_timeout(void (*fn)(void), int delay);
 void					update_render(void);
 void					set_player_pos(t_vector delta);
 void					set_player_pov(double delta);
-
+t_vector				vector_sum(t_vector a, t_vector b);
 #endif

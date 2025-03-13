@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:31:42 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/13 14:12:38 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/13 20:36:09 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	draw_point(t_vector point, int color)
 	mlx_image_t	*aux;
 
 	aux = get_miniview();
-	if (point.x < 0 || point.x >= WIDTH || point.y < 0 || point.y >= HEIGHT)
+	if (point.x < 0 || point.x >= WINDOW_SIZE || point.y < 0 || point.y >= WINDOW_SIZE)
 		return ;
 	width = 5;
 	while (width-- > -5)
@@ -31,7 +31,7 @@ void	draw_point(t_vector point, int color)
 		{
 			x = point.x + width;
 			y = point.y + height;
-			if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+			if (x >= 0 && x < WINDOW_SIZE && y >= 0 && y < WINDOW_SIZE)
 				mlx_put_pixel(aux, x, y, color);
 		}
 	}
@@ -51,7 +51,7 @@ void	draw_line(t_vector origin, t_vector direction, int len, int color)
 	{
 		pixel.x = origin.x + direction.x * len;
 		pixel.y = origin.y + direction.y * len;
-		if (pixel.x < 0 || pixel.x >= WIDTH || pixel.y < 0 || pixel.y >= HEIGHT)
+		if (pixel.x < 0 || pixel.x >= WINDOW_SIZE || pixel.y < 0 || pixel.y >= WINDOW_SIZE)
 			continue ;
 		set_pixel(image, pixel, color);
 	}
@@ -62,8 +62,8 @@ t_color	get_shadow_color(double distance)
 	t_color	shadow_color;
 	double	shadow_tint;
 
-	if (distance >= HEIGHT)
-		distance = HEIGHT - 1;
+	if (distance >= WINDOW_SIZE)
+		distance = WINDOW_SIZE - 1;
 	shadow_tint = (double)distance / 4;
 	shadow_color.r = shadow_tint;
 	shadow_color.g = shadow_tint;
@@ -87,8 +87,8 @@ void	draw_line_render(t_vector origin, int len)
 		origin.y++;
 		if (add_to_texture_origin_y())
 			continue ;
-		if (origin.x < 0 || origin.x >= WIDTH
-			|| origin.y < 0 || origin.y >= HEIGHT)
+		if (origin.x < 0 || origin.x >= WINDOW_SIZE
+			|| origin.y < 0 || origin.y >= WINDOW_SIZE)
 			continue ;
 		set_pixel(shadow, origin, shadow_color.rgba);
 		set_pixel(image, origin, get_texture_color());
@@ -105,6 +105,6 @@ void	draw_render(double distance, int window_x)
 	constants = game_constants();
 	origin.x = window_x;
 	strip_height = fabs(constants.strip_height / distance);
-	origin.y = (HEIGHT - strip_height) / 2;
+	origin.y = (WINDOW_SIZE - strip_height) / 2;
 	draw_line_render(origin, strip_height);
 }

@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 14:21:30 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/13 14:12:38 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/13 20:35:54 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	pov_iter(t_vector origin, double pov)
 	clear_pixels(get_miniview());
 	clear_pixels(get_render());
 	clear_pixels(get_shadow());
-	while (iter++ < WIDTH)
+	while (iter++ < WINDOW_SIZE)
 	{
 		angle += constants.angle_step;
 		ray = init_ray(origin, angle);

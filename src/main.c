@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/13 19:43:55 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/13 20:47:40 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,16 @@
 
 // double	*get_angle_sec(void)
 // {
-// 	static double	angle_sec[WIDTH];
+// 	static double	angle_sec[WINDOW_SIZE];
 // 	int				i;
 // 	double			angle;
 
 // 	if (!angle_sec[0])
 // 	{
 // 		i = 0;
-// 		while (i < WIDTH)
+// 		while (i < WINDOW_SIZE)
 // 		{
-// 			angle_sec[i] = atan((double)(i - WIDTH / 2) / HEIGHT);
+// 			angle_sec[i] = atan((double)(i - WINDOW_SIZE / 2) / WINDOW_SIZE);
 // 			i++;
 // 		}
 // 	}
@@ -68,6 +68,34 @@ double	get_initial_pov(int initial)
 	return (pov);
 }
 
+t_player	player_constants(void)
+{
+	t_player	player;
+
+	player.pos = get_initial_pos(get_start()->player_pos);
+	player.pos_center = vector_sum(player.pos, game_constants().player_size_half);
+	player.pov = get_initial_pov(get_start()->player_dir);
+	return (player);
+}
+
+t_vector	set_components(double a, double b)
+{
+	t_vector	result;
+
+	result.x = a;
+	result.y = b;
+	return (result);
+}
+
+t_vector	rectangle_vector(double a)
+{
+	t_vector	result;
+
+	result.x = a;
+	result.y = a;
+	return (result);
+}
+
 t_constants	game_constants(void)
 {
 	static t_constants	constants;
@@ -77,34 +105,28 @@ t_constants	game_constants(void)
 	if (!constants.angle_step)
 	{
 		constants.fov = 60;
-		constants.angle_step = ((double)constants.fov / WIDTH) * M_PI / 180;
+		constants.angle_step = ((double)constants.fov / WINDOW_SIZE) * M_PI / 180;
 		constants.rotation_delta = constants.angle_step * 20;
-		constants.strip_width = 1;
-		constants.strip_height = HEIGHT * 10;
+		constants.strip_height = WINDOW_SIZE * 10;
 		constants.fov_delta_start = -31.0 * M_PI / 180;
-		constants.dir_y.x = 0;
-		constants.dir_y.y = 1;
-		constants.dir_x.x = 1;
-		constants.dir_x.y = 0;
-		constants.limit_movement.x = WIDTH - GRID_SIZE - PLAYER_SIZE;
-		constants.limit_movement.y = HEIGHT - GRID_SIZE - PLAYER_SIZE;
-		constants.zero.x = 0;
-		constants.zero.y = 0;
+		constants.limit_movement = rectangle_vector(
+				WINDOW_SIZE - GRID_SIZE - PLAYER_SIZE);
+		constants.window_size = rectangle_vector(WINDOW_SIZE);
+		constants.zero = rectangle_vector(0);
 		constants.double_pi = 2 * M_PI;
-		constants.window_size.x = WIDTH;
-		constants.window_size.y = HEIGHT;
-		constants.player_size.x = PLAYER_SIZE;
-		constants.player_size.y = PLAYER_SIZE;
-		constants.map_size_px.x = start->map.size_int.x * GRID_SIZE;
-		constants.map_size_px.y = start->map.size_int.y * GRID_SIZE;
-		constants.map_size.x = start->map.size_int.x;
-		constants.map_size.y = start->map.size_int.y;
+		constants.map_size_px = set_components(
+				start->map.size_int.x * GRID_SIZE,
+				start->map.size_int.y * GRID_SIZE);
+		constants.map_size = set_components(
+				start->map.size_int.x,
+				start->map.size_int.y);
 		constants.textures[NORTH_TEXTURE] = load_png(start->n_fd);
 		constants.textures[SOUTH_TEXTURE] = load_png(start->s_fd);
 		constants.textures[WEST_TEXTURE] = load_png(start->w_fd);
 		constants.textures[EAST_TEXTURE] = load_png(start->e_fd);
-		constants.initial_pos = get_initial_pos(start->player_pos);
-		constants.initial_pov = get_initial_pov(start->player_dir);
+		constants.player_size = rectangle_vector(PLAYER_SIZE);
+		constants.player_size_half = rectangle_vector(PLAYER_SIZE / 2);
+		constants.player_initial = player_constants();
 	}
 	return (constants);
 }

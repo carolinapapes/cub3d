@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:50:40 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/13 20:18:56 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/13 20:55:33 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ double	check_collition_in_axis(double delta, int axis)
 	quadrant = (delta > 0) - (delta < 0);
 	if (delta != 0)
 		delta = collition_check(axis, quadrant);
+	delta = delta * fabs(delta);
 	return (delta);
 }
 
@@ -108,15 +109,16 @@ bool	should_render(t_vector delta)
 void	move(int axis, int dir)
 {
 	t_vector	delta;
+	t_vector	delta_fix;
 
 	delta = get_movement_v_components(axis, dir);
-	delta.x *= fabs(check_collition_in_axis(delta.x, X));
-	delta.y *= fabs(check_collition_in_axis(delta.y, Y));
+	delta_fix.x = check_collition_in_axis(delta.x, X);
+	delta_fix.y = check_collition_in_axis(delta.y, Y);
 	if (should_render(delta))
 	{
-		set_player_pos(delta);
+		set_player_pos(delta_fix);
 		update_render();
-		update_minimap_pos(delta);
+		update_minimap_pos(delta_fix);
 	}
 }
 

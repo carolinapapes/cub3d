@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   r_window.c                                         :+:      :+:    :+:   */
+/*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:13:55 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/12 20:43:42 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/13 20:36:09 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static mlx_t	*init_window(void)
 {
 	mlx_t	*mlx;
 
-	mlx = mlx_init(WIDTH, HEIGHT, WINDOW_TITLE, false);
+	mlx = mlx_init(WINDOW_SIZE, WINDOW_SIZE, WINDOW_TITLE, false);
 	if (!mlx)
 		clean_exit(FREE_START);
 	return (mlx);

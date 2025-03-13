@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/13 19:50:50 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/13 20:49:42 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,9 @@
 t_player	init_player(void)
 {
 	t_constants	constants;
-	t_player	player;
 
 	constants = game_constants();
-	player.pos = constants.initial_pos;
-	player.pos_center.x = player.pos.x + PLAYER_MIDDLE;
-	player.pos_center.y = player.pos.y + PLAYER_MIDDLE;
-	player.pov = constants.initial_pov;
-	return (player);
+	return (constants.player_initial);
 }
 
 t_player	*get_player(void)

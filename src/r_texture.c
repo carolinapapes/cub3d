@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 16:29:31 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/13 15:01:25 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/13 20:23:15 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,13 @@ uint32_t	get_texture_color(void)
 	px_index *= texture->image->bytes_per_pixel;
 	color = get_pixel(texture->image->pixels, px_index);
 	return (color);
+}
+
+t_vector	vector_sum(t_vector a, t_vector b)
+{
+	t_vector res;
+
+	res.x = a.x + b.x;
+	res.y = a.y + b.y;
+	return (res);
 }
