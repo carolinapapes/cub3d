@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:46:15 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/13 20:32:26 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/14 00:03:23 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 int	parse_map(char *line, char ***map)
 {
 	char	*map_start;
+	int		y;
 
+	y = 0;
 	map_start = find_first_map_line(line);
 	if (map_start == NULL || check_map(map_start) == 1)
 		return (1);
@@ -26,6 +28,15 @@ int	parse_map(char *line, char ***map)
 	{
 		free_char_array(map);
 		return (1);
+	}
+	while ((*map)[y] != NULL)
+	{
+		if (line_in_map((*map)[y], ft_strlen((*map)[y])) == 1)
+		{
+			free_char_array(map);
+			return (1);
+		}
+		y++;
 	}
 	return (0);
 }

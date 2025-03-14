@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colour.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 18:35:14 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/13 19:35:53 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/14 01:13:18 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int parse_color_line(char *line, t_color *color)
 	printf("%c\n", *line);
 	line++;
 	if (*line != ' ' || !*line)
-		return (1);  //ask for this case F89 no space between letter and number
+		return (1);
 	printf("%c\n", *line);
 	while (*line && *line == ' ')
 		line++;
@@ -129,16 +129,12 @@ int is_color(char *line, t_start *start)
 	{
 		res = parse_color_line(line, &(start->floor));
 		start->f_repeated++;
-		printf("r: %d, g: %d  b: %d\n", start->floor.r, start->floor.g, start->floor.b);
 	}
 	else if (ft_strncmp(line, "C", 1) == 0 && start->c_repeated == -1)
 	{
 		res = parse_color_line(line, &(start->ceiling));
 		start->c_repeated++;
-		printf("r: %d, g: %d  b: %d\n", start->ceiling.r, start->ceiling.g, start->ceiling.b);
 	}
-	
-	printf("%d\n", res);
 	return (res);
 }
 
