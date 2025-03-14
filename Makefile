@@ -6,7 +6,7 @@
 #    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/03/14 15:14:41 by capapes          ###   ########.fr        #
+#    Updated: 2025/03/14 15:44:15 by capapes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ ifeq ($(UNAME_S), Linux)
 endif
 
 # NAME executable
-NAME = main
+NAME = cub3d
 
 PARSER = 		colour.c \
 				colour_utils.c \
