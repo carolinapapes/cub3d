@@ -34,4 +34,3 @@ void	cub3d_hook(void *param)
 	if (mlx_is_key_down(mlx, MLX_KEY_L))
 		set_timeout(toggle_minimap, 300);
 }
-

@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 16:03:32 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/14 17:12:25 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@
 
 # define RESET_ORIGIN 1
 # define SET_X 2
-# define texture_setter 4
 # define NORTH_TEXTURE 0
 # define SOUTH_TEXTURE 1
 # define WEST_TEXTURE 2
@@ -213,163 +212,157 @@ typedef enum e_image_type
 }						t_image_type;
 
 // ----------------------------[PARSER]----------------------------
-int						parser_controler(char *file, t_start *start);
-int						ft_split_count(char **split);
-int						check_map(char *file_contents);
-char					*find_first_map_line(char *input);
-int						parse_map(char *line, char ***map);
-int						parse_elements(char *line, char ***elements, t_start *start);
-int						check_empty_lines_in_map(char **file);
-char					*free_line(char **line);
-void					free_start(t_start *start);
-void					free_char_array(char ***split);
-int						is_color(char *line, t_start *start);
-int						line_in_map(char *line, int len);
+int				parser_controler(char *file, t_start *start);
+int				ft_split_count(char **split);
+int				check_map(char *file_contents);
+char			*find_first_map_line(char *input);
+int				parse_map(char *line, char ***map);
+int				parse_elements(char *line, char ***elements, t_start *start);
+int				check_empty_lines_in_map(char **file);
+char			*free_line(char **line);
+void			free_start(t_start *start);
+void			free_char_array(char ***split);
+int				is_color(char *line, t_start *start);
+int				line_in_map(char *line, int len);
 
-//---------------------------- path ---------------------------------------------------------
-int						is_path_valid(char *path);
-int						is_texture(char *line, t_start *start);
+//---------------------------- path ---------------------------------
+int				is_path_valid(char *path);
+int				is_texture(char *line, t_start *start);
 
-//---------------------------- file_handler -------------------------------------------------
-int						check_file_extension(char *file, char *extension_name);
-int						get_line_length(int fd);
-int						read_file(char *file, char **line);
-char					*extract_content(char *file);
+//---------------------------- file_handler --------------------------
+int				check_file_extension(char *file, char *extension_name);
+int				get_line_length(int fd);
+int				read_file(char *file, char **line);
+char			*extract_content(char *file);
 
 //                               INITILIAZER
-int						is_map_character(char c);
-int						start_map(t_start *start, char **map);
-
-int						check_for_newlines_in_map(char *map);
-int						empty_string(char *line);
-
-int						check_fill_flood(t_start *start);
-void					fill_flood(int **arr, int x, int y, t_int_pair size);
+int				is_map_character(char c);
+int				start_map(t_start *start, char **map);
+int				check_for_newlines_in_map(char *map);
+int				empty_string(char *line);
+int				check_fill_flood(t_start *start);
+void			fill_flood(int **arr, int x, int y, t_int_pair size);
 
 //                               FREE
-
-int						free_parser(char *line, char **map, char **elements);
-
-int get_next_value(char *line, int *i, unsigned char *pigment, int expect_comma);
-int extract_last_value(char *line, int *index, unsigned char *pigment);
-int check_pigment(char *line, int line_len, unsigned char *pigment);
-int	get_map_value(char c, int x, int y);
-
-t_start					*get_start(void);
+int				free_parser(char *line, char **map, char **elements);
+int				get_next_value(char *line, int *i, unsigned char *pigment,
+					int expect_comma);
+int				extract_last_value(char *line, int *index,
+					unsigned char *pigment);
+int				check_pigment(char *line, int line_len, unsigned char *pigment);
+int				get_map_value(char c, int x, int y);
+t_start			*get_start(void);
 /******************************************************************
  	CUB3D_TO_MLX
 *******************************************************************/
 
 // image.c
-mlx_image_t				*get_image(t_vector size, t_vector origin);
-mlx_image_t				*get_image_full(void);
-mlx_texture_t			*load_png(char *path);
+mlx_image_t		*get_image(t_vector size, t_vector origin);
+mlx_image_t		*get_image_full(void);
+mlx_texture_t	*load_png(char *path);
 
 // pixels.c
-void					clear_pixels(mlx_image_t *image);
-uint32_t				get_pixel(uint8_t *pixels, uint32_t index);
-void					set_pixels(mlx_image_t *image, int32_t color);
-void					set_pixel(mlx_image_t *image, t_vector pixel,
-							uint32_t color);
+void			clear_pixels(mlx_image_t *image);
+uint32_t		get_pixel(uint8_t *pixels, uint32_t index);
+void			set_pixels(mlx_image_t *image, int32_t color);
+void			set_pixel(mlx_image_t *image, t_vector pixel, uint32_t color);
 
 // window.c
-mlx_t					*get_window(void);
-void					loop_window(void (*f)(void *));
+mlx_t			*get_window(void);
+void			loop_window(void (*f)(void *));
 
 /******************************************************************
 	EVENTS
 *******************************************************************/
 
 // collitions.c
-double					check_collition_in_axis(double delta, int axis);
+double			check_collition_in_axis(double delta, int axis);
 
 // events.c
-void					cub3d_hook(void *param);
+void			cub3d_hook(void *param);
 
 // moves.c
-t_vector				get_player_side(int axis, int dir);
-void					rotate(int dir);
-void					move(int axis, int dir);
+t_vector		get_player_side(int axis, int dir);
+void			rotate(int dir);
+void			move(int axis, int dir);
 
 /******************************************************************
  	HELPERS
 *******************************************************************/
 
 // constants.c
-t_constants				game_constants(void);
+t_constants		game_constants(void);
 
 // map_utils.c
-int						get_cell_content(t_vector coord);
-int						is_grid_next_to_wall(t_vector coord, t_axis axis,
-							t_vector_full ray);
+int				get_cell_content(t_vector coord);
+int				is_grid_next_to_wall(t_vector coord, t_axis axis,
+					t_vector_full ray);
 
 // trigonometry.c
-double					get_hypot(t_vector a, t_vector b);
-double					get_side_len(t_vector a1, t_vector a2, t_vector tan,
-							t_axis axis);
-double					radian_overflow(double angle);
+double			get_hypot(t_vector a, t_vector b);
+double			get_side_len(t_vector a1, t_vector a2, t_vector tan,
+					t_axis axis);
+double			radian_overflow(double angle);
 
 // utils.c
-void					set_timeout(void (*fn)(void), int delay);
-double					tends_to_zero(double x);
-void					generic_matrix_iter(t_vector constrains,
-							void fn(t_vector));
-void					print_error(void);
-void					clean_exit(int flags);
+void			set_timeout(void (*fn)(void), int delay);
+double			tends_to_zero(double x);
+void			generic_matrix_iter(t_vector constrains, void fn(t_vector));
+void			print_error(void);
+void			clean_exit(int flags);
 
 // vector.c
-t_vector				vector_sum(t_vector a, t_vector b);
-t_vector				rectangle_vector(double a);
-t_vector				set_components(double a, double b);
+t_vector		vector_sum(t_vector a, t_vector b);
+t_vector		rectangle_vector(double a);
+t_vector		set_components(double a, double b);
 
 /******************************************************************
  		MINIMAP
 *******************************************************************/
 // draw_minimap.c
-void					draw_miniray(t_vector_full vector, int color);
-void					draw_tile(t_vector coord);
+void			draw_miniray(t_vector_full vector, int color);
+void			draw_tile(t_vector coord);
 
 // minimap.c
-void					toggle_minimap(void);
-mlx_image_t				*get_minimap(void);
-void					set_minimap(void);
+void			toggle_minimap(void);
+mlx_image_t		*get_minimap(void);
+void			set_minimap(void);
 
 // miniplayer.c
-mlx_image_t				*get_miniplayer(void);
-mlx_image_t				*get_miniview(void);
+mlx_image_t		*get_miniplayer(void);
+mlx_image_t		*get_miniview(void);
 
 // set_minimap_pos.c
-void					set_minimap_pos(t_vector delta);
+void			set_minimap_pos(t_vector delta);
 
 /******************************************************************
  * 					RENDER
  *******************************************************************/
 // draw_render.c
-void					draw_render(double distance, int window_x);
+void			draw_render(double distance, int window_x);
 
 // player.c
-t_player				*get_player(void);
-void					set_player_pos(t_vector delta);
-void					set_player_pov(double delta);
-void					set_render(void);
+t_player		*get_player(void);
+void			set_player_pos(t_vector delta);
+void			set_player_pov(double delta);
+void			set_render(void);
 
 // ray_2.c
-t_vector_full			get_ray_intersection(t_vector_full ray, int axis);
+t_vector_full	get_ray_intersection(t_vector_full ray, int axis);
 
 // ray.c
-void					pov_iter(t_vector origin, double angle_fov);
+void			pov_iter(t_vector origin, double angle_fov);
 
 // render.c
-void					set_background(void);
-mlx_image_t				*get_shadow(void);
-mlx_image_t				*get_render(void);
+void			set_background(void);
+mlx_image_t		*get_shadow(void);
+mlx_image_t		*get_render(void);
 
 // texture.c
-t_texture				*get_texture(void);
-uint32_t				get_texture_color(void);
-void					set_texture_x(double x_percentage,
-							double direction, int axis);
-void					set_texture_image(int axis, int quadrant);
-int						set_texture_y(double step);
+t_texture		*get_texture(void);
+uint32_t		get_texture_color(void);
+void			set_texture_x(double x_percentage, double direction, int axis);
+void			set_texture_image(int axis, int quadrant);
+int				set_texture_y(double step);
 
 #endif
