@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 14:21:30 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 14:55:39 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 16:04:18 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	draw_ray(t_vector_full ray, double angle, double iter)
 {
 	if (!ray.distance)
 		return ;
-	draw_miniray(ray, HEX_GREY - 0x20202020);
+	draw_miniray(ray, HEX_YELLOW);
 	if (angle != 0)
 		ray.distance *= cos(angle);
 	set_texture_image(!ray.axis, ray.quadrant.arr[ray.axis]);
@@ -58,11 +58,6 @@ static void	draw_ray(t_vector_full ray, double angle, double iter)
 	draw_render(ray.distance, iter);
 }
 
-/*
-* @brief: Iterates over the field of view and draws the rays
-* @param: origin: the player position
-* @param: pov: the player point of view
-*/
 void	pov_iter(t_vector origin, double pov)
 {
 	double			angle;
@@ -73,8 +68,8 @@ void	pov_iter(t_vector origin, double pov)
 	iter = -1;
 	constants = game_constants();
 	angle = pov + constants.fov_delta_start;
-	clear_pixels(get_miniview());
 	clear_pixels(get_render());
+	clear_pixels(get_miniview());
 	clear_pixels(get_shadow());
 	while (iter++ < WINDOW_SIZE)
 	{

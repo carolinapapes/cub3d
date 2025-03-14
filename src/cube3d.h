@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 15:16:27 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 16:03:32 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@
 # define HEX_PURPLE 0xFF00FFFF
 # define HEX_CEILING 0x555555FF
 # define HEX_FLOOR 0xBBBBBBFF
+# define HEX_YELLOW 0xFFFF0010
 
 # ifndef M_PI
 #  define M_PI 3.14159265358979323846

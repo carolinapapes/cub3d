@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 15:12:49 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 15:50:49 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ t_start	*get_start(void)
 void	cub3d_init(void)
 {
 	set_background();
+	set_render();
 	set_minimap();
 	set_minimap_pos(game_constants().zero);
-	set_render();
 	loop_window(cub3d_hook);
 }
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
+#    By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/03/14 15:44:15 by capapes          ###   ########.fr        #
+#    Updated: 2025/03/14 16:09:24 by kkoval           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,7 +107,7 @@ GREEN = \033[0;92m
 # Source files and objects
 MAIN_SRC = 	main.c
 MAIN_OBJ = $(patsubst %.c, $(OBJDIR)/%.o, $(MAIN_SRC))
-DEP_FILES = $(MAIN_OBJ:.o=.d)
+DEP_FILES = $(MAIN_OBJ:.o=.d) $(DIRS_OBJ_FILES:.o=.d)
 
 # OBJECT FILES
 OBJ_FILES = $(MAIN_OBJ) $(DIRS_OBJ_FILES)
@@ -120,15 +120,15 @@ $(NAME): $(OBJ_FILES)
 	@$(CC) $(CFLAGS) $(INC) -o $@ $^ $(MLX_FLAGS) $(LIBFT_FLAGS)
 	@echo "$(GREEN)📚completed		$(NAME)$(DEF_COLOR)"
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
+$(OBJDIR)/%.o: $(SRCDIR)/%.c Makefile
 	@mkdir -p $(dir $@)
 	@$(CC) -MT $@ -MMD -MP $(CFLAGS) $(INC) -c $< -o $@
 	@echo "$(GRAY)⏳compiling		$<$(DEF_COLOR)" 
 
 define compile_rule
-$(OBJDIR)/$1/%.o: $(SRCDIR)/$1/%.c
+$(OBJDIR)/$1/%.o: $(SRCDIR)/$1/%.c Makefile
 	@mkdir -p $$(dir $$@)
-	@$(CC) $(FLAGS) $(INC) -c $$< -o $$@
+	@$(CC) -MT $$@ -MMD -MP  $(FLAGS) $(INC) -c $$< -o $$@
 	@echo "$(GRAY)⏳compiling $1	$$<$(DEF_COLOR)"
 endef
 

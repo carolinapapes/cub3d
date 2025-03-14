@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_minimap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 12:47:31 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 13:15:34 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 15:54:59 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,6 @@ void	draw_tile(t_vector coord)
 	{
 		height = -1;
 		while (height++ < GRID_SIZE)
-			mlx_put_pixel(view, coord.x + width, coord.y + height, HEX_WALL);
+			mlx_put_pixel(view, coord.x + width, coord.y + height, HEX_WALL - 0x60606060);
 	}
 }
