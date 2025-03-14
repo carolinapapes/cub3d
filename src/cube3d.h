@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/13 20:48:32 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 05:03:45 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -376,4 +376,6 @@ void					update_render(void);
 void					set_player_pos(t_vector delta);
 void					set_player_pov(double delta);
 t_vector				vector_sum(t_vector a, t_vector b);
+t_vector				get_player_side(int axis, int dir);
+double					check_collition_in_axis(double delta, int axis);
 #endif

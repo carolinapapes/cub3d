@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 16:29:31 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/13 20:23:15 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 05:10:14 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ t_texture	*get_texture(void)
 	return (&texture);
 }
 
-mlx_texture_t	*get_ongoing_texture(int axis, int quadrant)
+void	set_ongoing_wall_texture(int axis, int quadrant)
 {
-	t_constants	constants;
-	int			res;
+	mlx_texture_t	*ongoing;
+	t_texture		*texture;
+	t_constants		constants;
+	int				res;
 
+	texture = get_texture();
 	constants = game_constants();
 	if (axis == X && quadrant < 0)
 		res = NORTH_TEXTURE;
@@ -33,17 +36,7 @@ mlx_texture_t	*get_ongoing_texture(int axis, int quadrant)
 		res = EAST_TEXTURE;
 	else
 		res = WEST_TEXTURE;
-	return (constants.textures[res]);
-}
-
-void	set_ongoing_wall_texture(int axis, int quadrant)
-{
-	mlx_texture_t	*ongoing;
-	t_texture		*texture;
-
-	texture = get_texture();
-	ongoing = get_ongoing_texture(axis, quadrant);
-	texture->image = ongoing;
+	texture->image = constants.textures[res];
 }
 
 void	set_texture_x(double grid_intersection, double direction)
@@ -89,13 +82,4 @@ uint32_t	get_texture_color(void)
 	px_index *= texture->image->bytes_per_pixel;
 	color = get_pixel(texture->image->pixels, px_index);
 	return (color);
-}
-
-t_vector	vector_sum(t_vector a, t_vector b)
-{
-	t_vector res;
-
-	res.x = a.x + b.x;
-	res.y = a.y + b.y;
-	return (res);
 }

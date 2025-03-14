@@ -6,7 +6,7 @@
 #    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/03/13 14:14:38 by capapes          ###   ########.fr        #
+#    Updated: 2025/03/14 12:10:04 by capapes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,13 +49,18 @@ endif
 NAME = main
 
 PARSER = colour.c
+
 CUB3D_TO_MLX = 	image.c \
 				pixels.c \
 				window.c
 
 GAME_IMAGES = 	render.c  \
 				minimap.c \
-				miniplayer.c \
+				miniplayer.c
+
+PLAYER = 	moves.c \
+			collitions.c \
+			player.c
 
 DIRS =	parser \
 		cub3d_to_mlx \
@@ -73,8 +78,7 @@ ORANGE = \033[0;31m
 GREEN = \033[0;92m
 
 # Source files and objects
-MAIN_SRC = \
-			_minimap.c \
+MAIN_SRC = 	_minimap.c \
 			_r_draw_minimap_utils.c \
 			file_handler.c \
 			free_struct.c \
@@ -89,8 +93,6 @@ MAIN_SRC = \
 			r_draw_utils.c \
 			r_map_checkers.c \
 			r_mlx_handler.c \
-			r_moves.c \
-			r_player.c \
 			r_ray_distance.c \
 			r_ray.c \
 			r_texture.c \
