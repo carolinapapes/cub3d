@@ -6,7 +6,7 @@
 #    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/03/14 12:10:04 by capapes          ###   ########.fr        #
+#    Updated: 2025/03/14 12:28:09 by capapes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,8 @@ PLAYER = 	moves.c \
 
 DIRS =	parser \
 		cub3d_to_mlx \
-		game_images
+		game_images \
+		player
 
 # AUTOMATICALLY GENERATE OBJECT FILES FOR DIRS
 DIRS_OBJ_FILES = $(foreach directory,$(DIRS), \
@@ -95,8 +96,9 @@ MAIN_SRC = 	_minimap.c \
 			r_mlx_handler.c \
 			r_ray_distance.c \
 			r_ray.c \
-			r_texture.c \
-			r_trigonometry.c
+			texture.c \
+			trigonometry.c \
+			utils.c
 MAIN_OBJ = $(patsubst %.c, $(OBJDIR)/%.o, $(MAIN_SRC))
 DEP_FILES = $(MAIN_OBJ:.o=.d)
 

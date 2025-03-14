@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:31:42 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/13 20:36:09 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 12:27:38 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	draw_point(t_vector point, int color)
 	mlx_image_t	*aux;
 
 	aux = get_miniview();
-	if (point.x < 0 || point.x >= WINDOW_SIZE || point.y < 0 || point.y >= WINDOW_SIZE)
+	if (point.x < 0 || point.x >= WINDOW_SIZE || point.y < 0
+		|| point.y >= WINDOW_SIZE)
 		return ;
 	width = 5;
 	while (width-- > -5)
@@ -37,7 +38,6 @@ void	draw_point(t_vector point, int color)
 	}
 }
 
-// TODO: check if mlx add pixel is needed
 void	draw_line(t_vector origin, t_vector direction, int len, int color)
 {
 	t_vector	pixel;
@@ -51,7 +51,8 @@ void	draw_line(t_vector origin, t_vector direction, int len, int color)
 	{
 		pixel.x = origin.x + direction.x * len;
 		pixel.y = origin.y + direction.y * len;
-		if (pixel.x < 0 || pixel.x >= WINDOW_SIZE || pixel.y < 0 || pixel.y >= WINDOW_SIZE)
+		if (pixel.x < 0 || pixel.x >= WINDOW_SIZE || pixel.y < 0
+			|| pixel.y >= WINDOW_SIZE)
 			continue ;
 		set_pixel(image, pixel, color);
 	}
@@ -77,15 +78,16 @@ void	draw_line_render(t_vector origin, int len)
 	mlx_image_t		*image;
 	mlx_image_t		*shadow;
 	t_color			shadow_color;
+	double			step;
 
 	image = get_render();
 	shadow = get_shadow();
 	shadow_color = get_shadow_color(len);
-	set_texture_step_y(len);
+	step = (double)get_texture()->image->height / len;
 	while (len--)
 	{
 		origin.y++;
-		if (add_to_texture_origin_y())
+		if (set_texture_y(step))
 			continue ;
 		if (origin.x < 0 || origin.x >= WINDOW_SIZE
 			|| origin.y < 0 || origin.y >= WINDOW_SIZE)
@@ -95,7 +97,6 @@ void	draw_line_render(t_vector origin, int len)
 	}
 }
 
-// wall_start_x : x position in the render where the wall starts
 void	draw_render(double distance, int window_x)
 {
 	int				strip_height;

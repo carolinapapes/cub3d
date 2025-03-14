@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   r_texture.c                                        :+:      :+:    :+:   */
+/*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 16:29:31 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 05:10:14 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 12:26:26 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@ t_texture	*get_texture(void)
 	return (&texture);
 }
 
-void	set_ongoing_wall_texture(int axis, int quadrant)
+void	set_texture_image(int axis, int quadrant)
 {
-	mlx_texture_t	*ongoing;
 	t_texture		*texture;
 	t_constants		constants;
 	int				res;
@@ -52,20 +51,12 @@ void	set_texture_x(double grid_intersection, double direction)
 	texture->origin.x = x_percentage * texture->image->width;
 }
 
-void	set_texture_step_y(double distance)
+int	set_texture_y(double step)
 {
 	t_texture	*texture;
 
 	texture = get_texture();
-	texture->step.y = (double)texture->image->height / distance;
-}
-
-int	add_to_texture_origin_y(void)
-{
-	t_texture	*texture;
-
-	texture = get_texture();
-	texture->origin.y += texture->step.y;
+	texture->origin.y += step;
 	return (texture->origin.y < 0
 		|| texture->origin.y >= texture->image->height);
 }

@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 05:03:45 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 12:26:25 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ typedef union u_coord
 typedef struct s_texture
 {
 	t_vector			pixel;
-	t_vector			step;
 	t_vector			origin;
 	uint32_t			color;
 	int					ongoing;
@@ -322,16 +321,16 @@ double					get_hypot(t_vector a, t_vector b);
 double					get_side_len(t_vector a1, t_vector a2, t_vector tan,
 							t_axis axis);
 double					radian_overflow(double angle);
-// t_texture				get_texture(void);
+t_texture				*get_texture(void);
 uint32_t				get_texture_color(void);
 void					set_texture_x(double x_percentage, double direction);
 
 void					clean_exit(int flags);
 // r_texture.c
-void					set_ongoing_wall_texture(int axis, int quadrant);
+void					set_texture_image(int axis, int quadrant);
 // void					toggle_minimap(void);
-int						add_to_texture_origin_y(void);
-void					set_texture_step_y(double distance);
+int						set_texture_y(double step);
+// void					set_texture_step_y(double distance);
 double					tends_to_zero(double x);
 void					loop_window(void (*f)(void *));
 
