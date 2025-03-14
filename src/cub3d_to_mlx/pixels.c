@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:57:39 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/13 13:15:43 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 15:19:37 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	set_pixels(mlx_image_t *image, int32_t color)
 {
-	memset(image->pixels, color, image->width * image->height
+	ft_memset(image->pixels, color, image->width * image->height
 		* sizeof(int32_t));
 }
 

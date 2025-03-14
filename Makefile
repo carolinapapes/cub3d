@@ -6,7 +6,7 @@
 #    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/03/14 15:11:31 by capapes          ###   ########.fr        #
+#    Updated: 2025/03/14 15:14:41 by capapes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ endif
 NAME = main
 
 PARSER = 		colour.c \
+				colour_utils.c \
 				file_handler.c \
 				free_struct.c \
 				initializer.c \
