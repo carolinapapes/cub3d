@@ -6,11 +6,32 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 17:13:18 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/12 16:22:20 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/14 14:08:04 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
+
+int	get_map_value(char c, int x, int y)
+{
+	t_start	*start;
+
+	start = get_start();
+	if (c == '1')
+		return (1);
+	if (c == '0')
+		return (0);
+	if (c == ' ')
+		return (3);
+	if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
+	{
+		start->player_dir = c;
+		start->player_pos.x = x;
+		start->player_pos.y = y;
+		return (0);
+	}
+	return (-2);
+}
 
 int	check_for_newlines_in_map(char *map)
 {

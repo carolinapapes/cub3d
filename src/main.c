@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 15:02:58 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 15:12:49 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,6 @@ t_start	*get_start(void)
 	static t_start	start;
 
 	return (&start);
-}
-
-void	initialize_start(t_start **start)
-{
-	(*start)->n_fd = NULL;
-	(*start)->s_fd = NULL;
-	(*start)->w_fd = NULL;
-	(*start)->e_fd = NULL;
-	(*start)->map.map = NULL;
-	(*start)->map.map_int = NULL;
-	(*start)->ceiling.repeated = -1;
-	(*start)->floor.repeated = -1;
 }
 
 void	cub3d_init(void)
@@ -48,7 +36,6 @@ int	main(int argc, char **argv)
 	start = get_start();
 	if (!start || argc != 2)
 		return (1);
-	initialize_start(&start);
 	if (parser_controler(argv[1], start) == 1)
 	{
 		printf("parser dio caca\n");

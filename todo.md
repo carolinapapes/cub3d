@@ -1,7 +1,20 @@
-files that have more than 5 functions or need changes
+# Parser (he dejado algun print, asi si mañana algo falla para saber en que parte)
+1. en color solo acepta numeros de 3 digitos max, no acepta negativos, '+' es acceptable pero sin repetir (++ no), no pueden haber dos floors o dos ceiling. Tampoco accepta que uno este vacio. 
+Numeros solo en rango de 0 - 255. se pueden poner espacios entre los elementos y comas 
+pero no aceptara informacion pegada como F45 o F 10,60,70. Requiere dos comas como en el ejemplo. (Aceptable:     F    78   , 60, 90     etc..) 
+
+2. Mapa: no aceptara nada fuera de caracteres 0 1 espacios y
+solo una letra, los spaces ' ' son aceptables en el mapa mietras no interactuan 
+con el espacio del jugador, el mapa es el ultima informacion, cuando acaba no puede haber nada más aparte de \n. Dentro del mapa no pueden haber \n
+
+3. Enters: he considerado que linea vacias son solo \n (no acepta espacios en esas lineas)
+
+4. Ficheros: mira la extension, que se puedan abrir, que no sean directorios, si hay permisos (tanto .cub como los pngs). Los path de textura no se pueden repetir ni tampoco puede faltar una path. Pueden haber separaciones por los espacios.
+
+Kate (cosas que tengo que arreglar para norminette)
+[] files that have more than 5 functions or need changes
 -color.c 
--initializer - 5 arg function :(
--
+-initializer
 
 # Parser
 

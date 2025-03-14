@@ -6,11 +6,11 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 21:31:53 by kate              #+#    #+#             */
-/*   Updated: 2025/03/12 16:00:11 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/14 14:07:53 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 int	map_x_size(char **map)
 {
@@ -56,32 +56,14 @@ int	map_y_size(char **map)
 	return (size);
 }
 
-int	get_map_value(char c, t_start *start, int x, int y)
-{
-	if (c == '1')
-		return (1);
-	if (c == '0')
-		return (0);
-	if (c == ' ')
-		return (3);
-	if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
-	{
-		start->player_dir = c;
-		start->player_pos.x = x;
-		start->player_pos.y = y;
-		return (0);
-	}
-	return (-2);
-}
-
-void	fill_map_row(int *map_row, char *map_line, int size_x, t_start *start, int y)
+void	fill_map_row(int *map_row, char *map_line, int size_x, int y)
 {
 	int	x;
 
 	x = 0;
 	while (map_line[x] != '\0' && x < size_x)
 	{
-		map_row[x] = get_map_value(map_line[x], start, x, y);
+		map_row[x] = get_map_value(map_line[x], x, y);
 		x++;
 	}
 	while (x < size_x)
@@ -91,7 +73,7 @@ void	fill_map_row(int *map_row, char *map_line, int size_x, t_start *start, int 
 	}
 }
 
-int	**char_to_int(char **map, int size_x, int size_y, t_start *start)
+int	**char_to_int(char **map, int size_x, int size_y)
 {
 	int	**map_arr;
 	int	y;
@@ -110,7 +92,7 @@ int	**char_to_int(char **map, int size_x, int size_y, t_start *start)
 			free(map_arr);
 			return (NULL);
 		}
-		fill_map_row(map_arr[y], map[y], size_x, start, y);
+		fill_map_row(map_arr[y], map[y], size_x, y);
 		y++;
 	}
 	return (map_arr);
@@ -127,10 +109,11 @@ int	start_map(t_start *start, char **map)
 		return (1);
 	start->map.size_int.x = size_x;
 	start->map.size_int.y = size_y;
-	start->map.map_int = char_to_int(map, size_x, size_y, start);
+	start->map.map_int = char_to_int(map, size_x, size_y);
 	if (start->map.map_int == NULL)
 		return (1);
-	fill_flood(start->map.map_int, start->player_pos.x, start->player_pos.y, start->map.size_int);
+	fill_flood(start->map.map_int, start->player_pos.x, \
+		start->player_pos.y, start->map.size_int);
 	if (check_fill_flood(start) == 1)
 		return (1);
 	return (0);

@@ -6,7 +6,7 @@
 #    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/03/14 15:04:36 by capapes          ###   ########.fr        #
+#    Updated: 2025/03/14 15:11:31 by capapes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,16 @@ endif
 # NAME executable
 NAME = main
 
-PARSER = colour.c
+PARSER = 		colour.c \
+				file_handler.c \
+				free_struct.c \
+				initializer.c \
+				parser_map.c \
+				parser_map2.c \
+				parser_map3.c \
+				parser_utils.c \
+				parser.c \
+				path.c 
 
 CUB3D_TO_MLX = 	image.c \
 				pixels.c \
@@ -95,16 +104,7 @@ ORANGE = \033[0;31m
 GREEN = \033[0;92m
 
 # Source files and objects
-MAIN_SRC = 	file_handler.c \
-			free_struct.c \
-			initializer.c \
-			main.c \
-			parser_map.c \
-			parser_map2.c \
-			parser_map3.c \
-			parser_utils.c \
-			parser.c \
-			path.c 
+MAIN_SRC = 	main.c
 MAIN_OBJ = $(patsubst %.c, $(OBJDIR)/%.o, $(MAIN_SRC))
 DEP_FILES = $(MAIN_OBJ:.o=.d)
 

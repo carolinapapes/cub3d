@@ -6,16 +6,18 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:46:15 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/12 16:59:58 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/14 14:09:42 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 int	parse_map(char *line, char ***map)
 {
 	char	*map_start;
+	int		y;
 
+	y = 0;
 	map_start = find_first_map_line(line);
 	if (map_start == NULL || check_map(map_start) == 1)
 		return (1);
@@ -27,6 +29,15 @@ int	parse_map(char *line, char ***map)
 		free_char_array(map);
 		return (1);
 	}
+	while ((*map)[y] != NULL)
+	{
+		if (line_in_map((*map)[y], ft_strlen((*map)[y])) == 1)
+		{
+			free_char_array(map);
+			return (1);
+		}
+		y++;
+	}
 	return (0);
 }
 
@@ -35,7 +46,7 @@ int	check_variables(t_start *start)
 	if (start->n_fd == NULL || start->s_fd == NULL || start->e_fd == NULL \
 		|| start->w_fd == NULL )
 		return (1);
-	if (start->ceiling.repeated == 1 || start->floor.repeated == -1)
+	if (start->c_repeated != 0 || start->f_repeated != 0)
 		return (1);
 	printf("no ha habido problemas en var check\n"); //delete later
 	return (0);
@@ -90,17 +101,24 @@ int	parser_controler(char *file, t_start *start)
 	char	**map;
 	char	**elements;
 
-	map = NULL;
 	line = NULL;
+	map = NULL;
 	elements = NULL;
+	start->c_repeated = -1;
+	start->f_repeated = -1;
 	line = extract_content(file);
 	if (line == NULL)
 		return (1);
 	if (parse_map(line, &map) == 1)
+	{
+		printf("mapa no ha pasado\n"); //delete
 		return (free_parser(line, map, elements));
+	}
 	if (parse_elements(line, &elements, start) == 1)
+	{
+		printf("no he pasado los elements\n"); //delete
 		return (free_parser(line, map, elements));
-	printf("he pasado check_elements\n"); //delete later
+	}
 	if (start_map(start, map) == 1)
 		return (free_parser(line, map, elements));
 	printf("he pasado start_map\n"); //delete later

@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 15:04:23 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 15:07:47 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ typedef union u_color
 		unsigned char	b;
 		unsigned char	g;
 		unsigned char	r;
-		int				repeated;
 	};
 	unsigned int		rgba;
 }						t_color;
@@ -150,6 +149,8 @@ typedef struct s_start
 	char				*e_fd;
 	t_color				floor;
 	t_color				ceiling;
+	int					f_repeated;
+	int					c_repeated;
 	t_map				map;
 	t_vector			player;
 	int					player_dir;
@@ -213,12 +214,10 @@ typedef enum e_image_type
 // ----------------------------[PARSER]----------------------------
 int						parser_controler(char *file, t_start *start);
 int						ft_split_count(char **split);
-void					ft_split_free(char **split);
 int						check_map(char *file_contents);
 char					*find_first_map_line(char *input);
 int						parse_map(char *line, char ***map);
-int						parse_elements(char *line, char ***elements,
-							t_start *start);
+int						parse_elements(char *line, char ***elements, t_start *start);
 int						check_empty_lines_in_map(char **file);
 char					*free_line(char **line);
 void					free_start(t_start *start);
@@ -250,6 +249,10 @@ void					fill_flood(int **arr, int x, int y, t_int_pair size);
 
 int						free_parser(char *line, char **map, char **elements);
 
+int get_next_value(char *line, int *i, unsigned char *pigment, int expect_comma);
+int extract_last_value(char *line, int *index, unsigned char *pigment);
+int check_pigment(char *line, int line_len, unsigned char *pigment);
+int	get_map_value(char c, int x, int y);
 // ----------------------------[RENDER]----------------------------
 
 // _aux_images.c

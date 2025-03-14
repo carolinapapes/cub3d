@@ -6,11 +6,11 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:27:42 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/12 16:40:36 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/12 20:30:47 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 int	ft_ispace(char c)
 {
