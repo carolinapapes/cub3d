@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   r_moves.c                                          :+:      :+:    :+:   */
+/*   moves.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:50:40 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 05:02:22 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 13:15:27 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 t_vector	get_player_side(int axis, int dir)
 {
@@ -49,13 +49,13 @@ void	move(int axis, int dir)
 		|| (delta.y != 0 && quadrant.x == 0))
 	{
 		set_player_pos(delta);
-		update_render();
-		update_minimap_pos(delta);
+		set_render();
+		set_minimap_pos(delta);
 	}
 }
 
 void	rotate(int dir)
 {
 	set_player_pov(dir);
-	update_render();
+	set_render();
 }

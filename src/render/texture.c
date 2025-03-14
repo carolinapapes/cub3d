@@ -6,11 +6,11 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 16:29:31 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 12:26:26 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 14:20:14 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 t_texture	*get_texture(void)
 {
@@ -38,7 +38,7 @@ void	set_texture_image(int axis, int quadrant)
 	texture->image = constants.textures[res];
 }
 
-void	set_texture_x(double grid_intersection, double direction)
+void	set_texture_x(double grid_intersection, double direction, int axis)
 {
 	double		x_percentage;
 	t_texture	*texture;
@@ -46,7 +46,7 @@ void	set_texture_x(double grid_intersection, double direction)
 	x_percentage = fmod(grid_intersection, GRID_SIZE) / GRID_SIZE;
 	texture = get_texture();
 	texture->origin.y = 0;
-	if (direction == POSITIVE)
+	if (axis == X && direction == NEGATIVE)
 		x_percentage = 1 - x_percentage;
 	texture->origin.x = x_percentage * texture->image->width;
 }

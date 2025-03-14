@@ -6,11 +6,11 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 04:57:08 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 05:01:52 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 13:15:17 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 static int	hits_wall(t_vector pos)
 {

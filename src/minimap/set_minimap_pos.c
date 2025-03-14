@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _minimap.c                                         :+:      :+:    :+:   */
+/*   set_minimap_pos.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:00:50 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/13 19:48:12 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 13:15:48 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
-void	update_mlx_miniplayer_pos(t_vector position, int axis)
+static void	set_miniplayer_mlx_pos(t_vector position, int axis)
 {
 	mlx_image_t	*mlx_player;
 
@@ -23,7 +23,7 @@ void	update_mlx_miniplayer_pos(t_vector position, int axis)
 		mlx_player->instances[0].x = position.x;
 }
 
-void	update_mlx_minimap_position(t_vector pos_delta, int axis)
+static void	set_minimap_mlx_pos(t_vector pos_delta, int axis)
 {
 	mlx_image_t	*mlx_aux;
 
@@ -38,12 +38,12 @@ void	update_minimap_axis(t_vector constants, t_vector position,
 	t_vector position_delta, int axis)
 {
 	if (position.arr[axis] <= constants.arr[axis])
-		update_mlx_miniplayer_pos(position, axis);
+		set_miniplayer_mlx_pos(position, axis);
 	else
-		update_mlx_minimap_position(position_delta, axis);
+		set_minimap_mlx_pos(position_delta, axis);
 }
 
-void	update_minimap_pos(t_vector delta)
+void	set_minimap_pos(t_vector delta)
 {
 	t_vector	constants;
 	t_vector	position;

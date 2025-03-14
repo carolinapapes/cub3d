@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   r_map_checkers.c                                   :+:      :+:    :+:   */
+/*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 22:26:00 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/01 11:37:43 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 13:16:18 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 int	get_cell_content(t_vector coord)
 {
@@ -25,7 +25,7 @@ int	get_cell_content(t_vector coord)
 	return (content);
 }
 
-int	is_axis_wall(t_vector cell, t_axis axis, t_vector_full ray)
+int	is_grid_next_to_wall(t_vector cell, t_axis axis, t_vector_full ray)
 {
 	cell.x = cell.x / GRID_SIZE;
 	cell.y = cell.y / GRID_SIZE;

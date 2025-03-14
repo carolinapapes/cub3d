@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   r_ray.c                                            :+:      :+:    :+:   */
+/*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 14:21:30 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 12:26:25 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 14:19:15 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 static t_vector_full	init_ray(t_vector origin, double angle)
 {
@@ -50,11 +50,11 @@ void	draw_ray(t_vector_full ray, double angle, double iter)
 {
 	if (!ray.distance)
 		return ;
-	draw_intersect(ray, HEX_GREY - 0x20202020);
+	draw_miniray(ray, HEX_GREY - 0x20202020);
 	if (angle != 0)
 		ray.distance *= cos(angle);
 	set_texture_image(!ray.axis, ray.quadrant.arr[ray.axis]);
-	set_texture_x(ray.end.arr[!ray.axis], ray.quadrant.arr[ray.axis]);
+	set_texture_x(ray.end.arr[!ray.axis], ray.quadrant.arr[ray.axis], ray.axis);
 	draw_render(ray.distance, iter);
 }
 

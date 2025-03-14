@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   r_ray_distance.c                                   :+:      :+:    :+:   */
+/*   ray_2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 16:40:59 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/04 15:54:35 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 13:27:12 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_vector_full	get_ray_intersection(t_vector_full ray, int axis)
 	if (ray.quadrant.arr[!axis] == 0)
 		return (ray);
 	ray.end = next_grid(ray, axis);
-	type = is_axis_wall(ray.end, axis, ray);
+	type = is_grid_next_to_wall(ray.end, axis, ray);
 	if (type == OUTSIDE)
 		return (ray);
 	if (type != WALL)

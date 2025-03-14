@@ -6,7 +6,7 @@
 #    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/03/14 12:28:09 by capapes          ###   ########.fr        #
+#    Updated: 2025/03/14 14:07:06 by capapes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,18 +54,34 @@ CUB3D_TO_MLX = 	image.c \
 				pixels.c \
 				window.c
 
-GAME_IMAGES = 	render.c  \
+EVENTS = 		collitions.c \
+				moves.c \
+				events_handler.c
+
+MINIMAP = 		draw_minimap.c \
 				minimap.c \
-				miniplayer.c
+				miniplayer.c \
+				set_minimap_pos.c
 
-PLAYER = 	moves.c \
-			collitions.c \
-			player.c
+RENDER = 		draw_render.c \
+				player.c \
+				ray.c \
+				ray_2.c \
+				render.c \
+				texture.c
 
-DIRS =	parser \
-		cub3d_to_mlx \
-		game_images \
-		player
+HELPERS = 		utils.c \
+				map_utils.c \
+				trigonometry.c \
+				vector_operations.c \
+				game_constants.c
+
+DIRS =			parser \
+				helpers \
+				cub3d_to_mlx \
+				events \
+				minimap \
+				render
 
 # AUTOMATICALLY GENERATE OBJECT FILES FOR DIRS
 DIRS_OBJ_FILES = $(foreach directory,$(DIRS), \
@@ -79,9 +95,7 @@ ORANGE = \033[0;31m
 GREEN = \033[0;92m
 
 # Source files and objects
-MAIN_SRC = 	_minimap.c \
-			_r_draw_minimap_utils.c \
-			file_handler.c \
+MAIN_SRC = 	file_handler.c \
 			free_struct.c \
 			initializer.c \
 			main.c \
@@ -90,15 +104,7 @@ MAIN_SRC = 	_minimap.c \
 			parser_map3.c \
 			parser_utils.c \
 			parser.c \
-			path.c \
-			r_draw_utils.c \
-			r_map_checkers.c \
-			r_mlx_handler.c \
-			r_ray_distance.c \
-			r_ray.c \
-			texture.c \
-			trigonometry.c \
-			utils.c
+			path.c 
 MAIN_OBJ = $(patsubst %.c, $(OBJDIR)/%.o, $(MAIN_SRC))
 DEP_FILES = $(MAIN_OBJ:.o=.d)
 

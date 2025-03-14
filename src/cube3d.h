@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 12:26:25 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 14:19:44 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,15 +265,15 @@ mlx_image_t				*get_miniview(void);
 void					pov_iter(t_vector origin, double angle_fov);
 
 // _minimap.c
-void					update_mlx_miniplayer_pos(t_vector pos_delta, int axis);
+void					update_mlx_miniplayer(t_vector pos_delta, int axis);
 int						get_cell_content(t_vector coord);
-int						is_axis_wall(t_vector coord, t_axis axis,
+int						is_grid_next_to_wall(t_vector coord, t_axis axis,
 							t_vector_full ray);
 // void					set_minimap_pixel(t_vector coord);
 void					set_pixel(mlx_image_t *image, t_vector pixel,
 							uint32_t color);
-void					update_mlx_miniplayer_pos(t_vector pos_delta, int axis);
-void					update_minimap_pos(t_vector delta);
+void					update_mlx_miniplayer(t_vector pos_delta, int axis);
+void					set_minimap_pos(t_vector delta);
 // void					init_minimap(void);
 // void					set_textures(void);
 
@@ -281,15 +281,15 @@ void					update_minimap_pos(t_vector delta);
 // void					init_player(void);
 
 // _r_draw_minimap_utils.c
-void					draw_intersect(t_vector_full vector, int color);
-void					coordinate_paint(int x, int y);
+void					draw_miniray(t_vector_full vector, int color);
+void					draw_tile(t_vector coord);
 // main.c
 t_constants				game_constants(void);
 t_start					*get_start(void);
 
 // r_draw_utils.c
-void					draw_point(t_vector point, int color);
-void					draw_line(t_vector origin, t_vector direction, int len,
+void					draw_minipoint(t_vector point, int color);
+void					draw_miniline(t_vector origin, t_vector direction, int len,
 							int color);
 void					draw_render(double distance, int iter);
 
@@ -323,7 +323,7 @@ double					get_side_len(t_vector a1, t_vector a2, t_vector tan,
 double					radian_overflow(double angle);
 t_texture				*get_texture(void);
 uint32_t				get_texture_color(void);
-void					set_texture_x(double x_percentage, double direction);
+void					set_texture_x(double x_percentage, double direction, int axis);
 
 void					clean_exit(int flags);
 // r_texture.c
@@ -371,10 +371,13 @@ mlx_image_t				*get_miniview(void);
 
 // ----------------------------[DELETE BEFORE SUBMIT]---------------
 void					set_timeout(void (*fn)(void), int delay);
-void					update_render(void);
+void					set_render(void);
 void					set_player_pos(t_vector delta);
 void					set_player_pov(double delta);
 t_vector				vector_sum(t_vector a, t_vector b);
 t_vector				get_player_side(int axis, int dir);
 double					check_collition_in_axis(double delta, int axis);
+t_vector				rectangle_vector(double a);
+t_vector				set_components(double a, double b);
+t_constants				game_constants(void);
 #endif

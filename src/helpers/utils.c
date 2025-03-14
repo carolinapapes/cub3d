@@ -6,11 +6,11 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 05:12:00 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 05:12:37 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 13:16:29 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 void	set_timeout(void (*fn)(void), int delay)
 {

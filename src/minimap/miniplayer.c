@@ -6,11 +6,11 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:57:55 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/13 14:13:54 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 13:15:44 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 static mlx_image_t	*init_miniplayer(void)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 static void	cub3d_hook(void *param)
 {
@@ -39,7 +39,7 @@ void	cub3d_init(void)
 {
 	set_background();
 	set_minimap();
-	update_minimap_pos(game_constants().zero);
-	update_render();
+	set_minimap_pos(game_constants().zero);
+	set_render();
 	loop_window(cub3d_hook);
 }

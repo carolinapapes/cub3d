@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   r_player.c                                         :+:      :+:    :+:   */
+/*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/13 20:49:42 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 13:16:00 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 t_player	init_player(void)
 {
@@ -51,7 +51,7 @@ void	set_player_pov(double dir)
 	player->pov = radian_overflow(player->pov);
 }
 
-void	update_render(void)
+void	set_render(void)
 {
 	t_player	*player;
 

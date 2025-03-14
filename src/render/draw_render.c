@@ -1,62 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   r_draw_utils.c                                     :+:      :+:    :+:   */
+/*   draw_render.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:31:42 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 12:27:38 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 13:15:56 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
-
-void	draw_point(t_vector point, int color)
-{
-	int			width;
-	int			height;
-	int			x;
-	int			y;
-	mlx_image_t	*aux;
-
-	aux = get_miniview();
-	if (point.x < 0 || point.x >= WINDOW_SIZE || point.y < 0
-		|| point.y >= WINDOW_SIZE)
-		return ;
-	width = 5;
-	while (width-- > -5)
-	{
-		height = 5;
-		while (height-- > -5)
-		{
-			x = point.x + width;
-			y = point.y + height;
-			if (x >= 0 && x < WINDOW_SIZE && y >= 0 && y < WINDOW_SIZE)
-				mlx_put_pixel(aux, x, y, color);
-		}
-	}
-}
-
-void	draw_line(t_vector origin, t_vector direction, int len, int color)
-{
-	t_vector	pixel;
-	mlx_image_t	*image;
-
-	image = get_miniview();
-	len = abs(len);
-	if (len < 0)
-		return ;
-	while (len--)
-	{
-		pixel.x = origin.x + direction.x * len;
-		pixel.y = origin.y + direction.y * len;
-		if (pixel.x < 0 || pixel.x >= WINDOW_SIZE || pixel.y < 0
-			|| pixel.y >= WINDOW_SIZE)
-			continue ;
-		set_pixel(image, pixel, color);
-	}
-}
+#include "../cube3d.h"
 
 t_color	get_shadow_color(double distance)
 {

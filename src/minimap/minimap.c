@@ -6,11 +6,11 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 16:56:22 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/13 14:47:23 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 13:15:39 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 static mlx_image_t	*init_minimap(void)
 {
@@ -44,7 +44,7 @@ static void	set_minimap_px(t_vector coord)
 		mlx_put_pixel(image, (uint32_t)coord.x * GRID_SIZE, (uint32_t)coord.y
 			* GRID_SIZE, HEX_GRID);
 	if (content == WALL)
-		coordinate_paint((int)coord.x, (int)coord.y);
+		draw_tile(coord);
 }
 
 void	set_minimap(void)
