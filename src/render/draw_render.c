@@ -6,13 +6,13 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:31:42 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 13:15:56 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 14:49:30 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube3d.h"
 
-t_color	get_shadow_color(double distance)
+static t_color	get_shadow_color(double distance)
 {
 	t_color	shadow_color;
 	double	shadow_tint;
@@ -27,7 +27,7 @@ t_color	get_shadow_color(double distance)
 	return (shadow_color);
 }
 
-void	draw_line_render(t_vector origin, int len)
+static void	draw_line_render(t_vector origin, int len)
 {
 	mlx_image_t		*image;
 	mlx_image_t		*shadow;

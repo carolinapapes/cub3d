@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 16:00:50 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 13:15:48 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 14:47:21 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	set_minimap_mlx_pos(t_vector pos_delta, int axis)
 		mlx_aux->instances[0].x -= pos_delta.x;
 }
 
-void	update_minimap_axis(t_vector constants, t_vector position,
+static void	update_minimap_axis(t_vector constants, t_vector position,
 	t_vector position_delta, int axis)
 {
 	if (position.arr[axis] <= constants.arr[axis])

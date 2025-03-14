@@ -6,7 +6,7 @@
 #    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/03/14 14:07:06 by capapes          ###   ########.fr        #
+#    Updated: 2025/03/14 15:04:36 by capapes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ CUB3D_TO_MLX = 	image.c \
 
 EVENTS = 		collitions.c \
 				moves.c \
-				events_handler.c
+				events.c
 
 MINIMAP = 		draw_minimap.c \
 				minimap.c \
@@ -70,11 +70,11 @@ RENDER = 		draw_render.c \
 				render.c \
 				texture.c
 
-HELPERS = 		utils.c \
+HELPERS = 		constants.c \
+				utils.c \
 				map_utils.c \
 				trigonometry.c \
-				vector_operations.c \
-				game_constants.c
+				vector.c
 
 DIRS =			parser \
 				helpers \

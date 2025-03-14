@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_constants.c                                   :+:      :+:    :+:   */
+/*   constants.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:28:50 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 14:24:42 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 14:39:54 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-t_vector	get_initial_pos(t_int_pair initial)
+static t_vector	get_initial_pos(t_int_pair initial)
 {
 	t_vector	pos;
 
@@ -21,7 +21,7 @@ t_vector	get_initial_pos(t_int_pair initial)
 	return (pos);
 }
 
-double	get_initial_pov(int initial)
+static double	get_initial_pov(int initial)
 {
 	double	pov;
 
@@ -36,7 +36,7 @@ double	get_initial_pov(int initial)
 	return (pov);
 }
 
-t_player	player_constants(t_constants *constants)
+static t_player	player_constants(t_constants *constants)
 {
 	t_player	player;
 
@@ -50,7 +50,7 @@ t_player	player_constants(t_constants *constants)
 	return (player);
 }
 
-void	texture_constants(t_constants *constants, t_start *start)
+static void	texture_constants(t_constants *constants, t_start *start)
 {
 	constants->textures[NORTH_TEXTURE] = load_png(start->n_fd);
 	constants->textures[SOUTH_TEXTURE] = load_png(start->s_fd);

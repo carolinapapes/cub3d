@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 14:21:30 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 14:19:15 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 14:55:39 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static t_vector_full	init_ray(t_vector origin, double angle)
 	return (ray);
 }
 
-t_vector_full	get_ray(t_vector_full ray)
+static t_vector_full	get_ray(t_vector_full ray)
 {
 	t_vector_full	ray_x;
 	t_vector_full	ray_y;
@@ -46,7 +46,7 @@ t_vector_full	get_ray(t_vector_full ray)
 	return (ray_y);
 }
 
-void	draw_ray(t_vector_full ray, double angle, double iter)
+static void	draw_ray(t_vector_full ray, double angle, double iter)
 {
 	if (!ray.distance)
 		return ;

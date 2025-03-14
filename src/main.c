@@ -6,44 +6,18 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 13:31:43 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 15:02:58 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 #include <unistd.h>
 
-
-
-void	print_error(void)
-{
-	write(2, "Error\n", 6);
-	return ;
-}
-
 t_start	*get_start(void)
 {
 	static t_start	start;
 
 	return (&start);
-}
-
-void	clean_exit(int flags)
-{
-	mlx_t	*mlx;
-	t_start	*start;
-
-	if (flags & TERMINATE_MLX)
-	{
-		mlx = get_window();
-		mlx_terminate(mlx);
-	}
-	if (flags & FREE_START)
-	{
-		start = get_start();
-		free_start(start);
-	}
-	exit(EXIT_FAILURE);
 }
 
 void	initialize_start(t_start **start)
@@ -56,6 +30,15 @@ void	initialize_start(t_start **start)
 	(*start)->map.map_int = NULL;
 	(*start)->ceiling.repeated = -1;
 	(*start)->floor.repeated = -1;
+}
+
+void	cub3d_init(void)
+{
+	set_background();
+	set_minimap();
+	set_minimap_pos(game_constants().zero);
+	set_render();
+	loop_window(cub3d_hook);
 }
 
 int	main(int argc, char **argv)

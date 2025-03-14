@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 05:12:00 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 13:16:29 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 15:02:03 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,28 @@ void	generic_matrix_iter(t_vector constrains, void fn(t_vector))
 		}
 		coord.y++;
 	}
+}
+
+void	print_error(void)
+{
+	write(2, "Error\n", 6);
+	return ;
+}
+
+void	clean_exit(int flags)
+{
+	mlx_t	*mlx;
+	t_start	*start;
+
+	if (flags & TERMINATE_MLX)
+	{
+		mlx = get_window();
+		mlx_terminate(mlx);
+	}
+	if (flags & FREE_START)
+	{
+		start = get_start();
+		free_start(start);
+	}
+	exit(EXIT_FAILURE);
 }

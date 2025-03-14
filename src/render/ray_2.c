@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 16:40:59 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 13:27:12 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 14:54:57 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static double	snap_to_grid(double origin, int quadrant)
 	return (origin);
 }
 
-t_vector	next_grid(t_vector_full ray, t_axis axis)
+static t_vector	next_grid(t_vector_full ray, t_axis axis)
 {
 	t_vector	next;
 

@@ -6,13 +6,13 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:41:04 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 13:16:00 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 14:52:46 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube3d.h"
 
-t_player	init_player(void)
+static t_player	init_player(void)
 {
 	t_constants	constants;
 

@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 14:19:44 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 15:04:23 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,7 +236,6 @@ int						get_line_length(int fd);
 int						read_file(char *file, char **line);
 char					*extract_content(char *file);
 
-
 //                               INITILIAZER
 int						is_map_character(char c);
 int						start_map(t_start *start, char **map);
@@ -254,26 +253,26 @@ int						free_parser(char *line, char **map, char **elements);
 // ----------------------------[RENDER]----------------------------
 
 // _aux_images.c
-mlx_image_t				*get_miniplayer(void);
-mlx_image_t				*get_miniview(void);
+// mlx_image_t				*get_miniplayer(void);
+// mlx_image_t				*get_miniview(void);
 // mlx_image_t				*get_render(void);
 // mlx_image_t				*get_minimap(void);
 // void					init_background(void);
 // mlx_image_t				*get_shadow(void);
 
 // _bonus_remove_later.c
-void					pov_iter(t_vector origin, double angle_fov);
+// void					pov_iter(t_vector origin, double angle_fov);
 
 // _minimap.c
-void					update_mlx_miniplayer(t_vector pos_delta, int axis);
-int						get_cell_content(t_vector coord);
-int						is_grid_next_to_wall(t_vector coord, t_axis axis,
-							t_vector_full ray);
+// void					update_mlx_miniplayer(t_vector pos_delta, int axis);
+// int						get_cell_content(t_vector coord);
+// int						is_grid_next_to_wall(t_vector coord, t_axis axis,
+// 							t_vector_full ray);
 // void					set_minimap_pixel(t_vector coord);
-void					set_pixel(mlx_image_t *image, t_vector pixel,
-							uint32_t color);
-void					update_mlx_miniplayer(t_vector pos_delta, int axis);
-void					set_minimap_pos(t_vector delta);
+// void					set_pixel(mlx_image_t *image, t_vector pixel,
+// 							uint32_t color);
+// void					update_mlx_miniplayer(t_vector pos_delta, int axis);
+// void					set_minimap_pos(t_vector delta);
 // void					init_minimap(void);
 // void					set_textures(void);
 
@@ -281,103 +280,168 @@ void					set_minimap_pos(t_vector delta);
 // void					init_player(void);
 
 // _r_draw_minimap_utils.c
-void					draw_miniray(t_vector_full vector, int color);
-void					draw_tile(t_vector coord);
+// void					draw_miniray(t_vector_full vector, int color);
+// void					draw_tile(t_vector coord);
 // main.c
-t_constants				game_constants(void);
-t_start					*get_start(void);
+// t_constants				game_constants(void);
+
 
 // r_draw_utils.c
-void					draw_minipoint(t_vector point, int color);
-void					draw_miniline(t_vector origin, t_vector direction, int len,
-							int color);
-void					draw_render(double distance, int iter);
+// void					draw_minipoint(t_vector point, int color);
+// void					draw_miniline(t_vector origin, t_vector direction, int len,
+// 							int color);
+// void					draw_render(double distance, int iter);
 
 // r_mlx_handler.c
 // mlx_t					*get_window(void);
-void					cub3d_init(void);
+// void					cub3d_init(void);
 
 // r_mlx_image_handler.c
-void					generic_matrix_iter(t_vector constrains,
-							void fn(t_vector));
+// void					generic_matrix_iter(t_vector constrains,
+// 							void fn(t_vector));
 // void					set_pixels(mlx_image_t *image, int32_t color);
 // void					clear_pixels(mlx_image_t *image);
 // mlx_image_t				*get_image(t_vector size, t_vector origin);
 
 // r_moves.c
-void					rotate(int dir);
-void					move(int axis, int dir);
+// void					rotate(int dir);
+// void					move(int axis, int dir);
 // mlx_image_t				*get_image_full(void);
 
 // r_player.c
-t_player				*get_player(void);
+// t_player				*get_player(void);
 // t_vector				get_player_center_px(void);
 
 // r_ray_distance.c
-t_vector_full			get_ray_intersection(t_vector_full ray, int axis);
+// t_vector_full			get_ray_intersection(t_vector_full ray, int axis);
 
 // r_trigonometry.c
-double					get_hypot(t_vector a, t_vector b);
-double					get_side_len(t_vector a1, t_vector a2, t_vector tan,
-							t_axis axis);
-double					radian_overflow(double angle);
-t_texture				*get_texture(void);
-uint32_t				get_texture_color(void);
-void					set_texture_x(double x_percentage, double direction, int axis);
 
-void					clean_exit(int flags);
+
+// void					clean_exit(int flags);
 // r_texture.c
-void					set_texture_image(int axis, int quadrant);
+// void					set_texture_image(int axis, int quadrant);
 // void					toggle_minimap(void);
-int						set_texture_y(double step);
+// int						set_texture_y(double step);
 // void					set_texture_step_y(double distance);
-double					tends_to_zero(double x);
-void					loop_window(void (*f)(void *));
+// double					tends_to_zero(double x);
+// void					loop_window(void (*f)(void *));
 
+t_start					*get_start(void);
 /******************************************************************
- * 					BASIC MLX42 HANDLER FUNCTIONS
- *******************************************************************/
+ 	CUB3D_TO_MLX
+*******************************************************************/
 
-// r_window.c
-mlx_t					*get_window(void);
-void					loop_window(void (*f)(void *));
-
-// r_image.c
+// image.c
 mlx_image_t				*get_image(t_vector size, t_vector origin);
 mlx_image_t				*get_image_full(void);
 mlx_texture_t			*load_png(char *path);
 
-// r_pixels.c
-void					set_pixels(mlx_image_t *image, int32_t color);
+// pixels.c
 void					clear_pixels(mlx_image_t *image);
 uint32_t				get_pixel(uint8_t *pixels, uint32_t index);
+void					set_pixels(mlx_image_t *image, int32_t color);
+void					set_pixel(mlx_image_t *image, t_vector pixel,
+							uint32_t color);
+
+// window.c
+mlx_t					*get_window(void);
+void					loop_window(void (*f)(void *));
 
 /******************************************************************
- * 					CUB3D IMAGES
- *******************************************************************/
-// r_render_images.c
-void					set_background(void);
-mlx_image_t				*get_shadow(void);
-mlx_image_t				*get_render(void);
+	EVENTS
+*******************************************************************/
 
-// r_minimap_images.c
+// collitions.c
+double					check_collition_in_axis(double delta, int axis);
+
+// events.c
+void					cub3d_hook(void *param);
+
+// moves.c
+t_vector				get_player_side(int axis, int dir);
+void					rotate(int dir);
+void					move(int axis, int dir);
+
+/******************************************************************
+ 	HELPERS
+*******************************************************************/
+
+// constants.c
+t_constants				game_constants(void);
+
+// map_utils.c
+int						get_cell_content(t_vector coord);
+int						is_grid_next_to_wall(t_vector coord, t_axis axis,
+							t_vector_full ray);
+
+// trigonometry.c
+double					get_hypot(t_vector a, t_vector b);
+double					get_side_len(t_vector a1, t_vector a2, t_vector tan,
+							t_axis axis);
+double					radian_overflow(double angle);
+
+// utils.c
+void					set_timeout(void (*fn)(void), int delay);
+double					tends_to_zero(double x);
+void					generic_matrix_iter(t_vector constrains,
+							void fn(t_vector));
+void					print_error(void);
+void					clean_exit(int flags);
+
+// vector.c
+t_vector				vector_sum(t_vector a, t_vector b);
+t_vector				rectangle_vector(double a);
+t_vector				set_components(double a, double b);
+
+/******************************************************************
+ 		MINIMAP
+*******************************************************************/
+// draw_minimap.c
+void					draw_miniray(t_vector_full vector, int color);
+void					draw_tile(t_vector coord);
+
+// minimap.c
 void					toggle_minimap(void);
 mlx_image_t				*get_minimap(void);
 void					set_minimap(void);
 
-// r_miniplayer.c
+// miniplayer.c
 mlx_image_t				*get_miniplayer(void);
 mlx_image_t				*get_miniview(void);
 
-// ----------------------------[DELETE BEFORE SUBMIT]---------------
-void					set_timeout(void (*fn)(void), int delay);
-void					set_render(void);
+// set_minimap_pos.c
+void					set_minimap_pos(t_vector delta);
+
+/******************************************************************
+ * 					RENDER
+ *******************************************************************/
+// draw_render.c
+void					draw_render(double distance, int window_x);
+
+// player.c
+t_player				*get_player(void);
 void					set_player_pos(t_vector delta);
 void					set_player_pov(double delta);
-t_vector				vector_sum(t_vector a, t_vector b);
-t_vector				get_player_side(int axis, int dir);
-double					check_collition_in_axis(double delta, int axis);
-t_vector				rectangle_vector(double a);
-t_vector				set_components(double a, double b);
-t_constants				game_constants(void);
+void					set_render(void);
+
+// ray_2.c
+t_vector_full			get_ray_intersection(t_vector_full ray, int axis);
+
+// ray.c
+void					pov_iter(t_vector origin, double angle_fov);
+
+// render.c
+void					set_background(void);
+mlx_image_t				*get_shadow(void);
+mlx_image_t				*get_render(void);
+
+// texture.c
+t_texture				*get_texture(void);
+uint32_t				get_texture_color(void);
+void					set_texture_x(double x_percentage,
+							double direction, int axis);
+void					set_texture_image(int axis, int quadrant);
+int						set_texture_y(double step);
+
 #endif

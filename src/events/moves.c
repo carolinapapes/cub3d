@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:50:40 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 13:15:27 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 14:32:56 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_vector	get_player_side(int axis, int dir)
 	return (origin);
 }
 
-static t_vector	get_movement_v_components(int axis, int dir)
+static t_vector	get_move_components(int axis, int dir)
 {
 	double		pov;
 	t_vector	delta;
@@ -39,7 +39,7 @@ void	move(int axis, int dir)
 	t_vector	delta;
 	t_vector	quadrant;
 
-	delta = get_movement_v_components(axis, dir);
+	delta = get_move_components(axis, dir);
 	quadrant.x = (delta.x > 0) - (delta.x < 0);
 	quadrant.y = (delta.y > 0) - (delta.y < 0);
 	delta.x *= fabs(check_collition_in_axis(delta.x, X));
