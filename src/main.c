@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:25 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 15:50:49 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/14 17:15:22 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,9 @@ int	main(int argc, char **argv)
 
 	start = get_start();
 	if (!start || argc != 2)
-		return (1);
+		return (print_error(), EXIT_FAILURE);
 	if (parser_controler(argv[1], start) == 1)
 	{
-		printf("parser dio caca\n");
 		free_start(start);
 		return (print_error(), EXIT_FAILURE);
 	}

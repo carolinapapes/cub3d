@@ -1,21 +1,19 @@
-NO    ./textures/mario.png      
-
-SO ./textures/rojo.png 
-EA      ./textures/Fra.png
-
-       WE        ./textures/texture_10.png      
+EA ./textures/mario_world/mario_wall.png
+NO ./textures/tests/Fra.png 
+SO ./textures/mario_world/mario_wall.png
+WE ./textures/tests/Fra.png
 
 
 
+C 255 , 70,   1
+F 89, 250, 100 
 
-
-F     89      250                30     
-
-C     255      70   50
-
-111111111111
-1S0000000001
-100000000001
-100000001001      
-111111111111
-
+        1111111111
+       1E00001
+        1111111111
+        11111111111
+        10000010001     11
+        11111111111      1
+              1111                     1
+              1001
+              1111

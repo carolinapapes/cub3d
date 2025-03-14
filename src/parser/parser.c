@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:46:15 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 14:09:42 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/14 17:17:49 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	check_variables(t_start *start)
 		return (1);
 	if (start->c_repeated != 0 || start->f_repeated != 0)
 		return (1);
-	printf("no ha habido problemas en var check\n"); //delete later
 	return (0);
 }
 
@@ -110,18 +109,11 @@ int	parser_controler(char *file, t_start *start)
 	if (line == NULL)
 		return (1);
 	if (parse_map(line, &map) == 1)
-	{
-		printf("mapa no ha pasado\n"); //delete
 		return (free_parser(line, map, elements));
-	}
 	if (parse_elements(line, &elements, start) == 1)
-	{
-		printf("no he pasado los elements\n"); //delete
 		return (free_parser(line, map, elements));
-	}
 	if (start_map(start, map) == 1)
 		return (free_parser(line, map, elements));
-	printf("he pasado start_map\n"); //delete later
 	free_parser(line, map, elements);
 	return (0);
 }

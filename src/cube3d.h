@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 17:12:25 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/14 18:24:55 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,8 +245,7 @@ void			fill_flood(int **arr, int x, int y, t_int_pair size);
 
 //                               FREE
 int				free_parser(char *line, char **map, char **elements);
-int				get_next_value(char *line, int *i, unsigned char *pigment,
-					int expect_comma);
+int				get_next_value(char *line, int *i, unsigned char *pigment);
 int				extract_last_value(char *line, int *index,
 					unsigned char *pigment);
 int				check_pigment(char *line, int line_len, unsigned char *pigment);

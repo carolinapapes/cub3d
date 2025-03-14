@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 05:12:00 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 15:02:03 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 17:46:51 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@ void	clean_exit(int flags)
 		start = get_start();
 		free_start(start);
 	}
+	print_error();
 	exit(EXIT_FAILURE);
 }

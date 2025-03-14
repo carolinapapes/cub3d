@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colour.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 18:35:14 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/14 15:17:48 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/14 18:23:43 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ int	color_extract(char *line, t_color *color)
 		line++;
 	if (!*line)
 		return (1);
-	if (get_next_value(line, &i, &color->r, 1) || \
-		get_next_value(line, &i, &color->g, 1) || \
+	if (get_next_value(line, &i, &color->r) || \
+		get_next_value(line, &i, &color->g) || \
 		extract_last_value(line, &i, &color->b))
 		return (1);
 	color->a = 255;
