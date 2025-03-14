@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:33:42 by kkoval            #+#    #+#             */
-/*   Updated: 2025/03/14 18:24:27 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/14 18:28:02 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,7 @@ int	extract_last_value(char *line, int *index, unsigned char *pigment)
 	while (line[*index] && ft_isdigit(line[*index]))
 		(*index)++;
 	if (*index == start || check_pigment(line + start, *index - start, pigment))
-	{
 		return (1);
-	}
 	while (line[*index] == ' ')
 		(*index)++;
 	if (line[*index] != '\0')

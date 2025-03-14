@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:28:50 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 17:42:12 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/14 18:28:25 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_constants	game_constants(void)
 		constants.rotation_delta = constants.angle_step * 120;
 		constants.strip_height = WINDOW_SIZE * 25;
 		constants.fov_delta_start = -31.0 * M_PI / 180;
-		constants.limit_movement = rectangle_vector(WINDOW_SIZE- PLAYER_SIZE);
+		constants.limit_movement = rectangle_vector(WINDOW_SIZE - PLAYER_SIZE);
 		constants.window_size = rectangle_vector(WINDOW_SIZE);
 		constants.zero = rectangle_vector(0);
 		constants.double_pi = 2 * M_PI;
