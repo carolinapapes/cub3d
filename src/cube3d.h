@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/13 17:42:06 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/14 14:08:14 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,8 +216,7 @@ int						ft_split_count(char **split);
 int						check_map(char *file_contents);
 char					*find_first_map_line(char *input);
 int						parse_map(char *line, char ***map);
-int						parse_elements(char *line, char ***elements,
-							t_start *start);
+int						parse_elements(char *line, char ***elements, t_start *start);
 int						check_empty_lines_in_map(char **file);
 char					*free_line(char **line);
 void					free_start(t_start *start);
@@ -250,6 +249,10 @@ void					fill_flood(int **arr, int x, int y, t_int_pair size);
 
 int						free_parser(char *line, char **map, char **elements);
 
+int get_next_value(char *line, int *i, unsigned char *pigment, int expect_comma);
+int extract_last_value(char *line, int *index, unsigned char *pigment);
+int check_pigment(char *line, int line_len, unsigned char *pigment);
+int	get_map_value(char c, int x, int y);
 // ----------------------------[RENDER]----------------------------
 
 // _aux_images.c

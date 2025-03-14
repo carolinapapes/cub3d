@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:46:15 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 00:03:23 by kate             ###   ########.fr       */
+/*   Updated: 2025/03/14 14:09:42 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,17 +95,6 @@ int	parse_elements(char *line, char ***elements, t_start *start)
 	return (0);
 }
 
-/*
-int	parse_map()
-{
-	multiple enters
-	one view
-	foreign characters
-	closed walls
-	
-	
-}*/
-
 int	parser_controler(char *file, t_start *start)
 {
 	char	*line;
@@ -122,13 +111,12 @@ int	parser_controler(char *file, t_start *start)
 		return (1);
 	if (parse_map(line, &map) == 1)
 	{
-		printf("mapa no ha pasado\n");
+		printf("mapa no ha pasado\n"); //delete
 		return (free_parser(line, map, elements));
 	}
-	
 	if (parse_elements(line, &elements, start) == 1)
 	{
-		printf("no he pasado los elements\n");
+		printf("no he pasado los elements\n"); //delete
 		return (free_parser(line, map, elements));
 	}
 	if (start_map(start, map) == 1)

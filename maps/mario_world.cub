@@ -1,0 +1,13 @@
+NO ./textures/mario_world/mario_wall.png
+SO ./textures/mario_world/mario_wall.png
+EA ./textures/mario_world/mario_wall.png
+WE ./textures/mario_world/mario_wall.png
+
+C 113, 207, 245
+F 83, 237, 106
+
+111111111111
+1S0001 100011
+111101111111 
+11110001001
+111111111111

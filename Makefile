@@ -6,7 +6,7 @@
 #    By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/03/12 20:35:09 by kkoval           ###   ########.fr        #
+#    Updated: 2025/03/14 14:01:30 by kkoval           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ endif
 NAME = cub3d
 
 PARSER = colour.c \
+		 colour_utils.c \
 		 file_handler.c \
 		 free_struct.c \
 		 initializer.c \

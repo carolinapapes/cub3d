@@ -2,19 +2,12 @@ NO ./textures/mario.png
 SO ./textures/texture_10.png
 WE ./textures/rojo.png
 EA ./textures/Fram.png
-F 132,182,97
-C 90,218,238
+
+F 132, 182, 97
+C 90, 218, 238
 
 111111111111
 1S0000000011
 100000001111
 100000001001
 111111111111
-
-
-
-
-
-
-
-

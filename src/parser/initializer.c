@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 21:31:53 by kate              #+#    #+#             */
-/*   Updated: 2025/03/13 20:25:53 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/14 14:07:53 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,28 +56,7 @@ int	map_y_size(char **map)
 	return (size);
 }
 
-int	get_map_value(char c, int x, int y)
-{
-	t_start	*start;
-
-	start = get_start();
-	if (c == '1')
-		return (1);
-	if (c == '0')
-		return (0);
-	if (c == ' ')
-		return (3);
-	if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
-	{
-		start->player_dir = c;
-		start->player_pos.x = x;
-		start->player_pos.y = y;
-		return (0);
-	}
-	return (-2);
-}
-
-void	fill_map_row(int *map_row, char *map_line, int size_x,  int y)
+void	fill_map_row(int *map_row, char *map_line, int size_x, int y)
 {
 	int	x;
 
@@ -133,7 +112,8 @@ int	start_map(t_start *start, char **map)
 	start->map.map_int = char_to_int(map, size_x, size_y);
 	if (start->map.map_int == NULL)
 		return (1);
-	fill_flood(start->map.map_int, start->player_pos.x, start->player_pos.y, start->map.size_int);
+	fill_flood(start->map.map_int, start->player_pos.x, \
+		start->player_pos.y, start->map.size_int);
 	if (check_fill_flood(start) == 1)
 		return (1);
 	return (0);
