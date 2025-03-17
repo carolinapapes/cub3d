@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:50:40 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 14:32:56 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/17 16:07:42 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,33 @@ static t_vector	get_move_components(int axis, int dir)
 	return (delta);
 }
 
+double	get_min(double a, double b)
+{
+	if (a < b)
+		return (a);
+	return (b);
+}
+
 void	move(int axis, int dir)
 {
 	t_vector	delta;
-	t_vector	quadrant;
+	t_vector	available_moves;
 
 	delta = get_move_components(axis, dir);
-	quadrant.x = (delta.x > 0) - (delta.x < 0);
-	quadrant.y = (delta.y > 0) - (delta.y < 0);
-	delta.x *= fabs(check_collition_in_axis(delta.x, X));
-	delta.y *= fabs(check_collition_in_axis(delta.y, Y));
-	if ((delta.x != 0 && delta.y != 0)
-		|| (delta.x != 0 && quadrant.y == 0)
-		|| (delta.y != 0 && quadrant.x == 0))
+	available_moves.x = fabs(check_collition_in_axis(delta.x, X));
+	available_moves.y = fabs(check_collition_in_axis(delta.y, Y));
+	if (available_moves.x == 0 && available_moves.y == 0)
+		return ;
+	if (available_moves.x != 0 && available_moves.y != 0)
 	{
-		set_player_pos(delta);
-		set_render();
-		set_minimap_pos(delta);
+		available_moves.x = get_min(available_moves.x, available_moves.y);
+		available_moves.y = available_moves.x;
 	}
+	delta.x *= available_moves.x;
+	delta.y *= available_moves.y;
+	set_player_pos(delta);
+	set_render();
+	set_minimap_pos(delta);
 }
 
 void	rotate(int dir)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   constants.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:28:50 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 18:28:25 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/15 09:21:28 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_constants	game_constants(void)
 		constants.fov = 60;
 		constants.angle_step = ((double)constants.fov / WINDOW_SIZE) * M_PI
 			/ 180;
-		constants.rotation_delta = constants.angle_step * 120;
+		constants.rotation_delta = constants.angle_step * 60;
 		constants.strip_height = WINDOW_SIZE * 25;
 		constants.fov_delta_start = -31.0 * M_PI / 180;
 		constants.limit_movement = rectangle_vector(WINDOW_SIZE - PLAYER_SIZE);

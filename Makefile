@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+         #
+#    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/03/14 16:09:24 by kkoval           ###   ########.fr        #
+#    Updated: 2025/03/15 09:19:04 by capapes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS = -Ilib -Wall -Wextra -Werror -MMD -MP -g -fsanitize=address
+CFLAGS = -Ilib -Wall -Wextra -Werror -MMD -MP -g
 
 # Directories
 SRCDIR = src
