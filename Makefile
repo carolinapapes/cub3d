@@ -6,7 +6,7 @@
 #    By: capapes <capapes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 17:21:33 by capapes           #+#    #+#              #
-#    Updated: 2025/03/15 09:19:04 by capapes          ###   ########.fr        #
+#    Updated: 2025/03/18 17:28:12 by capapes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,12 +86,16 @@ HELPERS = 		constants.c \
 				trigonometry.c \
 				vector.c
 
+EXTRAS  = 		circle_draw.c \
+				extra_window.c
+
 DIRS =			parser \
 				helpers \
 				cub3d_to_mlx \
 				events \
 				minimap \
-				render
+				render \
+				extras
 
 # AUTOMATICALLY GENERATE OBJECT FILES FOR DIRS
 DIRS_OBJ_FILES = $(foreach directory,$(DIRS), \

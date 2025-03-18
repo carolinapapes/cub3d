@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 14:21:30 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 16:04:18 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/18 18:43:30 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void	pov_iter(t_vector origin, double pov)
 		angle += constants.angle_step;
 		ray = init_ray(origin, angle);
 		ray = get_ray(ray);
+		if (iter == WINDOW_SIZE / 2)
+			draw_line_player_view(ray.direction);
 		draw_ray(ray, angle - pov, iter);
 	}
 }

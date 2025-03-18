@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:21:13 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 18:24:55 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/18 18:55:14 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -363,5 +363,11 @@ uint32_t		get_texture_color(void);
 void			set_texture_x(double x_percentage, double direction, int axis);
 void			set_texture_image(int axis, int quadrant);
 int				set_texture_y(double step);
+
+// draw
+void			circle(int mx, int my, int r, mlx_image_t *image);
+void			draw_line(t_vector origin, t_vector direction,
+					int len, int color, mlx_image_t *image);
+void			draw_line_player_view(t_vector direction);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:57:55 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 13:15:44 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/18 18:10:24 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static mlx_image_t	*init_miniplayer(void)
 
 	constants = game_constants();
 	image = get_image(constants.player_size, constants.zero);
-	set_pixels(image, HEX_PLAYER);
+	circle(PLAYER_MIDDLE, PLAYER_MIDDLE, PLAYER_MIDDLE - 1, image);
 	return (image);
 }
 

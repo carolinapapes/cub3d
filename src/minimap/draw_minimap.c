@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_minimap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 12:47:31 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 17:04:24 by kkoval           ###   ########.fr       */
+/*   Updated: 2025/03/18 18:56:55 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,10 @@ void	draw_minipoint(t_vector point, int color)
 	}
 }
 
-void	draw_miniline(t_vector origin, t_vector direction, int len, int color)
+void	draw_line(t_vector origin, t_vector direction, int len, int color, mlx_image_t *image)
 {
 	t_vector	pixel;
-	mlx_image_t	*image;
 
-	image = get_miniview();
 	len = abs(len);
 	if (len < 0)
 		return ;
@@ -54,8 +52,16 @@ void	draw_miniline(t_vector origin, t_vector direction, int len, int color)
 		if (pixel.x < 0 || pixel.x >= WINDOW_SIZE || pixel.y < 0
 			|| pixel.y >= WINDOW_SIZE)
 			continue ;
-		set_pixel(image, pixel, color);
+		mlx_put_pixel(image, pixel.x, pixel.y, color);
 	}
+}
+
+void	draw_miniline(t_vector origin, t_vector direction, int len, int color)
+{
+	mlx_image_t	*image;
+
+	image = get_miniview();
+	draw_line(origin, direction, len, color, image);
 }
 
 void	draw_miniray(t_vector_full vector, int color)
@@ -71,16 +77,16 @@ void	draw_tile(t_vector coord)
 	int			height;
 
 	view = get_minimap();
-	coord.x *= GRID_SIZE;
-	coord.y *= GRID_SIZE;
-	if ((uint32_t)(coord.x + GRID_SIZE) > view->width
-		|| (uint32_t)(coord.y + GRID_SIZE) > view->height)
+	coord.x *= GRID_SIZE / 2;
+	coord.y *= GRID_SIZE / 2;
+	if ((uint32_t)(coord.x + GRID_SIZE / 2) > view->width
+		|| (uint32_t)(coord.y + GRID_SIZE / 2) > view->height)
 		return ;
 	width = -1;
-	while (width++ < GRID_SIZE)
+	while (width++ < GRID_SIZE / 2)
 	{
 		height = -1;
-		while (height++ < GRID_SIZE)
+		while (height++ < GRID_SIZE / 2)
 			mlx_put_pixel(view, coord.x + width, coord.y + height,
 				HEX_WALL - 0x60606060);
 	}

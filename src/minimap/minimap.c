@@ -6,7 +6,7 @@
 /*   By: capapes <capapes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 16:56:22 by capapes           #+#    #+#             */
-/*   Updated: 2025/03/14 13:15:39 by capapes          ###   ########.fr       */
+/*   Updated: 2025/03/18 18:56:04 by capapes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static void	set_minimap_px(t_vector coord)
 	if (content == OUTSIDE)
 		return ;
 	if (coord.x && coord.y)
-		mlx_put_pixel(image, (uint32_t)coord.x * GRID_SIZE, (uint32_t)coord.y
-			* GRID_SIZE, HEX_GRID);
+		mlx_put_pixel(image, (uint32_t)coord.x * GRID_SIZE / 2, (uint32_t)coord.y
+			* GRID_SIZE / 2, HEX_GRID);
 	if (content == WALL)
 		draw_tile(coord);
 }
